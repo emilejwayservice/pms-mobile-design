@@ -1,179 +1,1116 @@
-
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap");
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  :root{
-    --white:#ffffff;--page:#f4f6fa;--surface:#ffffff;--surface2:#f0f2f7;--surface3:#e8ebf2;
-    --coral:#c8401a;--coral-light:#fdf1ee;--coral-mid:#f0a080;--coral-dark:#8a2a0e;
-    --navy:#1a3580;--navy-light:#eef2fb;--navy-mid:#5572c4;--navy-dark:#0d1f50;
-    --text:#1a1d26;--text2:#5a6070;--text3:#9aa0b0;
-    --green:#16a34a;--green-bg:#f0faf4;--amber:#b45309;--amber-bg:#fffbeb;
-    --red:#dc2626;--red-bg:#fef2f2;--blue:#1d4ed8;--blue-bg:#eff6ff;
-    --border:#dde1ea;--border2:#c8ccd8;--radius:12px;--radius-sm:8px;--radius-xs:6px;
-    font-family:"Inter",sans-serif;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  :root {
+    --white: #ffffff;
+    --page: #f4f6fa;
+    --surface: #ffffff;
+    --surface2: #f0f2f7;
+    --surface3: #e8ebf2;
+    --coral: #c8401a;
+    --coral-light: #fdf1ee;
+    --coral-mid: #f0a080;
+    --coral-dark: #8a2a0e;
+    --navy: #1a3580;
+    --navy-light: #eef2fb;
+    --navy-mid: #5572c4;
+    --navy-dark: #0d1f50;
+    --text: #1a1d26;
+    --text2: #5a6070;
+    --text3: #9aa0b0;
+    --green: #16a34a;
+    --green-bg: #f0faf4;
+    --amber: #b45309;
+    --amber-bg: #fffbeb;
+    --red: #dc2626;
+    --red-bg: #fef2f2;
+    --blue: #1d4ed8;
+    --blue-bg: #eff6ff;
+    --border: #dde1ea;
+    --border2: #c8ccd8;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-xs: 6px;
+    font-family: "Inter", sans-serif;
+  }
+  .app-root {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--page);
+    position: relative;
+    overflow: hidden;
+  }
+  @media (min-width: 500px) {
+    body {
+      background: #d8dce8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .app-root {
+      height: 812px;
+      min-height: unset;
+      border-radius: 44px;
+      border: 1px solid #b8c0d0;
+      box-shadow:
+        0 12px 48px rgba(26, 53, 128, 0.15),
+        0 2px 0 #fff inset;
+      overflow: hidden;
+    }
+  }
+  .screen {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--page);
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: none;
+    flex-direction: column;
+    padding-bottom: 72px;
+  }
+  .page.active {
+    display: flex;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .statusbar {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    background: var(--white);
+    flex-shrink: 0;
+  }
+  .statusbar .time {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .statusbar .icons {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    color: var(--text);
+  }
+  .header {
+    padding: 12px 16px 10px;
+    background: var(--white);
+    border-bottom: 0.5px solid var(--border);
+    flex-shrink: 0;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-svg {
+    width: 32px;
+    height: 22px;
+  }
+  .logo-name {
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--navy-dark);
+    letter-spacing: 0.5px;
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .hotel-pill {
+    background: var(--navy-light);
+    border: 0.5px solid #b0bde8;
+    border-radius: 20px;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .hotel-pill .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+  }
+  .hotel-pill span {
+    font-size: 11px;
+    color: var(--navy);
+    font-weight: 500;
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .notif-btn {
+    width: 34px;
+    height: 34px;
+    background: var(--surface2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    border: 0.5px solid var(--border);
+  }
+  .notif-btn i {
+    font-size: 17px;
+    color: var(--navy);
+  }
+  .notif-dot {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    border: 1.5px solid var(--white);
+  }
+  .header-sub {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 3px;
+  }
+  .scrollable {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 14px 0;
+  }
+  .page-title {
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .page-sub {
+    font-size: 12px;
+    color: var(--text3);
+    margin-bottom: 10px;
   }
 
-  .app-root{
-    width:100%;
-    max-width:430px;
-    margin:0 auto;
-    min-height:100vh;
-    background:var(--page);
-    position:relative;
-    overflow:hidden;
+  .period-bar {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .period-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 100%;
+    margin-bottom: 4px;
+  }
+  .period-fields {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+  }
+  .period-input {
+    flex: 1;
+    min-width: 0;
+    background: var(--surface2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-xs);
+    padding: 6px 8px;
+    font-size: 11px;
+    color: var(--text);
+    font-family: "Inter", sans-serif;
+    outline: none;
+  }
+  .period-sep {
+    font-size: 11px;
+    color: var(--text3);
+    flex-shrink: 0;
+  }
+  .period-apply {
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-xs);
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .period-shortcuts {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    width: 100%;
+  }
+  .period-sc {
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    background: var(--surface2);
+    border: 0.5px solid var(--border);
+    color: var(--text2);
+  }
+  .period-sc.active {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+  }
+  .period-info {
+    background: var(--navy-light);
+    border: 0.5px solid #b0bde8;
+    border-radius: var(--radius-xs);
+    padding: 6px 10px;
+    margin-bottom: 12px;
+    font-size: 10px;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .period-info i {
+    font-size: 13px;
+    color: var(--navy-mid);
+    flex-shrink: 0;
   }
 
-  @media(min-width:500px){
-    body{background:#d8dce8;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
-    .app-root{height:812px;min-height:unset;border-radius:44px;border:1px solid #b8c0d0;box-shadow:0 12px 48px rgba(26,53,128,0.15),0 2px 0 #fff inset;overflow:hidden}
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 16px 0 8px;
   }
-
-  .screen{width:100%;height:100%;overflow:hidden;position:relative;display:flex;flex-direction:column}
-  .page{position:absolute;top:0;left:0;width:100%;height:100%;background:var(--page);overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;padding-bottom:72px}
-  .page.active{display:flex}
-  ::-webkit-scrollbar{display:none}
-
-  .statusbar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:var(--white);flex-shrink:0}
-  .statusbar .time{font-size:15px;font-weight:600;color:var(--text)}
-  .statusbar .icons{display:flex;gap:5px;align-items:center;color:var(--text)}
-  .header{padding:12px 16px 10px;background:var(--white);border-bottom:.5px solid var(--border);flex-shrink:0}
-  .header-top{display:flex;align-items:center;justify-content:space-between}
-  .logo-row{display:flex;align-items:center;gap:8px}
-  .logo-svg{width:32px;height:22px}
-  .logo-name{font-size:19px;font-weight:600;color:var(--navy-dark);letter-spacing:.5px;font-family:"IBM Plex Mono",monospace}
-  .hotel-pill{background:var(--navy-light);border:.5px solid #b0bde8;border-radius:20px;padding:4px 10px;display:flex;align-items:center;gap:5px}
-  .hotel-pill .dot{width:6px;height:6px;background:var(--green);border-radius:50%}
-  .hotel-pill span{font-size:11px;color:var(--navy);font-weight:500}
-  .header-right{display:flex;align-items:center;gap:8px}
-  .notif-btn{width:34px;height:34px;background:var(--surface2);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;border:.5px solid var(--border)}
-  .notif-btn i{font-size:17px;color:var(--navy)}
-  .notif-dot{position:absolute;top:5px;right:5px;width:8px;height:8px;background:var(--red);border-radius:50%;border:1.5px solid var(--white)}
-  .header-sub{font-size:11px;color:var(--text3);margin-top:3px}
-  .scrollable{flex:1;overflow-y:auto;padding:12px 14px 0}
-  .page-title{font-size:21px;font-weight:600;color:var(--text);margin-bottom:2px}
-  .page-sub{font-size:12px;color:var(--text3);margin-bottom:14px}
-  .section-head{display:flex;align-items:center;justify-content:space-between;margin:16px 0 8px}
-  .section-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.6px}
-  .see-all{font-size:12px;color:var(--navy);font-weight:500;cursor:pointer}
-  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-  .stat-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-sm);padding:12px}
-  .stat-card.coral-bg{background:var(--coral-light);border-color:#f5c0b0}
-  .stat-card.navy-bg{background:var(--navy-light);border-color:#b0bde8}
-  .stat-card.green-bg{background:var(--green-bg);border-color:#a7f3c8}
-  .stat-card.amber-bg{background:var(--amber-bg);border-color:#fde68a}
-  .s-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;font-weight:500}
-  .s-val{font-size:23px;font-weight:600;color:var(--text)}
-  .s-val.coral{color:var(--coral)}.s-val.navy{color:var(--navy)}.s-val.green{color:var(--green)}.s-val.amber{color:var(--amber)}
-  .s-sub{font-size:11px;color:var(--text3);margin-top:2px}
-  .trio-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px}
-  .trio-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center}
-  .trio-num{font-size:26px;font-weight:600;color:var(--text)}
-  .trio-num.coral{color:var(--coral)}.trio-num.green{color:var(--green)}.trio-num.navy{color:var(--navy)}
-  .trio-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
-  .pending-banner{background:var(--amber-bg);border:.5px solid #fde68a;border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-  .pb-left .pb-label{font-size:10px;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:.5px}
-  .pb-left .pb-num{font-size:38px;font-weight:700;color:#92400e}
-  .pb-right{text-align:right}.pb-right p{font-size:13px;font-weight:500;color:#78350f}.pb-right span{font-size:11px;color:#a16207}
-  .res-item{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:7px;cursor:pointer}
-  .res-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
-  .res-code{font-size:11px;font-weight:600;color:var(--coral);font-family:"IBM Plex Mono",monospace}
-  .res-status{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600}
-  .res-status.checkout{background:var(--green-bg);color:#166534}
-  .res-status.checkin{background:var(--blue-bg);color:#1e3a8a}
-  .res-status.pending{background:var(--amber-bg);color:#78350f}
-  .res-status.terminated{background:var(--surface2);color:var(--text3)}
-  .res-guest{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px}
-  .res-dates{font-size:11px;color:var(--text3)}
-  .res-footer{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:.5px solid var(--border)}
-  .res-detail{font-size:11px;color:var(--text3)}.res-amount{font-size:13px;font-weight:600;color:var(--text)}
-  .room-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:7px;display:flex;align-items:center;gap:11px;cursor:pointer}
-  .room-num{width:42px;height:42px;background:var(--surface2);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--text);flex-shrink:0;border:.5px solid var(--border)}
-  .room-num.occ{background:var(--green-bg);border-color:#a7f3c8;color:#166534}
-  .room-num.free{background:var(--surface2);color:var(--text3)}
-  .room-info{flex:1;min-width:0}
-  .room-name{font-size:13px;font-weight:500;color:var(--text)}
-  .room-type{font-size:11px;color:var(--text3);margin-top:1px}
-  .tag-row{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
-  .tag{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:500}
-  .tag.occ{background:var(--green-bg);color:#166534}.tag.free{background:var(--surface2);color:var(--text3)}
-  .tag.dirty{background:var(--red-bg);color:#991b1b}.tag.insp{background:var(--blue-bg);color:#1e3a8a}
-  .action-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-  .act-btn{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-sm);padding:14px;cursor:pointer}
-  .act-btn i{font-size:22px;color:var(--navy);margin-bottom:6px;display:block}
-  .act-btn .act-name{font-size:13px;font-weight:500;color:var(--text)}
-  .act-btn .act-sub{font-size:10px;color:var(--text3);margin-top:2px}
-  .search-bar{background:var(--surface);border:.5px solid var(--border);border-radius:20px;padding:9px 14px;display:flex;align-items:center;gap:8px;margin-bottom:12px}
-  .search-bar i{font-size:15px;color:var(--text3)}.search-bar span{font-size:13px;color:var(--text3)}
-  .pill-row{display:flex;gap:5px;overflow-x:auto;margin-bottom:12px;padding-bottom:2px}
-  .pill{padding:5px 12px;border-radius:20px;font-size:11px;white-space:nowrap;font-weight:500;cursor:pointer}
-  .pill.active{background:var(--navy);color:#fff}
-  .pill:not(.active){background:var(--surface);border:.5px solid var(--border);color:var(--text2)}
-  .filter-tabs{display:flex;gap:4px;overflow-x:auto;margin-bottom:12px;padding-bottom:2px}
-  .ftab{padding:6px 13px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;cursor:pointer}
-  .ftab.active{background:var(--coral);color:#fff}
-  .ftab:not(.active){background:var(--surface);border:.5px solid var(--border);color:var(--text3)}
-  .rate-box{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
-  .rate-head{display:grid;grid-template-columns:50px 1fr 1fr 1fr;background:var(--navy-light);border-bottom:.5px solid var(--border)}
-  .rate-head div{padding:7px 8px;font-size:10px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.3px}
-  .rate-row{display:grid;grid-template-columns:50px 1fr 1fr 1fr;border-bottom:.5px solid var(--border)}
-  .rate-row:last-child{border-bottom:none}
-  .rate-row div{padding:8px;font-size:11px;color:var(--text)}
-  .rate-row .rcode{color:var(--coral);font-weight:600;font-family:"IBM Plex Mono",monospace}
-  .cashbox{background:var(--navy);border-radius:var(--radius);padding:18px;margin-bottom:10px;text-align:center}
-  .cb-label{font-size:11px;color:#a0b4e8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-  .cb-amount{font-size:30px;font-weight:700;color:#fff}
-  .cb-sub{font-size:11px;color:#7a96d0;margin-top:4px}
-  .guest-item{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:11px 12px;margin-bottom:7px;display:flex;align-items:center;gap:11px}
-  .g-avatar{width:38px;height:38px;border-radius:50%;background:var(--navy-light);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--navy);flex-shrink:0;border:.5px solid #b0bde8}
-  .g-avatar.coral{background:var(--coral-light);color:var(--coral-dark);border-color:#f5c0b0}
-  .g-avatar.gray{background:var(--surface2);color:var(--text3);border-color:var(--border)}
-  .g-name{font-size:13px;font-weight:500;color:var(--text)}.g-sub{font-size:11px;color:var(--text3);margin-top:1px}
-  .g-right{margin-left:auto;flex-shrink:0}
-  .hk-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:.5px solid var(--border)}
-  .hk-row:last-child{border-bottom:none}
-  .hk-icon{width:34px;height:34px;border-radius:var(--radius-xs);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-  .bar-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-sm);padding:11px;margin-bottom:7px}
-  .bar-top{display:flex;justify-content:space-between;margin-bottom:7px}
-  .bar-title{font-size:12px;font-weight:500;color:var(--text)}.bar-status{font-size:11px;font-weight:500}
-  .bar-track{height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
-  .bar-fill{height:100%;border-radius:3px;background:var(--green)}.bar-fill.red{background:var(--red)}
-  .notif-item{background:var(--surface);border-left:3px solid var(--amber);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:9px 12px;margin-bottom:6px;border-top:.5px solid var(--border);border-bottom:.5px solid var(--border);border-right:.5px solid var(--border)}
-  .notif-item.red{border-left-color:var(--red)}
-  .notif-msg{font-size:12px;color:var(--text);margin-bottom:2px;font-weight:500}
-  .notif-meta{font-size:10px;color:var(--text3)}
-  .mini-chart{display:flex;align-items:flex-end;gap:3px;height:56px;margin-top:12px;margin-bottom:18px}
-  .mbar{flex:1;border-radius:2px 2px 0 0;background:var(--surface3);position:relative}
-  .mbar.hi{background:var(--coral-mid)}.mbar.active{background:var(--coral)}
-  .mbar-lbl{position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--text3);white-space:nowrap}
-  .add-btn{background:var(--navy);color:#fff;font-size:11px;font-weight:600;padding:6px 14px;border-radius:20px;cursor:pointer;border:none}
-  .add-btn.coral{background:var(--coral)}
-  .admin-tabs{display:flex;background:var(--surface);border-bottom:.5px solid var(--border);flex-shrink:0}
-  .admin-tab{flex:1;padding:11px 4px;font-size:11px;font-weight:500;color:var(--text3);text-align:center;cursor:pointer;border-bottom:2px solid transparent}
-  .admin-tab.active{color:var(--navy);border-bottom-color:var(--navy);font-weight:600}
-  .admin-panel{display:none;padding:12px 14px 0}
-  .admin-panel.active{display:block}
-  .bottom-nav{position:absolute;bottom:0;left:0;right:0;height:72px;background:var(--white);border-top:.5px solid var(--border);display:flex;align-items:center;justify-content:space-around;padding:0 4px 8px;z-index:100}
-  .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 10px;border-radius:10px;cursor:pointer;position:relative;min-width:44px}
-  .nav-item i{font-size:20px;color:var(--text3)}.nav-item.active i{color:var(--navy)}
-  .nav-item span{font-size:9px;color:var(--text3);font-weight:500}.nav-item.active span{color:var(--navy)}
-  .nav-item.active{background:var(--navy-light)}
-  .nav-badge{position:absolute;top:3px;right:6px;width:15px;height:15px;background:var(--coral);border-radius:50%;font-size:8px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--white)}
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .see-all {
+    font-size: 12px;
+    color: var(--navy);
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+  }
+  .stat-card.coral-bg {
+    background: var(--coral-light);
+    border-color: #f5c0b0;
+  }
+  .stat-card.navy-bg {
+    background: var(--navy-light);
+    border-color: #b0bde8;
+  }
+  .stat-card.green-bg {
+    background: var(--green-bg);
+    border-color: #a7f3c8;
+  }
+  .stat-card.amber-bg {
+    background: var(--amber-bg);
+    border-color: #fde68a;
+  }
+  .s-label {
+    font-size: 10px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  .s-val {
+    font-size: 23px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .s-val.coral {
+    color: var(--coral);
+  }
+  .s-val.navy {
+    color: var(--navy);
+  }
+  .s-val.green {
+    color: var(--green);
+  }
+  .s-val.amber {
+    color: var(--amber);
+  }
+  .s-sub {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 2px;
+  }
+  .trio-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+  .trio-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    text-align: center;
+  }
+  .trio-num {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .trio-num.coral {
+    color: var(--coral);
+  }
+  .trio-num.green {
+    color: var(--green);
+  }
+  .trio-num.navy {
+    color: var(--navy);
+  }
+  .trio-label {
+    font-size: 9px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-top: 2px;
+  }
+  .pending-banner {
+    background: var(--amber-bg);
+    border: 0.5px solid #fde68a;
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .pb-left .pb-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--amber);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .pb-left .pb-num {
+    font-size: 38px;
+    font-weight: 700;
+    color: #92400e;
+  }
+  .pb-right {
+    text-align: right;
+  }
+  .pb-right p {
+    font-size: 13px;
+    font-weight: 500;
+    color: #78350f;
+  }
+  .pb-right span {
+    font-size: 11px;
+    color: #a16207;
+  }
+  .res-item {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px;
+    margin-bottom: 7px;
+    cursor: pointer;
+  }
+  .res-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  .res-code {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--coral);
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .res-status {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .res-status.checkout {
+    background: var(--green-bg);
+    color: #166534;
+  }
+  .res-status.checkin {
+    background: var(--blue-bg);
+    color: #1e3a8a;
+  }
+  .res-status.pending {
+    background: var(--amber-bg);
+    color: #78350f;
+  }
+  .res-status.terminated {
+    background: var(--surface2);
+    color: var(--text3);
+  }
+  .res-guest {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .res-dates {
+    font-size: 11px;
+    color: var(--text3);
+  }
+  .res-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 0.5px solid var(--border);
+  }
+  .res-detail {
+    font-size: 11px;
+    color: var(--text3);
+  }
+  .res-amount {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .room-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    cursor: pointer;
+  }
+  .room-num {
+    width: 42px;
+    height: 42px;
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    flex-shrink: 0;
+    border: 0.5px solid var(--border);
+  }
+  .room-num.occ {
+    background: var(--green-bg);
+    border-color: #a7f3c8;
+    color: #166634;
+  }
+  .room-num.free {
+    background: var(--surface2);
+    color: var(--text3);
+  }
+  .room-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .room-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .room-type {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 1px;
+  }
+  .tag-row {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .tag.occ {
+    background: var(--green-bg);
+    color: #166534;
+  }
+  .tag.free {
+    background: var(--surface2);
+    color: var(--text3);
+  }
+  .tag.dirty {
+    background: var(--red-bg);
+    color: #991b1b;
+  }
+  .tag.insp {
+    background: var(--blue-bg);
+    color: #1e3a8a;
+  }
+  .action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .act-btn {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    cursor: pointer;
+  }
+  .act-btn i {
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .act-btn .act-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .act-btn .act-sub {
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 2px;
+  }
+  .search-bar {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    padding: 9px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .search-bar i {
+    font-size: 15px;
+    color: var(--text3);
+  }
+  .search-bar span {
+    font-size: 13px;
+    color: var(--text3);
+  }
+  .pill-row {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+    margin-bottom: 12px;
+    padding-bottom: 2px;
+  }
+  .pill {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    white-space: nowrap;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .pill.active {
+    background: var(--navy);
+    color: #fff;
+  }
+  .pill:not(.active) {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    color: var(--text2);
+  }
+  .filter-tabs {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    margin-bottom: 12px;
+    padding-bottom: 2px;
+  }
+  .ftab {
+    padding: 6px 13px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .ftab.active {
+    background: var(--coral);
+    color: #fff;
+  }
+  .ftab:not(.active) {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    color: var(--text3);
+  }
+  .rate-box {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .rate-head {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 1fr;
+    background: var(--navy-light);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .rate-head div {
+    padding: 7px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .rate-row {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 1fr;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .rate-row:last-child {
+    border-bottom: none;
+  }
+  .rate-row div {
+    padding: 8px;
+    font-size: 11px;
+    color: var(--text);
+  }
+  .rate-row .rcode {
+    color: var(--coral);
+    font-weight: 600;
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .cashbox {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .cb-label {
+    font-size: 11px;
+    color: #a0b4e8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .cb-amount {
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .cb-sub {
+    font-size: 11px;
+    color: #7a96d0;
+    margin-top: 4px;
+  }
+  .guest-item {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 11px 12px;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+  }
+  .g-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--navy-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    flex-shrink: 0;
+    border: 0.5px solid #b0bde8;
+  }
+  .g-avatar.coral {
+    background: var(--coral-light);
+    color: var(--coral-dark);
+    border-color: #f5c0b0;
+  }
+  .g-avatar.gray {
+    background: var(--surface2);
+    color: var(--text3);
+    border-color: var(--border);
+  }
+  .g-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .g-sub {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 1px;
+  }
+  .g-right {
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .hk-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .hk-row:last-child {
+    border-bottom: none;
+  }
+  .hk-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .bar-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 11px;
+    margin-bottom: 7px;
+  }
+  .bar-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+  }
+  .bar-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .bar-status {
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .bar-track {
+    height: 5px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--green);
+  }
+  .bar-fill.red {
+    background: var(--red);
+  }
+  .notif-item {
+    background: var(--surface);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 9px 12px;
+    margin-bottom: 6px;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    border-right: 0.5px solid var(--border);
+  }
+  .notif-item.red {
+    border-left-color: var(--red);
+  }
+  .notif-msg {
+    font-size: 12px;
+    color: var(--text);
+    margin-bottom: 2px;
+    font-weight: 500;
+  }
+  .notif-meta {
+    font-size: 10px;
+    color: var(--text3);
+  }
+  .mini-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 56px;
+    margin-top: 12px;
+    margin-bottom: 18px;
+  }
+  .mbar {
+    flex: 1;
+    border-radius: 2px 2px 0 0;
+    background: var(--surface3);
+    position: relative;
+  }
+  .mbar.hi {
+    background: var(--coral-mid);
+  }
+  .mbar.active {
+    background: var(--coral);
+  }
+  .mbar-lbl {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8px;
+    color: var(--text3);
+    white-space: nowrap;
+  }
+  .add-btn {
+    background: var(--navy);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+  }
+  .add-btn.coral {
+    background: var(--coral);
+  }
+  .admin-tabs {
+    display: flex;
+    background: var(--surface);
+    border-bottom: 0.5px solid var(--border);
+    flex-shrink: 0;
+  }
+  .admin-tab {
+    flex: 1;
+    padding: 11px 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text3);
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+  }
+  .admin-tab.active {
+    color: var(--navy);
+    border-bottom-color: var(--navy);
+    font-weight: 600;
+  }
+  .admin-panel {
+    display: none;
+    padding: 12px 14px 0;
+  }
+  .admin-panel.active {
+    display: block;
+  }
+  .bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background: var(--white);
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 4px 8px;
+    z-index: 100;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    min-width: 44px;
+  }
+  .nav-item i {
+    font-size: 20px;
+    color: var(--text3);
+  }
+  .nav-item.active i {
+    color: var(--navy);
+  }
+  .nav-item span {
+    font-size: 9px;
+    color: var(--text3);
+    font-weight: 500;
+  }
+  .nav-item.active span {
+    color: var(--navy);
+  }
+  .nav-item.active {
+    background: var(--navy-light);
+  }
+  .nav-badge {
+    position: absolute;
+    top: 3px;
+    right: 6px;
+    width: 15px;
+    height: 15px;
+    background: var(--coral);
+    border-radius: 50%;
+    font-size: 8px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--white);
+  }
 </style>
 
 <div class="app-root">
   <div class="screen">
-
     <div class="page active" id="p-dash">
-      <div class="statusbar"><span class="time">9:41</span><div class="icons"><i class="ti ti-wifi" style="font-size:14px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:14px" aria-hidden="true"></i></div></div>
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <div class="icons">
+          <i class="ti ti-wifi" style="font-size: 14px" aria-hidden="true"></i
+          ><i
+            class="ti ti-battery-2"
+            style="font-size: 14px"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
       <div class="header">
         <div class="header-top">
           <div class="logo-row">
-            <svg class="logo-svg" viewBox="0 0 52 32" fill="none" aria-hidden="true"><circle cx="13" cy="13" r="8.5" stroke="#c8401a" stroke-width="2.2" fill="none"/><circle cx="8.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="17.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="13" cy="8.5" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><line x1="20" y1="15" x2="49" y2="15" stroke="#c8401a" stroke-width="2.2" stroke-linecap="round"/><rect x="42" y="15" width="4" height="5" rx="1.2" fill="#1a3580"/><rect x="34" y="15" width="4" height="4" rx="1.2" fill="#1a3580"/></svg>
+            <svg
+              class="logo-svg"
+              viewBox="0 0 52 32"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle
+                cx="13"
+                cy="13"
+                r="8.5"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                fill="none"
+              />
+              <circle
+                cx="8.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="17.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="13"
+                cy="8.5"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <line
+                x1="20"
+                y1="15"
+                x2="49"
+                y2="15"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                stroke-linecap="round"
+              />
+              <rect
+                x="42"
+                y="15"
+                width="4"
+                height="5"
+                rx="1.2"
+                fill="#1a3580"
+              />
+              <rect
+                x="34"
+                y="15"
+                width="4"
+                height="4"
+                rx="1.2"
+                fill="#1a3580"
+              />
+            </svg>
             <span class="logo-name">PMS</span>
           </div>
           <div class="header-right">
-            <div class="notif-btn" onclick="showPage('p-notifs','nav-admin')" aria-label="Notifications"><i class="ti ti-bell" aria-hidden="true"></i><div class="notif-dot"></div></div>
-            <div class="hotel-pill"><div class="dot"></div><span>JWAY HOTEL</span></div>
+            <div
+              class="notif-btn"
+              onclick="showPage('p-notifs', 'nav-admin')"
+              aria-label="Notifications"
+            >
+              <i class="ti ti-bell" aria-hidden="true"></i>
+              <div class="notif-dot"></div>
+            </div>
+            <div class="hotel-pill">
+              <div class="dot"></div>
+              <span>JWAY HOTEL</span>
+            </div>
           </div>
         </div>
         <div class="header-sub">Mis à jour 9:41 · 12 mai 2026</div>
@@ -181,287 +1118,2174 @@
       <div class="scrollable">
         <div class="page-title">Tableau de bord</div>
         <div class="page-sub">Situation du jour</div>
+
+        <div class="period-bar">
+          <div class="period-label">
+            <i
+              class="ti ti-calendar"
+              style="font-size: 11px; vertical-align: -1px; margin-right: 3px"
+              aria-hidden="true"
+            ></i
+            >Période d'analyse
+          </div>
+          <div class="period-fields">
+            <input
+              class="period-input"
+              type="date"
+              id="dash-from"
+              value="2026-05-12"
+              aria-label="Date de début"
+            />
+            <span class="period-sep">→</span>
+            <input
+              class="period-input"
+              type="date"
+              id="dash-to"
+              value="2026-05-12"
+              aria-label="Date de fin"
+            />
+            <button class="period-apply" onclick="applyPeriod('dash')">
+              Appliquer
+            </button>
+          </div>
+          <div class="period-shortcuts">
+            <span
+              class="period-sc active"
+              onclick="setPeriod('dash', 'today', this)"
+              >Auj.</span
+            >
+            <span
+              class="period-sc"
+              onclick="setPeriod('dash', 'yesterday', this)"
+              >Hier</span
+            >
+            <span class="period-sc" onclick="setPeriod('dash', '7d', this)"
+              >7 jours</span
+            >
+            <span class="period-sc" onclick="setPeriod('dash', 'month', this)"
+              >Ce mois</span
+            >
+            <span
+              class="period-sc"
+              onclick="setPeriod('dash', 'lastmonth', this)"
+              >Mois préc.</span
+            >
+            <span class="period-sc" onclick="setPeriod('dash', 'ytd', this)"
+              >Année</span
+            >
+          </div>
+        </div>
+        <div class="period-info" id="dash-period-info">
+          <i class="ti ti-info-circle" aria-hidden="true"></i>
+          <span id="dash-period-text"
+            >Période : 12/05/2026 → 12/05/2026 · Les stats ci-dessous reflètent
+            cette plage.</span
+          >
+        </div>
+
         <div class="pending-banner">
-          <div class="pb-left"><div class="pb-label">En attente</div><div class="pb-num">25</div></div>
-          <div class="pb-right"><p>Confirmation requise</p><span>Appuyer pour consulter</span></div>
-          <i class="ti ti-chevron-right" style="font-size:18px;color:#a16207" aria-hidden="true"></i>
+          <div class="pb-left">
+            <div class="pb-label">En attente</div>
+            <div class="pb-num">25</div>
+          </div>
+          <div class="pb-right">
+            <p>Confirmation requise</p>
+            <span>Appuyer pour consulter</span>
+          </div>
+          <i
+            class="ti ti-chevron-right"
+            style="font-size: 18px; color: #a16207"
+            aria-hidden="true"
+          ></i>
         </div>
         <div class="trio-row">
-          <div class="trio-card"><div class="trio-num coral">0%</div><div class="trio-label">Occupation</div></div>
-          <div class="trio-card"><div class="trio-num">0</div><div class="trio-label">En chambre</div></div>
-          <div class="trio-card"><div class="trio-num green">7</div><div class="trio-label">Disponibles</div></div>
+          <div class="trio-card">
+            <div class="trio-num coral">0%</div>
+            <div class="trio-label">Occupation</div>
+          </div>
+          <div class="trio-card">
+            <div class="trio-num">0</div>
+            <div class="trio-label">En chambre</div>
+          </div>
+          <div class="trio-card">
+            <div class="trio-num green">7</div>
+            <div class="trio-label">Disponibles</div>
+          </div>
         </div>
         <div class="stat-grid">
-          <div class="stat-card coral-bg"><div class="s-label">Arrivées</div><div class="s-val coral">0</div><div class="s-sub">Prévues aujourd'hui</div></div>
-          <div class="stat-card"><div class="s-label">Départs</div><div class="s-val">0</div><div class="s-sub">Prévus aujourd'hui</div></div>
-          <div class="stat-card navy-bg"><div class="s-label">Prix moyen</div><div class="s-val navy">0 MAD</div><div class="s-sub">Par chambre occupée</div></div>
-          <div class="stat-card green-bg"><div class="s-label">Solde caisse</div><div class="s-val green">407k</div><div class="s-sub">MAD · CAI-0001</div></div>
+          <div class="stat-card coral-bg">
+            <div class="s-label">Arrivées</div>
+            <div class="s-val coral">0</div>
+            <div class="s-sub">Prévues aujourd'hui</div>
+          </div>
+          <div class="stat-card">
+            <div class="s-label">Départs</div>
+            <div class="s-val">0</div>
+            <div class="s-sub">Prévus aujourd'hui</div>
+          </div>
+          <div class="stat-card navy-bg">
+            <div class="s-label">Prix moyen</div>
+            <div class="s-val navy">0 MAD</div>
+            <div class="s-sub">Par chambre occupée</div>
+          </div>
+          <div class="stat-card green-bg">
+            <div class="s-label">Solde caisse</div>
+            <div class="s-val green">407k</div>
+            <div class="s-sub">MAD · CAI-0001</div>
+          </div>
         </div>
-        <div class="section-head"><div class="section-title">Chiffre d'affaires — 12 mois</div></div>
-        <div style="background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:10px">
-          <div style="display:flex;justify-content:space-between;align-items:baseline">
-            <div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px">Mois record</div><div style="font-size:24px;font-weight:600;color:var(--text)">350k <span style="font-size:13px;font-weight:400;color:var(--text3)">MAD</span></div></div>
-            <div style="font-size:11px;color:var(--coral);font-weight:500">Mars 2026</div>
+        <div class="section-head">
+          <div class="section-title">Chiffre d'affaires — 12 mois</div>
+        </div>
+        <div
+          style="
+            background: var(--surface);
+            border: 0.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 12px;
+            margin-bottom: 10px;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: baseline;
+            "
+          >
+            <div>
+              <div
+                style="
+                  font-size: 10px;
+                  color: var(--text3);
+                  text-transform: uppercase;
+                  letter-spacing: 0.4px;
+                "
+              >
+                Mois record
+              </div>
+              <div
+                style="font-size: 24px; font-weight: 600; color: var(--text)"
+              >
+                350k
+                <span
+                  style="font-size: 13px; font-weight: 400; color: var(--text3)"
+                  >MAD</span
+                >
+              </div>
+            </div>
+            <div style="font-size: 11px; color: var(--coral); font-weight: 500">
+              Mars 2026
+            </div>
           </div>
           <div class="mini-chart">
-            <div class="mbar" style="height:10%"><span class="mbar-lbl">Jui</span></div>
-            <div class="mbar" style="height:6%"><span class="mbar-lbl">Juil</span></div>
-            <div class="mbar" style="height:6%"><span class="mbar-lbl">Aoû</span></div>
-            <div class="mbar" style="height:6%"><span class="mbar-lbl">Sep</span></div>
-            <div class="mbar" style="height:6%"><span class="mbar-lbl">Oct</span></div>
-            <div class="mbar hi" style="height:14%"><span class="mbar-lbl">Nov</span></div>
-            <div class="mbar hi" style="height:14%"><span class="mbar-lbl">Déc</span></div>
-            <div class="mbar hi" style="height:20%"><span class="mbar-lbl">Jan</span></div>
-            <div class="mbar hi" style="height:28%"><span class="mbar-lbl">Fév</span></div>
-            <div class="mbar active" style="height:100%"><span class="mbar-lbl">Mar</span></div>
-            <div class="mbar hi" style="height:22%"><span class="mbar-lbl">Avr</span></div>
-            <div class="mbar" style="height:5%"><span class="mbar-lbl">Mai</span></div>
+            <div class="mbar" style="height: 10%">
+              <span class="mbar-lbl">Jui</span>
+            </div>
+            <div class="mbar" style="height: 6%">
+              <span class="mbar-lbl">Juil</span>
+            </div>
+            <div class="mbar" style="height: 6%">
+              <span class="mbar-lbl">Aoû</span>
+            </div>
+            <div class="mbar" style="height: 6%">
+              <span class="mbar-lbl">Sep</span>
+            </div>
+            <div class="mbar" style="height: 6%">
+              <span class="mbar-lbl">Oct</span>
+            </div>
+            <div class="mbar hi" style="height: 14%">
+              <span class="mbar-lbl">Nov</span>
+            </div>
+            <div class="mbar hi" style="height: 14%">
+              <span class="mbar-lbl">Déc</span>
+            </div>
+            <div class="mbar hi" style="height: 20%">
+              <span class="mbar-lbl">Jan</span>
+            </div>
+            <div class="mbar hi" style="height: 28%">
+              <span class="mbar-lbl">Fév</span>
+            </div>
+            <div class="mbar active" style="height: 100%">
+              <span class="mbar-lbl">Mar</span>
+            </div>
+            <div class="mbar hi" style="height: 22%">
+              <span class="mbar-lbl">Avr</span>
+            </div>
+            <div class="mbar" style="height: 5%">
+              <span class="mbar-lbl">Mai</span>
+            </div>
           </div>
         </div>
         <div class="stat-grid">
-          <div class="stat-card"><div class="s-label">Total réservations</div><div class="s-val">1</div><div class="s-sub">Sur la période</div></div>
-          <div class="stat-card"><div class="s-label">Durée moyenne</div><div class="s-val">11</div><div class="s-sub">nuits / réservation</div></div>
+          <div class="stat-card">
+            <div class="s-label">Total réservations</div>
+            <div class="s-val">1</div>
+            <div class="s-sub">Sur la période</div>
+          </div>
+          <div class="stat-card">
+            <div class="s-label">Durée moyenne</div>
+            <div class="s-val">11</div>
+            <div class="s-sub">nuits / réservation</div>
+          </div>
         </div>
-        <div class="section-head"><div class="section-title">Dernières réservations</div><div class="see-all" onclick="showPage('p-booking','nav-booking')">Voir tout</div></div>
-        <div class="res-item"><div class="res-top"><span class="res-code">RES-0034/2026</span><span class="res-status checkout">Départ</span></div><div class="res-guest">Sa Said</div><div class="res-dates">05 mai → 06 mai 2026</div><div class="res-footer"><span class="res-detail">Chambre 102 · 1 nuit</span><span class="res-amount">350 MAD</span></div></div>
-        <div class="res-item"><div class="res-top"><span class="res-code">RES-0033/2026</span><span class="res-status checkout">Départ</span></div><div class="res-guest">M'barek Said · Sa Said</div><div class="res-dates">22 avr. → 25 avr. 2026</div><div class="res-footer"><span class="res-detail">Chambre 104 · 3 nuits</span><span class="res-amount">2 610 MAD</span></div></div>
-        <div class="section-head"><div class="section-title">Notifications récentes</div><div class="see-all" onclick="showPage('p-notifs','nav-admin')">Voir tout</div></div>
-        <div class="notif-item red"><div class="notif-msg">Compte DA-00001 dépasse l'échéance de clôture</div><div class="notif-meta">22-01-2025 · Compte débiteur · Non lu</div></div>
-        <div class="notif-item"><div class="notif-msg">Compte PA-00001 dépasse l'échéance de clôture</div><div class="notif-meta">11-12-2024 · Compte permanent · Non lu</div></div>
+        <div class="section-head">
+          <div class="section-title">Dernières réservations</div>
+          <div class="see-all" onclick="showPage('p-booking', 'nav-booking')">
+            Voir tout
+          </div>
+        </div>
+        <div class="res-item">
+          <div class="res-top">
+            <span class="res-code">RES-0034/2026</span
+            ><span class="res-status checkout">Départ</span>
+          </div>
+          <div class="res-guest">Sa Said</div>
+          <div class="res-dates">05 mai → 06 mai 2026</div>
+          <div class="res-footer">
+            <span class="res-detail">Chambre 102 · 1 nuit</span
+            ><span class="res-amount">350 MAD</span>
+          </div>
+        </div>
+        <div class="res-item">
+          <div class="res-top">
+            <span class="res-code">RES-0033/2026</span
+            ><span class="res-status checkout">Départ</span>
+          </div>
+          <div class="res-guest">M'barek Said · Sa Said</div>
+          <div class="res-dates">22 avr. → 25 avr. 2026</div>
+          <div class="res-footer">
+            <span class="res-detail">Chambre 104 · 3 nuits</span
+            ><span class="res-amount">2 610 MAD</span>
+          </div>
+        </div>
+        <div class="section-head">
+          <div class="section-title">Notifications récentes</div>
+          <div class="see-all" onclick="showPage('p-notifs', 'nav-admin')">
+            Voir tout
+          </div>
+        </div>
+        <div class="notif-item red">
+          <div class="notif-msg">
+            Compte DA-00001 dépasse l'échéance de clôture
+          </div>
+          <div class="notif-meta">22-01-2025 · Compte débiteur · Non lu</div>
+        </div>
+        <div class="notif-item">
+          <div class="notif-msg">
+            Compte PA-00001 dépasse l'échéance de clôture
+          </div>
+          <div class="notif-meta">11-12-2024 · Compte permanent · Non lu</div>
+        </div>
       </div>
     </div>
 
     <div class="page" id="p-rooms">
-      <div class="statusbar"><span class="time">9:41</span><div class="icons"><i class="ti ti-wifi" style="font-size:14px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:14px" aria-hidden="true"></i></div></div>
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <div class="icons">
+          <i class="ti ti-wifi" style="font-size: 14px" aria-hidden="true"></i
+          ><i
+            class="ti ti-battery-2"
+            style="font-size: 14px"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
       <div class="header">
         <div class="header-top">
-          <div class="logo-row"><svg class="logo-svg" viewBox="0 0 52 32" fill="none" aria-hidden="true"><circle cx="13" cy="13" r="8.5" stroke="#c8401a" stroke-width="2.2" fill="none"/><circle cx="8.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="17.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="13" cy="8.5" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><line x1="20" y1="15" x2="49" y2="15" stroke="#c8401a" stroke-width="2.2" stroke-linecap="round"/><rect x="42" y="15" width="4" height="5" rx="1.2" fill="#1a3580"/><rect x="34" y="15" width="4" height="4" rx="1.2" fill="#1a3580"/></svg><span class="logo-name">PMS</span></div>
-          <div class="header-right"><div class="notif-btn" onclick="showPage('p-notifs','nav-admin')" aria-label="Notifications"><i class="ti ti-bell" aria-hidden="true"></i><div class="notif-dot"></div></div><div class="hotel-pill"><div class="dot"></div><span>JWAY HOTEL</span></div></div>
+          <div class="logo-row">
+            <svg
+              class="logo-svg"
+              viewBox="0 0 52 32"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle
+                cx="13"
+                cy="13"
+                r="8.5"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                fill="none"
+              />
+              <circle
+                cx="8.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="17.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="13"
+                cy="8.5"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <line
+                x1="20"
+                y1="15"
+                x2="49"
+                y2="15"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                stroke-linecap="round"
+              />
+              <rect
+                x="42"
+                y="15"
+                width="4"
+                height="5"
+                rx="1.2"
+                fill="#1a3580"
+              />
+              <rect
+                x="34"
+                y="15"
+                width="4"
+                height="4"
+                rx="1.2"
+                fill="#1a3580"
+              /></svg
+            ><span class="logo-name">PMS</span>
+          </div>
+          <div class="header-right">
+            <div
+              class="notif-btn"
+              onclick="showPage('p-notifs', 'nav-admin')"
+              aria-label="Notifications"
+            >
+              <i class="ti ti-bell" aria-hidden="true"></i>
+              <div class="notif-dot"></div>
+            </div>
+            <div class="hotel-pill">
+              <div class="dot"></div>
+              <span>JWAY HOTEL</span>
+            </div>
+          </div>
         </div>
         <div class="header-sub">Mis à jour 9:41 · 12 mai 2026</div>
       </div>
       <div class="scrollable">
-        <div class="page-title">Plan des chambres</div><div class="page-sub">7 chambres · 12/05/2026</div>
-        <div class="stat-grid" style="margin-bottom:12px">
-          <div class="stat-card green-bg"><div class="s-label">Total chambres</div><div class="s-val green">7</div></div>
-          <div class="stat-card"><div class="s-label">Total lits</div><div class="s-val">160</div></div>
-          <div class="stat-card coral-bg"><div class="s-label">Clients enregistrés</div><div class="s-val coral">16</div></div>
-          <div class="stat-card navy-bg"><div class="s-label">Employés</div><div class="s-val navy">1</div></div>
+        <div class="page-title">Plan des chambres</div>
+        <div class="page-sub">7 chambres · 12/05/2026</div>
+        <div class="stat-grid" style="margin-bottom: 12px">
+          <div class="stat-card green-bg">
+            <div class="s-label">Total chambres</div>
+            <div class="s-val green">7</div>
+          </div>
+          <div class="stat-card">
+            <div class="s-label">Total lits</div>
+            <div class="s-val">160</div>
+          </div>
+          <div class="stat-card coral-bg">
+            <div class="s-label">Clients enregistrés</div>
+            <div class="s-val coral">16</div>
+          </div>
+          <div class="stat-card navy-bg">
+            <div class="s-label">Employés</div>
+            <div class="s-val navy">1</div>
+          </div>
         </div>
-        <div class="pill-row"><div class="pill active">Toutes</div><div class="pill">Occupées</div><div class="pill">Libres</div><div class="pill">Sales</div><div class="pill">Inspectées</div></div>
-        <div class="room-card"><div class="room-num occ">101</div><div class="room-info"><div class="room-name">ROM 101</div><div class="room-type">Double · Standard</div><div class="tag-row"><span class="tag occ">Occupée</span><span class="tag insp">Inspectée</span></div></div><i class="ti ti-chevron-right" style="font-size:16px;color:var(--text3);margin-left:auto" aria-hidden="true"></i></div>
-        <div class="room-card"><div class="room-num occ">102</div><div class="room-info"><div class="room-name">ROM 102</div><div class="room-type">Individuelle · Luxe 1</div><div class="tag-row"><span class="tag occ">Occupée</span><span class="tag insp">Inspectée</span></div></div><i class="ti ti-chevron-right" style="font-size:16px;color:var(--text3);margin-left:auto" aria-hidden="true"></i></div>
-        <div class="room-card"><div class="room-num occ">104</div><div class="room-info"><div class="room-name">ROM 104</div><div class="room-type">Double · Standard</div><div class="tag-row"><span class="tag occ">Occupée</span><span class="tag insp">Inspectée</span></div></div><i class="ti ti-chevron-right" style="font-size:16px;color:var(--text3);margin-left:auto" aria-hidden="true"></i></div>
-        <div class="room-card"><div class="room-num occ">105</div><div class="room-info"><div class="room-name">ROM 105</div><div class="room-type">Double · Luxe 1</div><div class="tag-row"><span class="tag occ">Occupée</span><span class="tag insp">Inspectée</span></div></div><i class="ti ti-chevron-right" style="font-size:16px;color:var(--text3);margin-left:auto" aria-hidden="true"></i></div>
-        <div class="room-card"><div class="room-num occ">106</div><div class="room-info"><div class="room-name">ROM 106</div><div class="room-type">Double · Standard</div><div class="tag-row"><span class="tag occ">Occupée</span><span class="tag insp">Inspectée</span></div></div><i class="ti ti-chevron-right" style="font-size:16px;color:var(--text3);margin-left:auto" aria-hidden="true"></i></div>
-        <div class="room-card"><div class="room-num occ">107</div><div class="room-info"><div class="room-name">ROM 107</div><div class="room-type">Double · Standard</div><div class="tag-row"><span class="tag occ">Occupée</span><span class="tag insp">Inspectée</span></div></div><i class="ti ti-chevron-right" style="font-size:16px;color:var(--text3);margin-left:auto" aria-hidden="true"></i></div>
-        <div class="room-card"><div class="room-num free">HIO</div><div class="room-info"><div class="room-name">Room hio</div><div class="room-type">Individuelle · Standard</div><div class="tag-row"><span class="tag free">Libre</span><span class="tag dirty">Sale</span></div></div><i class="ti ti-chevron-right" style="font-size:16px;color:var(--text3);margin-left:auto" aria-hidden="true"></i></div>
+        <div class="pill-row">
+          <div class="pill active">Toutes</div>
+          <div class="pill">Occupées</div>
+          <div class="pill">Libres</div>
+          <div class="pill">Sales</div>
+          <div class="pill">Inspectées</div>
+        </div>
+        <div class="room-card">
+          <div class="room-num occ">101</div>
+          <div class="room-info">
+            <div class="room-name">ROM 101</div>
+            <div class="room-type">Double · Standard</div>
+            <div class="tag-row">
+              <span class="tag occ">Occupée</span
+              ><span class="tag insp">Inspectée</span>
+            </div>
+          </div>
+          <i
+            class="ti ti-chevron-right"
+            style="font-size: 16px; color: var(--text3); margin-left: auto"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="room-card">
+          <div class="room-num occ">102</div>
+          <div class="room-info">
+            <div class="room-name">ROM 102</div>
+            <div class="room-type">Individuelle · Luxe 1</div>
+            <div class="tag-row">
+              <span class="tag occ">Occupée</span
+              ><span class="tag insp">Inspectée</span>
+            </div>
+          </div>
+          <i
+            class="ti ti-chevron-right"
+            style="font-size: 16px; color: var(--text3); margin-left: auto"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="room-card">
+          <div class="room-num occ">104</div>
+          <div class="room-info">
+            <div class="room-name">ROM 104</div>
+            <div class="room-type">Double · Standard</div>
+            <div class="tag-row">
+              <span class="tag occ">Occupée</span
+              ><span class="tag insp">Inspectée</span>
+            </div>
+          </div>
+          <i
+            class="ti ti-chevron-right"
+            style="font-size: 16px; color: var(--text3); margin-left: auto"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="room-card">
+          <div class="room-num occ">105</div>
+          <div class="room-info">
+            <div class="room-name">ROM 105</div>
+            <div class="room-type">Double · Luxe 1</div>
+            <div class="tag-row">
+              <span class="tag occ">Occupée</span
+              ><span class="tag insp">Inspectée</span>
+            </div>
+          </div>
+          <i
+            class="ti ti-chevron-right"
+            style="font-size: 16px; color: var(--text3); margin-left: auto"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="room-card">
+          <div class="room-num occ">106</div>
+          <div class="room-info">
+            <div class="room-name">ROM 106</div>
+            <div class="room-type">Double · Standard</div>
+            <div class="tag-row">
+              <span class="tag occ">Occupée</span
+              ><span class="tag insp">Inspectée</span>
+            </div>
+          </div>
+          <i
+            class="ti ti-chevron-right"
+            style="font-size: 16px; color: var(--text3); margin-left: auto"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="room-card">
+          <div class="room-num occ">107</div>
+          <div class="room-info">
+            <div class="room-name">ROM 107</div>
+            <div class="room-type">Double · Standard</div>
+            <div class="tag-row">
+              <span class="tag occ">Occupée</span
+              ><span class="tag insp">Inspectée</span>
+            </div>
+          </div>
+          <i
+            class="ti ti-chevron-right"
+            style="font-size: 16px; color: var(--text3); margin-left: auto"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="room-card">
+          <div class="room-num free">HIO</div>
+          <div class="room-info">
+            <div class="room-name">Room hio</div>
+            <div class="room-type">Individuelle · Standard</div>
+            <div class="tag-row">
+              <span class="tag free">Libre</span
+              ><span class="tag dirty">Sale</span>
+            </div>
+          </div>
+          <i
+            class="ti ti-chevron-right"
+            style="font-size: 16px; color: var(--text3); margin-left: auto"
+            aria-hidden="true"
+          ></i>
+        </div>
       </div>
     </div>
 
     <div class="page" id="p-booking">
-      <div class="statusbar"><span class="time">9:41</span><div class="icons"><i class="ti ti-wifi" style="font-size:14px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:14px" aria-hidden="true"></i></div></div>
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <div class="icons">
+          <i class="ti ti-wifi" style="font-size: 14px" aria-hidden="true"></i
+          ><i
+            class="ti ti-battery-2"
+            style="font-size: 14px"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
       <div class="header">
         <div class="header-top">
-          <div class="logo-row"><svg class="logo-svg" viewBox="0 0 52 32" fill="none" aria-hidden="true"><circle cx="13" cy="13" r="8.5" stroke="#c8401a" stroke-width="2.2" fill="none"/><circle cx="8.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="17.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="13" cy="8.5" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><line x1="20" y1="15" x2="49" y2="15" stroke="#c8401a" stroke-width="2.2" stroke-linecap="round"/><rect x="42" y="15" width="4" height="5" rx="1.2" fill="#1a3580"/><rect x="34" y="15" width="4" height="4" rx="1.2" fill="#1a3580"/></svg><span class="logo-name">PMS</span></div>
-          <div class="header-right"><div class="notif-btn" onclick="showPage('p-notifs','nav-admin')" aria-label="Notifications"><i class="ti ti-bell" aria-hidden="true"></i><div class="notif-dot"></div></div><button class="add-btn coral">+ Nouveau</button></div>
+          <div class="logo-row">
+            <svg
+              class="logo-svg"
+              viewBox="0 0 52 32"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle
+                cx="13"
+                cy="13"
+                r="8.5"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                fill="none"
+              />
+              <circle
+                cx="8.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="17.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="13"
+                cy="8.5"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <line
+                x1="20"
+                y1="15"
+                x2="49"
+                y2="15"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                stroke-linecap="round"
+              />
+              <rect
+                x="42"
+                y="15"
+                width="4"
+                height="5"
+                rx="1.2"
+                fill="#1a3580"
+              />
+              <rect
+                x="34"
+                y="15"
+                width="4"
+                height="4"
+                rx="1.2"
+                fill="#1a3580"
+              /></svg
+            ><span class="logo-name">PMS</span>
+          </div>
+          <div class="header-right">
+            <div
+              class="notif-btn"
+              onclick="showPage('p-notifs', 'nav-admin')"
+              aria-label="Notifications"
+            >
+              <i class="ti ti-bell" aria-hidden="true"></i>
+              <div class="notif-dot"></div>
+            </div>
+            <button class="add-btn coral">+ Nouveau</button>
+          </div>
         </div>
         <div class="header-sub">Mis à jour 9:41 · 12 mai 2026</div>
       </div>
       <div class="scrollable">
-        <div class="page-title">Réservations</div><div class="page-sub">75 réservations au total</div>
-        <div class="search-bar"><i class="ti ti-search" aria-hidden="true"></i><span>Rechercher un code...</span></div>
-        <div class="filter-tabs"><div class="ftab active">Toutes</div><div class="ftab">Arrivée</div><div class="ftab">Départ</div><div class="ftab">En attente</div><div class="ftab">Terminées</div></div>
-        <div class="res-item"><div class="res-top"><span class="res-code">RES-0034/2026</span><span class="res-status checkout">Départ</span></div><div class="res-guest">Sa Said</div><div class="res-dates">05 mai → 06 mai 2026</div><div class="res-footer"><span class="res-detail">Ch. 102 · 1 nuit · 1 client</span><span class="res-amount">350 MAD</span></div></div>
-        <div class="res-item"><div class="res-top"><span class="res-code">RES-0033/2026</span><span class="res-status checkout">Départ</span></div><div class="res-guest">M'barek Said · Sa Said</div><div class="res-dates">22 avr. → 25 avr. 2026</div><div class="res-footer"><span class="res-detail">Ch. 104 · 3 nuits · 2 clients</span><span class="res-amount">2 610 MAD</span></div></div>
-        <div class="res-item"><div class="res-top"><span class="res-code">RES-0031/2026</span><span class="res-status terminated">Terminée</span></div><div class="res-guest">Sa Said</div><div class="res-dates">22 avr. → 23 avr. 2026</div><div class="res-footer"><span class="res-detail">Ch. 101 · 1 nuit</span><span class="res-amount">870 MAD</span></div></div>
-        <div class="res-item"><div class="res-top"><span class="res-code">RES-0030/2026</span><span class="res-status pending">En attente</span></div><div class="res-guest">Sa Said</div><div class="res-dates">21 avr. → 22 avr. 2026</div><div class="res-footer"><span class="res-detail">Ch. 101 · 1 nuit</span><span class="res-amount">0 MAD</span></div></div>
-        <div class="res-item"><div class="res-top"><span class="res-code">RES-0028/2026</span><span class="res-status checkin">Arrivée</span></div><div class="res-guest">Sa Said</div><div class="res-dates">20 avr. → 21 avr. 2026</div><div class="res-footer"><span class="res-detail">Ch. 101 · 1 nuit</span><span class="res-amount">870 MAD</span></div></div>
-        <div class="section-head" style="margin-top:14px"><div class="section-title">Réception</div></div>
+        <div class="page-title">Réservations</div>
+        <div class="page-sub">75 réservations au total</div>
+
+        <div class="period-bar">
+          <div class="period-label">
+            <i
+              class="ti ti-calendar"
+              style="font-size: 11px; vertical-align: -1px; margin-right: 3px"
+              aria-hidden="true"
+            ></i
+            >Filtrer par période
+          </div>
+          <div class="period-fields">
+            <input
+              class="period-input"
+              type="date"
+              id="bk-from"
+              value="2026-04-01"
+              aria-label="Date de début"
+            />
+            <span class="period-sep">→</span>
+            <input
+              class="period-input"
+              type="date"
+              id="bk-to"
+              value="2026-05-12"
+              aria-label="Date de fin"
+            />
+            <button class="period-apply" onclick="applyPeriod('bk')">
+              Appliquer
+            </button>
+          </div>
+          <div class="period-shortcuts">
+            <span class="period-sc" onclick="setPeriod('bk', 'today', this)"
+              >Auj.</span
+            >
+            <span class="period-sc" onclick="setPeriod('bk', '7d', this)"
+              >7 jours</span
+            >
+            <span
+              class="period-sc active"
+              onclick="setPeriod('bk', 'month', this)"
+              >Ce mois</span
+            >
+            <span class="period-sc" onclick="setPeriod('bk', 'lastmonth', this)"
+              >Mois préc.</span
+            >
+            <span class="period-sc" onclick="setPeriod('bk', 'ytd', this)"
+              >Année</span
+            >
+          </div>
+        </div>
+        <div class="period-info" id="bk-period-info">
+          <i class="ti ti-info-circle" aria-hidden="true"></i>
+          <span id="bk-period-text">Période : 01/04/2026 → 12/05/2026</span>
+        </div>
+
+        <div class="search-bar">
+          <i class="ti ti-search" aria-hidden="true"></i
+          ><span>Rechercher un code...</span>
+        </div>
+        <div class="filter-tabs">
+          <div class="ftab active">Toutes</div>
+          <div class="ftab">Arrivée</div>
+          <div class="ftab">Départ</div>
+          <div class="ftab">En attente</div>
+          <div class="ftab">Terminées</div>
+        </div>
+        <div class="res-item">
+          <div class="res-top">
+            <span class="res-code">RES-0034/2026</span
+            ><span class="res-status checkout">Départ</span>
+          </div>
+          <div class="res-guest">Sa Said</div>
+          <div class="res-dates">05 mai → 06 mai 2026</div>
+          <div class="res-footer">
+            <span class="res-detail">Ch. 102 · 1 nuit · 1 client</span
+            ><span class="res-amount">350 MAD</span>
+          </div>
+        </div>
+        <div class="res-item">
+          <div class="res-top">
+            <span class="res-code">RES-0033/2026</span
+            ><span class="res-status checkout">Départ</span>
+          </div>
+          <div class="res-guest">M'barek Said · Sa Said</div>
+          <div class="res-dates">22 avr. → 25 avr. 2026</div>
+          <div class="res-footer">
+            <span class="res-detail">Ch. 104 · 3 nuits · 2 clients</span
+            ><span class="res-amount">2 610 MAD</span>
+          </div>
+        </div>
+        <div class="res-item">
+          <div class="res-top">
+            <span class="res-code">RES-0031/2026</span
+            ><span class="res-status terminated">Terminée</span>
+          </div>
+          <div class="res-guest">Sa Said</div>
+          <div class="res-dates">22 avr. → 23 avr. 2026</div>
+          <div class="res-footer">
+            <span class="res-detail">Ch. 101 · 1 nuit</span
+            ><span class="res-amount">870 MAD</span>
+          </div>
+        </div>
+        <div class="res-item">
+          <div class="res-top">
+            <span class="res-code">RES-0030/2026</span
+            ><span class="res-status pending">En attente</span>
+          </div>
+          <div class="res-guest">Sa Said</div>
+          <div class="res-dates">21 avr. → 22 avr. 2026</div>
+          <div class="res-footer">
+            <span class="res-detail">Ch. 101 · 1 nuit</span
+            ><span class="res-amount">0 MAD</span>
+          </div>
+        </div>
+        <div class="res-item">
+          <div class="res-top">
+            <span class="res-code">RES-0028/2026</span
+            ><span class="res-status checkin">Arrivée</span>
+          </div>
+          <div class="res-guest">Sa Said</div>
+          <div class="res-dates">20 avr. → 21 avr. 2026</div>
+          <div class="res-footer">
+            <span class="res-detail">Ch. 101 · 1 nuit</span
+            ><span class="res-amount">870 MAD</span>
+          </div>
+        </div>
+        <div class="section-head" style="margin-top: 14px">
+          <div class="section-title">Réception</div>
+        </div>
         <div class="action-grid">
-          <div class="act-btn"><i class="ti ti-login" aria-hidden="true"></i><div class="act-name">Enregistrement</div><div class="act-sub">0 arrivée aujourd'hui</div></div>
-          <div class="act-btn"><i class="ti ti-logout" aria-hidden="true"></i><div class="act-name">Départ</div><div class="act-sub">0 départ prévu</div></div>
-          <div class="act-btn"><i class="ti ti-map-pin" aria-hidden="true"></i><div class="act-name">Attribution</div><div class="act-sub">Affecter les chambres</div></div>
-          <div class="act-btn"><i class="ti ti-arrows-exchange" aria-hidden="true"></i><div class="act-name">Changement</div><div class="act-sub">Transfert de chambre</div></div>
+          <div class="act-btn">
+            <i class="ti ti-login" aria-hidden="true"></i>
+            <div class="act-name">Enregistrement</div>
+            <div class="act-sub">0 arrivée aujourd'hui</div>
+          </div>
+          <div class="act-btn">
+            <i class="ti ti-logout" aria-hidden="true"></i>
+            <div class="act-name">Départ</div>
+            <div class="act-sub">0 départ prévu</div>
+          </div>
+          <div class="act-btn">
+            <i class="ti ti-map-pin" aria-hidden="true"></i>
+            <div class="act-name">Attribution</div>
+            <div class="act-sub">Affecter les chambres</div>
+          </div>
+          <div class="act-btn">
+            <i class="ti ti-arrows-exchange" aria-hidden="true"></i>
+            <div class="act-name">Changement</div>
+            <div class="act-sub">Transfert de chambre</div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="page" id="p-hk">
-      <div class="statusbar"><span class="time">9:41</span><div class="icons"><i class="ti ti-wifi" style="font-size:14px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:14px" aria-hidden="true"></i></div></div>
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <div class="icons">
+          <i class="ti ti-wifi" style="font-size: 14px" aria-hidden="true"></i
+          ><i
+            class="ti ti-battery-2"
+            style="font-size: 14px"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
       <div class="header">
         <div class="header-top">
-          <div class="logo-row"><svg class="logo-svg" viewBox="0 0 52 32" fill="none" aria-hidden="true"><circle cx="13" cy="13" r="8.5" stroke="#c8401a" stroke-width="2.2" fill="none"/><circle cx="8.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="17.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="13" cy="8.5" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><line x1="20" y1="15" x2="49" y2="15" stroke="#c8401a" stroke-width="2.2" stroke-linecap="round"/><rect x="42" y="15" width="4" height="5" rx="1.2" fill="#1a3580"/><rect x="34" y="15" width="4" height="4" rx="1.2" fill="#1a3580"/></svg><span class="logo-name">PMS</span></div>
-          <div class="header-right"><div class="notif-btn" onclick="showPage('p-notifs','nav-admin')" aria-label="Notifications"><i class="ti ti-bell" aria-hidden="true"></i><div class="notif-dot"></div></div><div class="hotel-pill"><div class="dot"></div><span>JWAY HOTEL</span></div></div>
+          <div class="logo-row">
+            <svg
+              class="logo-svg"
+              viewBox="0 0 52 32"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle
+                cx="13"
+                cy="13"
+                r="8.5"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                fill="none"
+              />
+              <circle
+                cx="8.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="17.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="13"
+                cy="8.5"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <line
+                x1="20"
+                y1="15"
+                x2="49"
+                y2="15"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                stroke-linecap="round"
+              />
+              <rect
+                x="42"
+                y="15"
+                width="4"
+                height="5"
+                rx="1.2"
+                fill="#1a3580"
+              />
+              <rect
+                x="34"
+                y="15"
+                width="4"
+                height="4"
+                rx="1.2"
+                fill="#1a3580"
+              /></svg
+            ><span class="logo-name">PMS</span>
+          </div>
+          <div class="header-right">
+            <div
+              class="notif-btn"
+              onclick="showPage('p-notifs', 'nav-admin')"
+              aria-label="Notifications"
+            >
+              <i class="ti ti-bell" aria-hidden="true"></i>
+              <div class="notif-dot"></div>
+            </div>
+            <div class="hotel-pill">
+              <div class="dot"></div>
+              <span>JWAY HOTEL</span>
+            </div>
+          </div>
         </div>
         <div class="header-sub">Mis à jour 9:41 · 12 mai 2026</div>
       </div>
       <div class="scrollable">
-        <div class="page-title">Gouvernance</div><div class="page-sub">Chambres · Tâches · Personnel</div>
+        <div class="page-title">Gouvernance</div>
+        <div class="page-sub">Chambres · Tâches · Personnel</div>
         <div class="trio-row">
-          <div class="trio-card"><div class="trio-num" style="color:var(--red)">1</div><div class="trio-label">Sale</div></div>
-          <div class="trio-card"><div class="trio-num green">0</div><div class="trio-label">Propre</div></div>
-          <div class="trio-card"><div class="trio-num navy">6</div><div class="trio-label">Inspectée</div></div>
+          <div class="trio-card">
+            <div class="trio-num" style="color: var(--red)">1</div>
+            <div class="trio-label">Sale</div>
+          </div>
+          <div class="trio-card">
+            <div class="trio-num green">0</div>
+            <div class="trio-label">Propre</div>
+          </div>
+          <div class="trio-card">
+            <div class="trio-num navy">6</div>
+            <div class="trio-label">Inspectée</div>
+          </div>
         </div>
-        <div class="section-head"><div class="section-title">État des chambres</div><div class="see-all">7 chambres</div></div>
-        <div class="bar-card"><div class="bar-top"><div class="bar-title">ROM 101 — Double</div><div class="bar-status" style="color:#1e3a8a">Inspectée</div></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
-        <div class="bar-card"><div class="bar-top"><div class="bar-title">ROM 102 — Individuelle</div><div class="bar-status" style="color:#1e3a8a">Inspectée</div></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
-        <div class="bar-card"><div class="bar-top"><div class="bar-title">ROM 105 — Double</div><div class="bar-status" style="color:#1e3a8a">Inspectée</div></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
-        <div class="bar-card"><div class="bar-top"><div class="bar-title">Room hio — Individuelle</div><div class="bar-status" style="color:#991b1b">Sale</div></div><div class="bar-track"><div class="bar-fill red" style="width:100%"></div></div></div>
-        <div class="section-head"><div class="section-title">Demandes spéciales</div><div style="font-size:11px;color:var(--text3)">15 éléments</div></div>
-        <div style="background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:4px 12px;margin-bottom:10px">
-          <div class="hk-row"><div style="display:flex;align-items:center;gap:9px"><div class="hk-icon" style="background:var(--amber-bg)"><i class="ti ti-star" style="font-size:15px;color:var(--amber)" aria-hidden="true"></i></div><div><div style="font-size:12px;font-weight:500;color:var(--text)">Chambre 101</div><div style="font-size:10px;color:var(--text3)">Chambre simple double</div></div></div><span class="tag insp" style="font-size:10px">En attente</span></div>
-          <div class="hk-row"><div style="display:flex;align-items:center;gap:9px"><div class="hk-icon" style="background:var(--blue-bg)"><i class="ti ti-bed" style="font-size:15px;color:var(--blue)" aria-hidden="true"></i></div><div><div style="font-size:12px;font-weight:500;color:var(--text)">Chambre 105</div><div style="font-size:10px;color:var(--text3)">Demande d'oreiller sup.</div></div></div><span class="tag occ" style="font-size:10px">Fait</span></div>
+        <div class="section-head">
+          <div class="section-title">État des chambres</div>
+          <div class="see-all">7 chambres</div>
         </div>
-        <div class="section-head"><div class="section-title">Personnel</div><button class="add-btn">+ Ajouter</button></div>
-        <div class="guest-item"><div class="g-avatar">SA</div><div><div class="g-name">Said Ait Mbarek</div><div class="g-sub">Emp-0001/2026 · CIN JK35023</div></div></div>
-        <div class="section-head"><div class="section-title">Tâches</div><div class="see-all">15 éléments</div></div>
-        <div class="stat-grid"><div class="stat-card"><div class="s-label">Total tâches</div><div class="s-val">15</div></div><div class="stat-card amber-bg"><div class="s-label">En attente</div><div class="s-val amber">8</div></div></div>
+        <div class="bar-card">
+          <div class="bar-top">
+            <div class="bar-title">ROM 101 — Double</div>
+            <div class="bar-status" style="color: #1e3a8a">Inspectée</div>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 100%"></div>
+          </div>
+        </div>
+        <div class="bar-card">
+          <div class="bar-top">
+            <div class="bar-title">ROM 102 — Individuelle</div>
+            <div class="bar-status" style="color: #1e3a8a">Inspectée</div>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 100%"></div>
+          </div>
+        </div>
+        <div class="bar-card">
+          <div class="bar-top">
+            <div class="bar-title">ROM 105 — Double</div>
+            <div class="bar-status" style="color: #1e3a8a">Inspectée</div>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 100%"></div>
+          </div>
+        </div>
+        <div class="bar-card">
+          <div class="bar-top">
+            <div class="bar-title">Room hio — Individuelle</div>
+            <div class="bar-status" style="color: #991b1b">Sale</div>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill red" style="width: 100%"></div>
+          </div>
+        </div>
+        <div class="section-head">
+          <div class="section-title">Demandes spéciales</div>
+          <div style="font-size: 11px; color: var(--text3)">15 éléments</div>
+        </div>
+        <div
+          style="
+            background: var(--surface);
+            border: 0.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 4px 12px;
+            margin-bottom: 10px;
+          "
+        >
+          <div class="hk-row">
+            <div style="display: flex; align-items: center; gap: 9px">
+              <div class="hk-icon" style="background: var(--amber-bg)">
+                <i
+                  class="ti ti-star"
+                  style="font-size: 15px; color: var(--amber)"
+                  aria-hidden="true"
+                ></i>
+              </div>
+              <div>
+                <div
+                  style="font-size: 12px; font-weight: 500; color: var(--text)"
+                >
+                  Chambre 101
+                </div>
+                <div style="font-size: 10px; color: var(--text3)">
+                  Chambre simple double
+                </div>
+              </div>
+            </div>
+            <span class="tag insp" style="font-size: 10px">En attente</span>
+          </div>
+          <div class="hk-row">
+            <div style="display: flex; align-items: center; gap: 9px">
+              <div class="hk-icon" style="background: var(--blue-bg)">
+                <i
+                  class="ti ti-bed"
+                  style="font-size: 15px; color: var(--blue)"
+                  aria-hidden="true"
+                ></i>
+              </div>
+              <div>
+                <div
+                  style="font-size: 12px; font-weight: 500; color: var(--text)"
+                >
+                  Chambre 105
+                </div>
+                <div style="font-size: 10px; color: var(--text3)">
+                  Demande d'oreiller sup.
+                </div>
+              </div>
+            </div>
+            <span class="tag occ" style="font-size: 10px">Fait</span>
+          </div>
+        </div>
+        <div class="section-head">
+          <div class="section-title">Personnel</div>
+          <button class="add-btn">+ Ajouter</button>
+        </div>
+        <div class="guest-item">
+          <div class="g-avatar">SA</div>
+          <div>
+            <div class="g-name">Said Ait Mbarek</div>
+            <div class="g-sub">Emp-0001/2026 · CIN JK35023</div>
+          </div>
+        </div>
+        <div class="section-head">
+          <div class="section-title">Tâches</div>
+          <div class="see-all">15 éléments</div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="s-label">Total tâches</div>
+            <div class="s-val">15</div>
+          </div>
+          <div class="stat-card amber-bg">
+            <div class="s-label">En attente</div>
+            <div class="s-val amber">8</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="page" id="p-rev">
-      <div class="statusbar"><span class="time">9:41</span><div class="icons"><i class="ti ti-wifi" style="font-size:14px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:14px" aria-hidden="true"></i></div></div>
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <div class="icons">
+          <i class="ti ti-wifi" style="font-size: 14px" aria-hidden="true"></i
+          ><i
+            class="ti ti-battery-2"
+            style="font-size: 14px"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
       <div class="header">
         <div class="header-top">
-          <div class="logo-row"><svg class="logo-svg" viewBox="0 0 52 32" fill="none" aria-hidden="true"><circle cx="13" cy="13" r="8.5" stroke="#c8401a" stroke-width="2.2" fill="none"/><circle cx="8.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="17.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="13" cy="8.5" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><line x1="20" y1="15" x2="49" y2="15" stroke="#c8401a" stroke-width="2.2" stroke-linecap="round"/><rect x="42" y="15" width="4" height="5" rx="1.2" fill="#1a3580"/><rect x="34" y="15" width="4" height="4" rx="1.2" fill="#1a3580"/></svg><span class="logo-name">PMS</span></div>
-          <div class="header-right"><div class="notif-btn" onclick="showPage('p-notifs','nav-admin')" aria-label="Notifications"><i class="ti ti-bell" aria-hidden="true"></i><div class="notif-dot"></div></div><div class="hotel-pill"><div class="dot"></div><span>JWAY HOTEL</span></div></div>
+          <div class="logo-row">
+            <svg
+              class="logo-svg"
+              viewBox="0 0 52 32"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle
+                cx="13"
+                cy="13"
+                r="8.5"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                fill="none"
+              />
+              <circle
+                cx="8.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="17.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="13"
+                cy="8.5"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <line
+                x1="20"
+                y1="15"
+                x2="49"
+                y2="15"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                stroke-linecap="round"
+              />
+              <rect
+                x="42"
+                y="15"
+                width="4"
+                height="5"
+                rx="1.2"
+                fill="#1a3580"
+              />
+              <rect
+                x="34"
+                y="15"
+                width="4"
+                height="4"
+                rx="1.2"
+                fill="#1a3580"
+              /></svg
+            ><span class="logo-name">PMS</span>
+          </div>
+          <div class="header-right">
+            <div
+              class="notif-btn"
+              onclick="showPage('p-notifs', 'nav-admin')"
+              aria-label="Notifications"
+            >
+              <i class="ti ti-bell" aria-hidden="true"></i>
+              <div class="notif-dot"></div>
+            </div>
+            <div class="hotel-pill">
+              <div class="dot"></div>
+              <span>JWAY HOTEL</span>
+            </div>
+          </div>
         </div>
         <div class="header-sub">Mis à jour 9:41 · 12 mai 2026</div>
       </div>
       <div class="scrollable">
-        <div class="page-title">Revenus</div><div class="page-sub">Tarifs · Caisse · Facturation</div>
-        <div class="cashbox"><div class="cb-label">Solde de caisse actuel</div><div class="cb-amount">407 645 MAD</div><div class="cb-sub">caisse ab · CAI-0001/2024 · Actif</div></div>
+        <div class="page-title">Revenus</div>
+        <div class="page-sub">Tarifs · Caisse · Facturation</div>
+
+        <div class="period-bar">
+          <div class="period-label">
+            <i
+              class="ti ti-calendar"
+              style="font-size: 11px; vertical-align: -1px; margin-right: 3px"
+              aria-hidden="true"
+            ></i
+            >Filtrer par période
+          </div>
+          <div class="period-fields">
+            <input
+              class="period-input"
+              type="date"
+              id="rev-from"
+              value="2026-05-01"
+              aria-label="Date de début"
+            />
+            <span class="period-sep">→</span>
+            <input
+              class="period-input"
+              type="date"
+              id="rev-to"
+              value="2026-05-12"
+              aria-label="Date de fin"
+            />
+            <button class="period-apply" onclick="applyPeriod('rev')">
+              Appliquer
+            </button>
+          </div>
+          <div class="period-shortcuts">
+            <span class="period-sc" onclick="setPeriod('rev', 'today', this)"
+              >Auj.</span
+            >
+            <span class="period-sc" onclick="setPeriod('rev', '7d', this)"
+              >7 jours</span
+            >
+            <span
+              class="period-sc active"
+              onclick="setPeriod('rev', 'month', this)"
+              >Ce mois</span
+            >
+            <span
+              class="period-sc"
+              onclick="setPeriod('rev', 'lastmonth', this)"
+              >Mois préc.</span
+            >
+            <span class="period-sc" onclick="setPeriod('rev', 'ytd', this)"
+              >Année</span
+            >
+          </div>
+        </div>
+        <div class="period-info" id="rev-period-info">
+          <i class="ti ti-info-circle" aria-hidden="true"></i>
+          <span id="rev-period-text">Période : 01/05/2026 → 12/05/2026</span>
+        </div>
+
+        <div class="cashbox">
+          <div class="cb-label">Solde de caisse actuel</div>
+          <div class="cb-amount">407 645 MAD</div>
+          <div class="cb-sub">caisse ab · CAI-0001/2024 · Actif</div>
+        </div>
         <div class="stat-grid">
-          <div class="stat-card navy-bg"><div class="s-label">Solde initial</div><div class="s-val navy">405 085</div></div>
-          <div class="stat-card green-bg"><div class="s-label">Solde actuel</div><div class="s-val green">407 645</div></div>
+          <div class="stat-card navy-bg">
+            <div class="s-label">Solde initial</div>
+            <div class="s-val navy">405 085</div>
+          </div>
+          <div class="stat-card green-bg">
+            <div class="s-label">Solde actuel</div>
+            <div class="s-val green">407 645</div>
+          </div>
         </div>
-        <div class="section-head"><div class="section-title">Tarifs standards</div><div class="see-all">Gérer</div></div>
+        <div class="section-head">
+          <div class="section-title">Tarifs standards</div>
+          <div class="see-all">Gérer</div>
+        </div>
         <div class="rate-box">
-          <div class="rate-head"><div>Code</div><div>Double</div><div>Individ.</div><div>Twin</div></div>
-          <div class="rate-row"><div class="rcode">RO</div><div>870</div><div>350</div><div>450</div></div>
-          <div class="rate-row"><div class="rcode">BB</div><div>500</div><div>60</div><div>450</div></div>
-          <div class="rate-row"><div class="rcode">HB</div><div>460</div><div>500</div><div>100</div></div>
-          <div class="rate-row"><div class="rcode">FB</div><div>40</div><div>70</div><div>50</div></div>
-          <div class="rate-row"><div class="rcode">GRP</div><div>70</div><div>80</div><div>380</div></div>
-          <div class="rate-row"><div class="rcode">DU</div><div>350</div><div>70</div><div>380</div></div>
+          <div class="rate-head">
+            <div>Code</div>
+            <div>Double</div>
+            <div>Individ.</div>
+            <div>Twin</div>
+          </div>
+          <div class="rate-row">
+            <div class="rcode">RO</div>
+            <div>870</div>
+            <div>350</div>
+            <div>450</div>
+          </div>
+          <div class="rate-row">
+            <div class="rcode">BB</div>
+            <div>500</div>
+            <div>60</div>
+            <div>450</div>
+          </div>
+          <div class="rate-row">
+            <div class="rcode">HB</div>
+            <div>460</div>
+            <div>500</div>
+            <div>100</div>
+          </div>
+          <div class="rate-row">
+            <div class="rcode">FB</div>
+            <div>40</div>
+            <div>70</div>
+            <div>50</div>
+          </div>
+          <div class="rate-row">
+            <div class="rcode">GRP</div>
+            <div>70</div>
+            <div>80</div>
+            <div>380</div>
+          </div>
+          <div class="rate-row">
+            <div class="rcode">DU</div>
+            <div>350</div>
+            <div>70</div>
+            <div>380</div>
+          </div>
         </div>
-        <div class="section-head"><div class="section-title">Tarifs saisonniers</div></div>
-        <div style="background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:4px 12px;margin-bottom:10px">
-          <div class="hk-row"><div style="display:flex;align-items:center;gap:10px"><div style="width:8px;height:8px;border-radius:50%;background:var(--amber)"></div><div><div style="font-size:12px;font-weight:500;color:var(--text)">Haute saison — ee</div><div style="font-size:10px;color:var(--text3)">04/01/2025 – 08/01/2025</div></div></div><span class="tag occ">Actif</span></div>
-          <div class="hk-row"><div style="display:flex;align-items:center;gap:10px"><div style="width:8px;height:8px;border-radius:50%;background:var(--navy-mid)"></div><div><div style="font-size:12px;font-weight:500;color:var(--text)">Basse saison — JUST S</div><div style="font-size:10px;color:var(--text3)">21/11/2024 – 28/11/2024</div></div></div><span class="tag occ">Actif</span></div>
+        <div class="section-head">
+          <div class="section-title">Tarifs saisonniers</div>
         </div>
-        <div class="section-head"><div class="section-title">Facturation</div></div>
-        <div class="res-item"><div class="res-top"><span class="res-code">RES-0034/2026</span><span class="res-status checkout">Départ</span></div><div class="res-guest">Sa Said · Chambre 102</div><div class="res-dates">05 mai → 06 mai · 1 nuit</div><div class="res-footer"><span class="res-detail">Solde</span><span class="res-amount">0,00 MAD</span></div></div>
-        <div class="res-item"><div class="res-top"><span class="res-code">RES-0033/2026</span><span class="res-status checkout">Départ</span></div><div class="res-guest">M'barek Said · Chambre 104</div><div class="res-dates">22 avr. → 25 avr. · 3 nuits</div><div class="res-footer"><span class="res-detail">Solde</span><span class="res-amount">0,00 MAD</span></div></div>
+        <div
+          style="
+            background: var(--surface);
+            border: 0.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 4px 12px;
+            margin-bottom: 10px;
+          "
+        >
+          <div class="hk-row">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <div
+                style="
+                  width: 8px;
+                  height: 8px;
+                  border-radius: 50%;
+                  background: var(--amber);
+                "
+              ></div>
+              <div>
+                <div
+                  style="font-size: 12px; font-weight: 500; color: var(--text)"
+                >
+                  Haute saison — ee
+                </div>
+                <div style="font-size: 10px; color: var(--text3)">
+                  04/01/2025 – 08/01/2025
+                </div>
+              </div>
+            </div>
+            <span class="tag occ">Actif</span>
+          </div>
+          <div class="hk-row">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <div
+                style="
+                  width: 8px;
+                  height: 8px;
+                  border-radius: 50%;
+                  background: var(--navy-mid);
+                "
+              ></div>
+              <div>
+                <div
+                  style="font-size: 12px; font-weight: 500; color: var(--text)"
+                >
+                  Basse saison — JUST S
+                </div>
+                <div style="font-size: 10px; color: var(--text3)">
+                  21/11/2024 – 28/11/2024
+                </div>
+              </div>
+            </div>
+            <span class="tag occ">Actif</span>
+          </div>
+        </div>
+        <div class="section-head">
+          <div class="section-title">Facturation</div>
+        </div>
+        <div class="res-item">
+          <div class="res-top">
+            <span class="res-code">RES-0034/2026</span
+            ><span class="res-status checkout">Départ</span>
+          </div>
+          <div class="res-guest">Sa Said · Chambre 102</div>
+          <div class="res-dates">05 mai → 06 mai · 1 nuit</div>
+          <div class="res-footer">
+            <span class="res-detail">Solde</span
+            ><span class="res-amount">0,00 MAD</span>
+          </div>
+        </div>
+        <div class="res-item">
+          <div class="res-top">
+            <span class="res-code">RES-0033/2026</span
+            ><span class="res-status checkout">Départ</span>
+          </div>
+          <div class="res-guest">M'barek Said · Chambre 104</div>
+          <div class="res-dates">22 avr. → 25 avr. · 3 nuits</div>
+          <div class="res-footer">
+            <span class="res-detail">Solde</span
+            ><span class="res-amount">0,00 MAD</span>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="page" id="p-admin">
-      <div class="statusbar"><span class="time">9:41</span><div class="icons"><i class="ti ti-wifi" style="font-size:14px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:14px" aria-hidden="true"></i></div></div>
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <div class="icons">
+          <i class="ti ti-wifi" style="font-size: 14px" aria-hidden="true"></i
+          ><i
+            class="ti ti-battery-2"
+            style="font-size: 14px"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
       <div class="header">
         <div class="header-top">
-          <div class="logo-row"><svg class="logo-svg" viewBox="0 0 52 32" fill="none" aria-hidden="true"><circle cx="13" cy="13" r="8.5" stroke="#c8401a" stroke-width="2.2" fill="none"/><circle cx="8.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="17.5" cy="13" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><circle cx="13" cy="8.5" r="3.5" stroke="#c8401a" stroke-width="1.8" fill="none"/><line x1="20" y1="15" x2="49" y2="15" stroke="#c8401a" stroke-width="2.2" stroke-linecap="round"/><rect x="42" y="15" width="4" height="5" rx="1.2" fill="#1a3580"/><rect x="34" y="15" width="4" height="4" rx="1.2" fill="#1a3580"/></svg><span class="logo-name">PMS</span></div>
-          <div class="header-right"><div class="notif-btn" onclick="showPage('p-notifs','nav-admin')" aria-label="Notifications"><i class="ti ti-bell" aria-hidden="true"></i><div class="notif-dot"></div></div><div class="hotel-pill"><div class="dot"></div><span>JWAY HOTEL</span></div></div>
+          <div class="logo-row">
+            <svg
+              class="logo-svg"
+              viewBox="0 0 52 32"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle
+                cx="13"
+                cy="13"
+                r="8.5"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                fill="none"
+              />
+              <circle
+                cx="8.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="17.5"
+                cy="13"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <circle
+                cx="13"
+                cy="8.5"
+                r="3.5"
+                stroke="#c8401a"
+                stroke-width="1.8"
+                fill="none"
+              />
+              <line
+                x1="20"
+                y1="15"
+                x2="49"
+                y2="15"
+                stroke="#c8401a"
+                stroke-width="2.2"
+                stroke-linecap="round"
+              />
+              <rect
+                x="42"
+                y="15"
+                width="4"
+                height="5"
+                rx="1.2"
+                fill="#1a3580"
+              />
+              <rect
+                x="34"
+                y="15"
+                width="4"
+                height="4"
+                rx="1.2"
+                fill="#1a3580"
+              /></svg
+            ><span class="logo-name">PMS</span>
+          </div>
+          <div class="header-right">
+            <div
+              class="notif-btn"
+              onclick="showPage('p-notifs', 'nav-admin')"
+              aria-label="Notifications"
+            >
+              <i class="ti ti-bell" aria-hidden="true"></i>
+              <div class="notif-dot"></div>
+            </div>
+            <div class="hotel-pill">
+              <div class="dot"></div>
+              <span>JWAY HOTEL</span>
+            </div>
+          </div>
         </div>
         <div class="header-sub">Administration · JWAY HOTEL</div>
       </div>
       <div class="admin-tabs" role="tablist">
-        <div class="admin-tab active" id="atab-users" role="tab" onclick="switchAdminTab('users')" aria-selected="true"><i class="ti ti-users" style="font-size:14px;display:block;margin:0 auto 2px" aria-hidden="true"></i>Utilisateurs</div>
-        <div class="admin-tab" id="atab-setup" role="tab" onclick="switchAdminTab('setup')" aria-selected="false"><i class="ti ti-settings-2" style="font-size:14px;display:block;margin:0 auto 2px" aria-hidden="true"></i>Configuration</div>
-        <div class="admin-tab" id="atab-currencies" role="tab" onclick="switchAdminTab('currencies')" aria-selected="false"><i class="ti ti-coin" style="font-size:14px;display:block;margin:0 auto 2px" aria-hidden="true"></i>Devises</div>
+        <div
+          class="admin-tab active"
+          id="atab-users"
+          role="tab"
+          onclick="switchAdminTab('users')"
+          aria-selected="true"
+        >
+          <i
+            class="ti ti-users"
+            style="font-size: 14px; display: block; margin: 0 auto 2px"
+            aria-hidden="true"
+          ></i
+          >Utilisateurs
+        </div>
+        <div
+          class="admin-tab"
+          id="atab-setup"
+          role="tab"
+          onclick="switchAdminTab('setup')"
+          aria-selected="false"
+        >
+          <i
+            class="ti ti-settings-2"
+            style="font-size: 14px; display: block; margin: 0 auto 2px"
+            aria-hidden="true"
+          ></i
+          >Configuration
+        </div>
+        <div
+          class="admin-tab"
+          id="atab-currencies"
+          role="tab"
+          onclick="switchAdminTab('currencies')"
+          aria-selected="false"
+        >
+          <i
+            class="ti ti-coin"
+            style="font-size: 14px; display: block; margin: 0 auto 2px"
+            aria-hidden="true"
+          ></i
+          >Devises
+        </div>
       </div>
-      <div style="flex:1;overflow-y:auto">
+      <div style="flex: 1; overflow-y: auto">
         <div class="admin-panel active" id="apanel-users" role="tabpanel">
-          <div class="section-head"><div class="section-title">Hôtels gérés</div></div>
-          <div class="guest-item"><div class="g-avatar coral">JW</div><div><div class="g-name">JWAY HOTEL</div><div class="g-sub">Agadir · RC 873614768</div></div><div class="g-right"><span class="tag occ">Actif</span></div></div>
-          <div class="guest-item"><div class="g-avatar gray">TF</div><div><div class="g-name">TAFOUKT</div><div class="g-sub">Agadir · RC RC34Z543</div></div></div>
-          <div class="section-head" style="margin-top:4px"><div class="section-title">Utilisateurs</div><button class="add-btn">+ Ajouter</button></div>
-          <div class="guest-item"><div class="g-avatar">AD</div><div><div class="g-name">admin admin</div><div class="g-sub">admin@jway.ma</div></div><div class="g-right"><span style="font-size:10px;background:var(--coral-light);color:var(--coral-dark);padding:2px 8px;border-radius:20px;font-weight:600">ADMIN</span></div></div>
-          <div class="guest-item"><div class="g-avatar coral">ME</div><div><div class="g-name">MED MED</div><div class="g-sub">med@med.ma</div></div><div class="g-right"><span style="font-size:10px;background:var(--coral-light);color:var(--coral-dark);padding:2px 8px;border-radius:20px;font-weight:600">ADMIN</span></div></div>
-          <div class="guest-item"><div class="g-avatar gray">JK</div><div><div class="g-name">Jamal Khaldi</div><div class="g-sub">jamal@ma.ma</div></div><div class="g-right"><span style="font-size:10px;background:var(--surface2);color:var(--text3);padding:2px 8px;border-radius:20px">UTILISATEUR</span></div></div>
-          <div class="guest-item"><div class="g-avatar">AY</div><div><div class="g-name">Ayoub Ayoub</div><div class="g-sub">ayoub.pms@jway.ma</div></div><div class="g-right"><span style="font-size:10px;background:var(--coral-light);color:var(--coral-dark);padding:2px 8px;border-radius:20px;font-weight:600">ADMIN</span></div></div>
-          <div style="height:12px"></div>
+          <div class="section-head">
+            <div class="section-title">Hôtels gérés</div>
+          </div>
+          <div class="guest-item">
+            <div class="g-avatar coral">JW</div>
+            <div>
+              <div class="g-name">JWAY HOTEL</div>
+              <div class="g-sub">Agadir · RC 873614768</div>
+            </div>
+            <div class="g-right"><span class="tag occ">Actif</span></div>
+          </div>
+          <div class="guest-item">
+            <div class="g-avatar gray">TF</div>
+            <div>
+              <div class="g-name">TAFOUKT</div>
+              <div class="g-sub">Agadir · RC RC34Z543</div>
+            </div>
+          </div>
+          <div class="section-head" style="margin-top: 4px">
+            <div class="section-title">Utilisateurs</div>
+            <button class="add-btn">+ Ajouter</button>
+          </div>
+          <div class="guest-item">
+            <div class="g-avatar">AD</div>
+            <div>
+              <div class="g-name">admin admin</div>
+              <div class="g-sub">admin@jway.ma</div>
+            </div>
+            <div class="g-right">
+              <span
+                style="
+                  font-size: 10px;
+                  background: var(--coral-light);
+                  color: var(--coral-dark);
+                  padding: 2px 8px;
+                  border-radius: 20px;
+                  font-weight: 600;
+                "
+                >ADMIN</span
+              >
+            </div>
+          </div>
+          <div class="guest-item">
+            <div class="g-avatar coral">ME</div>
+            <div>
+              <div class="g-name">MED MED</div>
+              <div class="g-sub">med@med.ma</div>
+            </div>
+            <div class="g-right">
+              <span
+                style="
+                  font-size: 10px;
+                  background: var(--coral-light);
+                  color: var(--coral-dark);
+                  padding: 2px 8px;
+                  border-radius: 20px;
+                  font-weight: 600;
+                "
+                >ADMIN</span
+              >
+            </div>
+          </div>
+          <div class="guest-item">
+            <div class="g-avatar gray">JK</div>
+            <div>
+              <div class="g-name">Jamal Khaldi</div>
+              <div class="g-sub">jamal@ma.ma</div>
+            </div>
+            <div class="g-right">
+              <span
+                style="
+                  font-size: 10px;
+                  background: var(--surface2);
+                  color: var(--text3);
+                  padding: 2px 8px;
+                  border-radius: 20px;
+                "
+                >UTILISATEUR</span
+              >
+            </div>
+          </div>
+          <div class="guest-item">
+            <div class="g-avatar">AY</div>
+            <div>
+              <div class="g-name">Ayoub Ayoub</div>
+              <div class="g-sub">ayoub.pms@jway.ma</div>
+            </div>
+            <div class="g-right">
+              <span
+                style="
+                  font-size: 10px;
+                  background: var(--coral-light);
+                  color: var(--coral-dark);
+                  padding: 2px 8px;
+                  border-radius: 20px;
+                  font-weight: 600;
+                "
+                >ADMIN</span
+              >
+            </div>
+          </div>
+          <div style="height: 12px"></div>
         </div>
         <div class="admin-panel" id="apanel-setup" role="tabpanel">
-          <div class="section-head"><div class="section-title">Paramètres réservation</div></div>
-          <div class="action-grid">
-            <div class="act-btn"><i class="ti ti-list-check" style="color:var(--navy)" aria-hidden="true"></i><div class="act-name">Statuts</div><div class="act-sub">7 statuts configurés</div></div>
-            <div class="act-btn"><i class="ti ti-tag" style="color:var(--coral)" aria-hidden="true"></i><div class="act-name">Codes tarifs</div><div class="act-sub">RO, BB, HB, FB…</div></div>
-            <div class="act-btn"><i class="ti ti-building-store" style="color:var(--green)" aria-hidden="true"></i><div class="act-name">Agences</div><div class="act-sub">AGENCE ONE</div></div>
-            <div class="act-btn"><i class="ti ti-users-group" style="color:var(--amber)" aria-hidden="true"></i><div class="act-name">Groupes</div><div class="act-sub">TRIVAGO INDEz</div></div>
+          <div class="section-head">
+            <div class="section-title">Paramètres réservation</div>
           </div>
-          <div class="section-head"><div class="section-title">Paramètres chambres</div></div>
           <div class="action-grid">
-            <div class="act-btn"><i class="ti ti-door" style="color:var(--navy)" aria-hidden="true"></i><div class="act-name">Chambres</div><div class="act-sub">7 chambres, 5 types</div></div>
-            <div class="act-btn"><i class="ti ti-home-2" style="color:var(--coral)" aria-hidden="true"></i><div class="act-name">Zones communes</div><div class="act-sub">Hall réception</div></div>
-            <div class="act-btn"><i class="ti ti-sparkles" style="color:var(--green)" aria-hidden="true"></i><div class="act-name">Caractéristiques</div><div class="act-sub">3 caractéristiques</div></div>
-            <div class="act-btn"><i class="ti ti-bed" style="color:var(--amber)" aria-hidden="true"></i><div class="act-name">Types de lits</div><div class="act-sub">King, Standard, Double…</div></div>
+            <div class="act-btn">
+              <i
+                class="ti ti-list-check"
+                style="color: var(--navy)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">Statuts</div>
+              <div class="act-sub">7 statuts configurés</div>
+            </div>
+            <div class="act-btn">
+              <i
+                class="ti ti-tag"
+                style="color: var(--coral)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">Codes tarifs</div>
+              <div class="act-sub">RO, BB, HB, FB…</div>
+            </div>
+            <div class="act-btn">
+              <i
+                class="ti ti-building-store"
+                style="color: var(--green)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">Agences</div>
+              <div class="act-sub">AGENCE ONE</div>
+            </div>
+            <div class="act-btn">
+              <i
+                class="ti ti-users-group"
+                style="color: var(--amber)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">Groupes</div>
+              <div class="act-sub">TRIVAGO INDEz</div>
+            </div>
           </div>
-          <div class="section-head"><div class="section-title">Paramètres CRM</div></div>
+          <div class="section-head">
+            <div class="section-title">Paramètres chambres</div>
+          </div>
           <div class="action-grid">
-            <div class="act-btn"><i class="ti ti-id-badge" style="color:var(--navy)" aria-hidden="true"></i><div class="act-name">Civilités</div><div class="act-sub">M., Mme, Dr…</div></div>
-            <div class="act-btn"><i class="ti ti-source-code" style="color:var(--coral)" aria-hidden="true"></i><div class="act-name">Sources</div><div class="act-sub">WEB, GDS, TA…</div></div>
-            <div class="act-btn"><i class="ti ti-map-2" style="color:var(--green)" aria-hidden="true"></i><div class="act-name">Origines</div><div class="act-sub">WEB, TEL, EMA…</div></div>
-            <div class="act-btn"><i class="ti ti-vip" style="color:var(--amber)" aria-hidden="true"></i><div class="act-name">VIP</div><div class="act-sub">Prestige, Luxe, Elite…</div></div>
+            <div class="act-btn">
+              <i
+                class="ti ti-door"
+                style="color: var(--navy)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">Chambres</div>
+              <div class="act-sub">7 chambres, 5 types</div>
+            </div>
+            <div class="act-btn">
+              <i
+                class="ti ti-home-2"
+                style="color: var(--coral)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">Zones communes</div>
+              <div class="act-sub">Hall réception</div>
+            </div>
+            <div class="act-btn">
+              <i
+                class="ti ti-sparkles"
+                style="color: var(--green)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">Caractéristiques</div>
+              <div class="act-sub">3 caractéristiques</div>
+            </div>
+            <div class="act-btn">
+              <i
+                class="ti ti-bed"
+                style="color: var(--amber)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">Types de lits</div>
+              <div class="act-sub">King, Standard, Double…</div>
+            </div>
           </div>
-          <div style="height:12px"></div>
+          <div class="section-head">
+            <div class="section-title">Paramètres CRM</div>
+          </div>
+          <div class="action-grid">
+            <div class="act-btn">
+              <i
+                class="ti ti-id-badge"
+                style="color: var(--navy)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">Civilités</div>
+              <div class="act-sub">M., Mme, Dr…</div>
+            </div>
+            <div class="act-btn">
+              <i
+                class="ti ti-source-code"
+                style="color: var(--coral)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">Sources</div>
+              <div class="act-sub">WEB, GDS, TA…</div>
+            </div>
+            <div class="act-btn">
+              <i
+                class="ti ti-map-2"
+                style="color: var(--green)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">Origines</div>
+              <div class="act-sub">WEB, TEL, EMA…</div>
+            </div>
+            <div class="act-btn">
+              <i
+                class="ti ti-vip"
+                style="color: var(--amber)"
+                aria-hidden="true"
+              ></i>
+              <div class="act-name">VIP</div>
+              <div class="act-sub">Prestige, Luxe, Elite…</div>
+            </div>
+          </div>
+          <div style="height: 12px"></div>
         </div>
         <div class="admin-panel" id="apanel-currencies" role="tabpanel">
-          <div class="section-head"><div class="section-title">Devises actives</div><button class="add-btn">+ Ajouter</button></div>
-          <div style="background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px">
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:8px 14px;background:var(--navy-light);border-bottom:.5px solid var(--border)"><span style="font-size:10px;color:var(--navy);font-weight:600;text-transform:uppercase;letter-spacing:.4px">Code</span><span style="font-size:10px;color:var(--navy);font-weight:600;text-transform:uppercase;letter-spacing:.4px">Achat</span><span style="font-size:10px;color:var(--navy);font-weight:600;text-transform:uppercase;letter-spacing:.4px">Vente</span></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:11px 14px;border-bottom:.5px solid var(--border);align-items:center"><div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:20px;background:var(--navy-light);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--navy)">EUR</div></div><span style="font-size:13px;font-weight:500;color:var(--text)">9,73</span><span style="font-size:13px;font-weight:500;color:var(--text)">10,84</span></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:11px 14px;border-bottom:.5px solid var(--border);align-items:center"><div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:20px;background:var(--green-bg);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#166534">USD</div></div><span style="font-size:13px;font-weight:500;color:var(--text)">9,36</span><span style="font-size:13px;font-weight:500;color:var(--text)">10,91</span></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:11px 14px;align-items:center"><div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:20px;background:var(--coral-light);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--coral-dark)">GBP</div></div><span style="font-size:13px;font-weight:500;color:var(--text)">11,91</span><span style="font-size:13px;font-weight:500;color:var(--text)">12,65</span></div>
+          <div class="section-head">
+            <div class="section-title">Devises actives</div>
+            <button class="add-btn">+ Ajouter</button>
           </div>
-          <div style="background:var(--navy-light);border:.5px solid #b0bde8;border-radius:var(--radius-sm);padding:12px;margin-bottom:12px"><div style="font-size:11px;color:var(--navy);font-weight:600;margin-bottom:4px">Devise de référence</div><div style="font-size:22px;font-weight:700;color:var(--navy-dark)">MAD</div><div style="font-size:11px;color:var(--navy-mid)">Dirham marocain · Maroc</div></div>
-          <div style="height:12px"></div>
+          <div
+            style="
+              background: var(--surface);
+              border: 0.5px solid var(--border);
+              border-radius: var(--radius);
+              overflow: hidden;
+              margin-bottom: 12px;
+            "
+          >
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                padding: 8px 14px;
+                background: var(--navy-light);
+                border-bottom: 0.5px solid var(--border);
+              "
+            >
+              <span
+                style="
+                  font-size: 10px;
+                  color: var(--navy);
+                  font-weight: 600;
+                  text-transform: uppercase;
+                  letter-spacing: 0.4px;
+                "
+                >Code</span
+              ><span
+                style="
+                  font-size: 10px;
+                  color: var(--navy);
+                  font-weight: 600;
+                  text-transform: uppercase;
+                  letter-spacing: 0.4px;
+                "
+                >Achat</span
+              ><span
+                style="
+                  font-size: 10px;
+                  color: var(--navy);
+                  font-weight: 600;
+                  text-transform: uppercase;
+                  letter-spacing: 0.4px;
+                "
+                >Vente</span
+              >
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                padding: 11px 14px;
+                border-bottom: 0.5px solid var(--border);
+                align-items: center;
+              "
+            >
+              <div>
+                <div
+                  style="
+                    width: 28px;
+                    height: 20px;
+                    background: var(--navy-light);
+                    border-radius: 3px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 9px;
+                    font-weight: 700;
+                    color: var(--navy);
+                  "
+                >
+                  EUR
+                </div>
+              </div>
+              <span
+                style="font-size: 13px; font-weight: 500; color: var(--text)"
+                >9,73</span
+              ><span
+                style="font-size: 13px; font-weight: 500; color: var(--text)"
+                >10,84</span
+              >
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                padding: 11px 14px;
+                border-bottom: 0.5px solid var(--border);
+                align-items: center;
+              "
+            >
+              <div>
+                <div
+                  style="
+                    width: 28px;
+                    height: 20px;
+                    background: var(--green-bg);
+                    border-radius: 3px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 9px;
+                    font-weight: 700;
+                    color: #166534;
+                  "
+                >
+                  USD
+                </div>
+              </div>
+              <span
+                style="font-size: 13px; font-weight: 500; color: var(--text)"
+                >9,36</span
+              ><span
+                style="font-size: 13px; font-weight: 500; color: var(--text)"
+                >10,91</span
+              >
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                padding: 11px 14px;
+                align-items: center;
+              "
+            >
+              <div>
+                <div
+                  style="
+                    width: 28px;
+                    height: 20px;
+                    background: var(--coral-light);
+                    border-radius: 3px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 9px;
+                    font-weight: 700;
+                    color: var(--coral-dark);
+                  "
+                >
+                  GBP
+                </div>
+              </div>
+              <span
+                style="font-size: 13px; font-weight: 500; color: var(--text)"
+                >11,91</span
+              ><span
+                style="font-size: 13px; font-weight: 500; color: var(--text)"
+                >12,65</span
+              >
+            </div>
+          </div>
+          <div
+            style="
+              background: var(--navy-light);
+              border: 0.5px solid #b0bde8;
+              border-radius: var(--radius-sm);
+              padding: 12px;
+              margin-bottom: 12px;
+            "
+          >
+            <div
+              style="
+                font-size: 11px;
+                color: var(--navy);
+                font-weight: 600;
+                margin-bottom: 4px;
+              "
+            >
+              Devise de référence
+            </div>
+            <div
+              style="font-size: 22px; font-weight: 700; color: var(--navy-dark)"
+            >
+              MAD
+            </div>
+            <div style="font-size: 11px; color: var(--navy-mid)">
+              Dirham marocain · Maroc
+            </div>
+          </div>
+          <div style="height: 12px"></div>
         </div>
       </div>
     </div>
 
     <div class="page" id="p-notifs">
-      <div class="statusbar"><span class="time">9:41</span><div class="icons"><i class="ti ti-wifi" style="font-size:14px" aria-hidden="true"></i><i class="ti ti-battery-2" style="font-size:14px" aria-hidden="true"></i></div></div>
+      <div class="statusbar">
+        <span class="time">9:41</span>
+        <div class="icons">
+          <i class="ti ti-wifi" style="font-size: 14px" aria-hidden="true"></i
+          ><i
+            class="ti ti-battery-2"
+            style="font-size: 14px"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
       <div class="header">
         <div class="header-top">
-          <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="showPage('p-dash','nav-dash')"><i class="ti ti-arrow-left" style="font-size:18px;color:var(--navy)" aria-hidden="true"></i><span style="font-size:14px;font-weight:500;color:var(--navy)">Retour</span></div>
-          <div class="hotel-pill"><div class="dot"></div><span>JWAY HOTEL</span></div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              cursor: pointer;
+            "
+            onclick="showPage('p-dash', 'nav-dash')"
+          >
+            <i
+              class="ti ti-arrow-left"
+              style="font-size: 18px; color: var(--navy)"
+              aria-hidden="true"
+            ></i
+            ><span style="font-size: 14px; font-weight: 500; color: var(--navy)"
+              >Retour</span
+            >
+          </div>
+          <div class="hotel-pill">
+            <div class="dot"></div>
+            <span>JWAY HOTEL</span>
+          </div>
         </div>
         <div class="header-sub">Centre de notifications</div>
       </div>
       <div class="scrollable">
-        <div class="page-title">Notifications</div><div class="page-sub">2 non lues</div>
-        <div style="background:var(--red-bg);border:.5px solid #fca5a5;border-radius:var(--radius);padding:14px;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><i class="ti ti-alert-circle" style="font-size:16px;color:var(--red)" aria-hidden="true"></i><span style="font-size:12px;font-weight:600;color:#991b1b">Urgente</span><span style="font-size:10px;color:var(--text3);margin-left:auto">22-01-2025</span></div><div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px">Compte DA-00001 dépasse l'échéance</div><div style="font-size:11px;color:var(--text3)">Compte débiteur · Non lu</div></div>
-        <div style="background:var(--amber-bg);border:.5px solid #fde68a;border-radius:var(--radius);padding:14px;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><i class="ti ti-clock" style="font-size:16px;color:var(--amber)" aria-hidden="true"></i><span style="font-size:12px;font-weight:600;color:#92400e">Avertissement</span><span style="font-size:10px;color:var(--text3);margin-left:auto">11-12-2024</span></div><div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px">Compte PA-00001 dépasse l'échéance</div><div style="font-size:11px;color:var(--text3)">Compte permanent · Non lu</div></div>
-        <div style="text-align:center;padding:24px 0"><div style="width:48px;height:48px;background:var(--surface2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="ti ti-bell-off" style="font-size:22px;color:var(--text3)" aria-hidden="true"></i></div><div style="font-size:13px;color:var(--text3)">Aucune autre notification</div></div>
+        <div class="page-title">Notifications</div>
+        <div class="page-sub">2 non lues</div>
+        <div
+          style="
+            background: var(--red-bg);
+            border: 0.5px solid #fca5a5;
+            border-radius: var(--radius);
+            padding: 14px;
+            margin-bottom: 8px;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 6px;
+            "
+          >
+            <i
+              class="ti ti-alert-circle"
+              style="font-size: 16px; color: var(--red)"
+              aria-hidden="true"
+            ></i
+            ><span style="font-size: 12px; font-weight: 600; color: #991b1b"
+              >Urgente</span
+            ><span
+              style="font-size: 10px; color: var(--text3); margin-left: auto"
+              >22-01-2025</span
+            >
+          </div>
+          <div
+            style="
+              font-size: 13px;
+              font-weight: 500;
+              color: var(--text);
+              margin-bottom: 3px;
+            "
+          >
+            Compte DA-00001 dépasse l'échéance
+          </div>
+          <div style="font-size: 11px; color: var(--text3)">
+            Compte débiteur · Non lu
+          </div>
+        </div>
+        <div
+          style="
+            background: var(--amber-bg);
+            border: 0.5px solid #fde68a;
+            border-radius: var(--radius);
+            padding: 14px;
+            margin-bottom: 8px;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 6px;
+            "
+          >
+            <i
+              class="ti ti-clock"
+              style="font-size: 16px; color: var(--amber)"
+              aria-hidden="true"
+            ></i
+            ><span style="font-size: 12px; font-weight: 600; color: #92400e"
+              >Avertissement</span
+            ><span
+              style="font-size: 10px; color: var(--text3); margin-left: auto"
+              >11-12-2024</span
+            >
+          </div>
+          <div
+            style="
+              font-size: 13px;
+              font-weight: 500;
+              color: var(--text);
+              margin-bottom: 3px;
+            "
+          >
+            Compte PA-00001 dépasse l'échéance
+          </div>
+          <div style="font-size: 11px; color: var(--text3)">
+            Compte permanent · Non lu
+          </div>
+        </div>
+        <div style="text-align: center; padding: 24px 0">
+          <div
+            style="
+              width: 48px;
+              height: 48px;
+              background: var(--surface2);
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 auto 8px;
+            "
+          >
+            <i
+              class="ti ti-bell-off"
+              style="font-size: 22px; color: var(--text3)"
+              aria-hidden="true"
+            ></i>
+          </div>
+          <div style="font-size: 13px; color: var(--text3)">
+            Aucune autre notification
+          </div>
+        </div>
       </div>
     </div>
 
-    <nav class="bottom-nav" role="navigation" aria-label="Navigation principale">
-      <div class="nav-item active" id="nav-dash" onclick="showPage('p-dash','nav-dash')" aria-label="Accueil"><i class="ti ti-layout-dashboard" aria-hidden="true"></i><span>Accueil</span></div>
-      <div class="nav-item" id="nav-rooms" onclick="showPage('p-rooms','nav-rooms')" aria-label="Chambres"><i class="ti ti-door" aria-hidden="true"></i><span>Chambres</span></div>
-      <div class="nav-item" id="nav-booking" onclick="showPage('p-booking','nav-booking')" aria-label="Réservations"><i class="ti ti-calendar" aria-hidden="true"></i><span>Réserv.</span><div class="nav-badge">3</div></div>
-      <div class="nav-item" id="nav-hk" onclick="showPage('p-hk','nav-hk')" aria-label="Gouvernance"><i class="ti ti-home-check" aria-hidden="true"></i><span>Gouv.</span></div>
-      <div class="nav-item" id="nav-rev" onclick="showPage('p-rev','nav-rev')" aria-label="Revenus"><i class="ti ti-chart-bar" aria-hidden="true"></i><span>Revenus</span></div>
-      <div class="nav-item" id="nav-admin" onclick="showPage('p-admin','nav-admin')" aria-label="Administration"><i class="ti ti-settings" aria-hidden="true"></i><span>Admin</span></div>
+    <nav
+      class="bottom-nav"
+      role="navigation"
+      aria-label="Navigation principale"
+    >
+      <div
+        class="nav-item active"
+        id="nav-dash"
+        onclick="showPage('p-dash', 'nav-dash')"
+        aria-label="Accueil"
+      >
+        <i class="ti ti-layout-dashboard" aria-hidden="true"></i
+        ><span>Accueil</span>
+      </div>
+      <div
+        class="nav-item"
+        id="nav-rooms"
+        onclick="showPage('p-rooms', 'nav-rooms')"
+        aria-label="Chambres"
+      >
+        <i class="ti ti-door" aria-hidden="true"></i><span>Chambres</span>
+      </div>
+      <div
+        class="nav-item"
+        id="nav-booking"
+        onclick="showPage('p-booking', 'nav-booking')"
+        aria-label="Réservations"
+      >
+        <i class="ti ti-calendar" aria-hidden="true"></i><span>Réserv.</span>
+        <div class="nav-badge">3</div>
+      </div>
+      <div
+        class="nav-item"
+        id="nav-hk"
+        onclick="showPage('p-hk', 'nav-hk')"
+        aria-label="Gouvernance"
+      >
+        <i class="ti ti-home-check" aria-hidden="true"></i><span>Gouv.</span>
+      </div>
+      <div
+        class="nav-item"
+        id="nav-rev"
+        onclick="showPage('p-rev', 'nav-rev')"
+        aria-label="Revenus"
+      >
+        <i class="ti ti-chart-bar" aria-hidden="true"></i><span>Revenus</span>
+      </div>
+      <div
+        class="nav-item"
+        id="nav-admin"
+        onclick="showPage('p-admin', 'nav-admin')"
+        aria-label="Administration"
+      >
+        <i class="ti ti-settings" aria-hidden="true"></i><span>Admin</span>
+      </div>
     </nav>
   </div>
 </div>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css"/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css"
+/>
 <script>
-function showPage(pageId,navId){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  var p=document.getElementById(pageId);
-  if(p){p.classList.add('active');p.scrollTop=0}
-  if(navId){var n=document.getElementById(navId);if(n)n.classList.add('active')}
-}
-function switchAdminTab(tab){
-  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('atab-'+tab).classList.add('active');
-  document.getElementById('apanel-'+tab).classList.add('active');
-}
+  function showPage(pageId, navId) {
+    document
+      .querySelectorAll(".page")
+      .forEach((p) => p.classList.remove("active"));
+    document
+      .querySelectorAll(".nav-item")
+      .forEach((n) => n.classList.remove("active"));
+    var p = document.getElementById(pageId);
+    if (p) {
+      p.classList.add("active");
+      p.scrollTop = 0;
+    }
+    if (navId) {
+      var n = document.getElementById(navId);
+      if (n) n.classList.add("active");
+    }
+  }
+  function switchAdminTab(tab) {
+    document
+      .querySelectorAll(".admin-tab")
+      .forEach((t) => t.classList.remove("active"));
+    document
+      .querySelectorAll(".admin-panel")
+      .forEach((p) => p.classList.remove("active"));
+    document.getElementById("atab-" + tab).classList.add("active");
+    document.getElementById("apanel-" + tab).classList.add("active");
+  }
+  function fmtDate(d) {
+    var p = d.split("-");
+    return p[2] + "/" + p[1] + "/" + p[0];
+  }
+  function updateInfo(prefix) {
+    var f = document.getElementById(prefix + "-from").value;
+    var t = document.getElementById(prefix + "-to").value;
+    var el = document.getElementById(prefix + "-period-text");
+    if (el && f && t)
+      el.textContent = "Période : " + fmtDate(f) + " → " + fmtDate(t);
+  }
+  function applyPeriod(prefix) {
+    updateInfo(prefix);
+  }
+  function setPeriod(prefix, range, el) {
+    var now = new Date();
+    var pad = function (n) {
+      return n < 10 ? "0" + n : n;
+    };
+    var fmt = function (d) {
+      return (
+        d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate())
+      );
+    };
+    var from,
+      to = fmt(now);
+    if (range === "today") {
+      from = fmt(now);
+    } else if (range === "yesterday") {
+      var y = new Date(now);
+      y.setDate(y.getDate() - 1);
+      from = fmt(y);
+      to = fmt(y);
+    } else if (range === "7d") {
+      var s = new Date(now);
+      s.setDate(s.getDate() - 6);
+      from = fmt(s);
+    } else if (range === "month") {
+      from = now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-01";
+    } else if (range === "lastmonth") {
+      var lm = new Date(now.getFullYear(), now.getMonth(), 0);
+      var lms = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+      from = fmt(lms);
+      to = fmt(lm);
+    } else if (range === "ytd") {
+      from = now.getFullYear() + "-01-01";
+    }
+    document.getElementById(prefix + "-from").value = from;
+    document.getElementById(prefix + "-to").value = to;
+    document
+      .querySelectorAll(
+        "#" +
+          document.getElementById(prefix + "-from").closest(".period-bar").id +
+          " .period-sc, .page.active .period-sc",
+      )
+      .forEach(function (s) {
+        s.classList.remove("active");
+      });
+    el.classList.add("active");
+    updateInfo(prefix);
+  }
 </script>
