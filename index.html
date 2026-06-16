@@ -18,7 +18,6 @@
     --surface2: #f2ede4;
     --surface3: #ebe4d8;
     --border: #ddd5c5;
-    --border2: #c8bda8;
     --green: #2d7a3a;
     --green-bg: #eaf5ec;
     --red: #c0392b;
@@ -26,8 +25,6 @@
     --blue: #1a5fa8;
     --blue-bg: #e8f0fa;
     --gray: #3a3a3a;
-    --gray2: #5a5a5a;
-    --gray3: #9a9a9a;
     --text: #1c1410;
     --text2: #5a4e3c;
     --text3: #9a8a6c;
@@ -109,6 +106,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 0;
   }
   .logo-row {
     display: flex;
@@ -132,15 +130,9 @@
     font-size: 18px;
     font-weight: 700;
     color: #fff;
-    letter-spacing: 0.3px;
   }
   .app-name span {
     color: #ffd980;
-  }
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
   }
   .hdr-btn {
     width: 34px;
@@ -166,6 +158,80 @@
     background: #e24b4a;
     border-radius: 50%;
     border: 1.5px solid var(--gold);
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Period bar — inside header */
+  .period-bar {
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: var(--radius-sm);
+    margin-top: 10px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .period-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .period-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.65);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .period-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .period-sep {
+    width: 0.5px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.25);
+  }
+  .calc-btn-sm {
+    background: #fff;
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold-dark);
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Quick presets */
+  .presets {
+    display: flex;
+    gap: 5px;
+    margin-top: 6px;
+  }
+  .preset {
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .preset.active {
+    background: #fff;
+    color: var(--gold-dark);
+  }
+  .preset:not(.active) {
+    background: rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.85);
   }
 
   .page-banner {
@@ -209,7 +275,6 @@
     font-weight: 600;
   }
 
-  /* KPI strip */
   .kpi-strip {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -268,8 +333,24 @@
     color: var(--text3);
     margin-top: 2px;
   }
+  .trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 20px;
+  }
+  .trend.up {
+    background: var(--green-bg);
+    color: #1b5e20;
+  }
+  .trend.down {
+    background: var(--red-bg);
+    color: #7b1a14;
+  }
 
-  /* Chart card */
   .chart-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -289,41 +370,6 @@
     margin-bottom: 10px;
   }
 
-  /* SVG bar chart */
-  .svg-bars {
-    width: 100%;
-    height: 80px;
-  }
-
-  /* Donut */
-  .donut-row {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-  }
-
-  /* Legend */
-  .legend-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    margin-top: 10px;
-  }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 10px;
-    color: var(--text2);
-  }
-  .legend-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* Horizontal bar */
   .hbar-row {
     display: flex;
     align-items: center;
@@ -358,32 +404,25 @@
     font-family: "IBM Plex Mono", monospace;
   }
 
-  /* Line sparkline via SVG */
-  .sparkline {
-    width: 100%;
-    height: 50px;
-  }
-
-  /* Trend badge */
-  .trend {
-    display: inline-flex;
+  .donut-row {
+    display: flex;
+    gap: 14px;
     align-items: center;
-    gap: 3px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     font-size: 10px;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 20px;
+    color: var(--text2);
   }
-  .trend.up {
-    background: var(--green-bg);
-    color: #1b5e20;
-  }
-  .trend.down {
-    background: var(--red-bg);
-    color: #7b1a14;
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
   }
 
-  /* Activity feed */
   .feed-item {
     display: flex;
     gap: 10px;
@@ -412,7 +451,32 @@
     margin-top: 1px;
   }
 
-  /* Shift card */
+  /* Period info tag */
+  .period-tag {
+    background: var(--gold-light);
+    border: 0.5px solid #e8c070;
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .period-tag i {
+    font-size: 15px;
+    color: var(--gold-dark);
+  }
+  .period-tag-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold-dark);
+  }
+  .period-tag-sub {
+    font-size: 10px;
+    color: var(--amber);
+  }
+
+  /* Other pages */
   .shift-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -451,7 +515,6 @@
     color: var(--text);
   }
 
-  /* BL */
   .bl-item {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -487,7 +550,6 @@
     color: var(--text);
   }
 
-  /* Facture */
   .fact-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -518,10 +580,6 @@
   .fact-state.aregler {
     background: #fff3cd;
     color: #7a4f00;
-  }
-  .fact-state.regle {
-    background: var(--green-bg);
-    color: #1b5e20;
   }
   .fact-state.partiel {
     background: #e3f2fd;
@@ -561,7 +619,6 @@
     background: var(--gold);
   }
 
-  /* Caisse */
   .caisse-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -602,7 +659,6 @@
     color: var(--text2);
   }
 
-  /* MP */
   .mp-section {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -636,7 +692,6 @@
     color: var(--text);
   }
 
-  /* Admin */
   .user-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -750,7 +805,6 @@
     cursor: pointer;
   }
 
-  /* Utils */
   .total-banner {
     background: var(--gold);
     border-radius: var(--radius);
@@ -855,18 +909,6 @@
     padding: 10px 12px;
     margin-bottom: 10px;
   }
-  .zone-label {
-    font-size: 12px;
-    color: var(--text2);
-  }
-  .zone-val {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
   .login-field {
     width: 100%;
     background: var(--surface);
@@ -901,7 +943,6 @@
     margin-top: 6px;
   }
 
-  /* Bottom nav */
   .bottom-nav {
     position: absolute;
     bottom: 0;
@@ -945,24 +986,7 @@
   .nav-item.active {
     background: var(--gold-light);
   }
-  .nav-badge {
-    position: absolute;
-    top: 2px;
-    right: 4px;
-    width: 14px;
-    height: 14px;
-    background: var(--red);
-    border-radius: 50%;
-    font-size: 8px;
-    font-weight: 700;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1.5px solid var(--surface);
-  }
 </style>
-
 <div class="phone">
   <div class="screen">
     <!-- LOGIN -->
@@ -1074,7 +1098,7 @@
       </div>
     </div>
 
-    <!-- ACCUEIL — Dashboard stats -->
+    <!-- ACCUEIL — Dashboard périodique -->
     <div class="page" id="p-home">
       <div class="statusbar">
         <span class="time">9:41</span>
@@ -1087,6 +1111,8 @@
           ></i>
         </div>
       </div>
+
+      <!-- Header avec période intégrée -->
       <div class="header">
         <div class="header-top">
           <div class="logo-row">
@@ -1114,16 +1140,55 @@
             </div>
           </div>
         </div>
+
+        <!-- Sélecteur de période -->
+        <div class="period-bar">
+          <div class="period-col">
+            <div class="period-label">Du</div>
+            <div class="period-val" id="home-du">2024-01-30</div>
+          </div>
+          <div class="period-sep"></div>
+          <div class="period-col">
+            <div class="period-label">Au</div>
+            <div class="period-val" id="home-au">2026-06-14</div>
+          </div>
+          <div class="calc-btn-sm" onclick="refreshDashboard()">CALCULER</div>
+        </div>
+
+        <!-- Raccourcis période -->
+        <div class="presets">
+          <div class="preset" onclick="setPreset('7j', this)">7 jours</div>
+          <div class="preset" onclick="setPreset('30j', this)">30 jours</div>
+          <div class="preset" onclick="setPreset('90j', this)">3 mois</div>
+          <div class="preset" onclick="setPreset('1an', this)">1 an</div>
+          <div class="preset active" onclick="setPreset('tout', this)">
+            Tout
+          </div>
+        </div>
       </div>
+
       <div class="scrollable">
+        <!-- Tag période active -->
+        <div class="period-tag" id="period-tag">
+          <i class="ti ti-calendar-stats" aria-hidden="true"></i>
+          <div>
+            <div class="period-tag-text" id="period-tag-text">
+              Période : 30 jan. 2024 → 14 juin 2026
+            </div>
+            <div class="period-tag-sub" id="period-tag-sub">
+              868 jours · Toute la période
+            </div>
+          </div>
+        </div>
+
         <!-- KPIs -->
         <div class="kpi-strip">
           <div class="kpi gold">
-            <div class="kpi-label">Production totale</div>
-            <div class="kpi-val gold">721 582</div>
+            <div class="kpi-label">Production</div>
+            <div class="kpi-val gold" id="kpi-prod">721 582</div>
             <div class="kpi-sub">
-              Tonnes
-              <span class="trend up"
+              T
+              <span class="trend up" id="trend-prod"
                 ><i
                   class="ti ti-arrow-up"
                   style="font-size: 9px"
@@ -1135,7 +1200,7 @@
           </div>
           <div class="kpi green">
             <div class="kpi-label">CA — BLs</div>
-            <div class="kpi-val green">115 975</div>
+            <div class="kpi-val green" id="kpi-bl">115 975</div>
             <div class="kpi-sub">
               DH
               <span class="trend up"
@@ -1150,7 +1215,7 @@
           </div>
           <div class="kpi blue">
             <div class="kpi-label">Factures TTC</div>
-            <div class="kpi-val blue">20 424</div>
+            <div class="kpi-val blue" id="kpi-fact">20 424</div>
             <div class="kpi-sub">
               DH
               <span class="trend down"
@@ -1165,9 +1230,9 @@
           </div>
           <div class="kpi red">
             <div class="kpi-label">Consomm. MP</div>
-            <div class="kpi-val red">707 801</div>
+            <div class="kpi-val red" id="kpi-mp">707 801</div>
             <div class="kpi-sub">
-              Tonnes
+              T
               <span class="trend up"
                 ><i
                   class="ti ti-arrow-up"
@@ -1180,10 +1245,12 @@
           </div>
         </div>
 
-        <!-- Production par produit — barres -->
+        <!-- Barres production -->
         <div class="chart-card">
           <div class="chart-title">Production par produit</div>
-          <div class="chart-sub">Total: 721 582 T · Jan 2024 – Juin 2026</div>
+          <div class="chart-sub" id="chart-sub-prod">
+            721 582 T · 30 jan. 2024 – 14 juin 2026
+          </div>
           <div class="hbar-row">
             <div class="hbar-label">T31-33</div>
             <div class="hbar-track">
@@ -1237,173 +1304,98 @@
           </div>
         </div>
 
-        <!-- Répartition produits béton -->
-        <div class="chart-card">
-          <div class="chart-title">Répartition produits béton</div>
-          <div class="chart-sub">Produits pour béton — 721 582 T</div>
-          <div class="donut-row">
+        <!-- Donuts côte à côte -->
+        <div class="kpi-strip">
+          <div class="chart-card" style="margin-bottom: 0">
+            <div class="chart-title">Béton</div>
+            <div class="chart-sub">Répartition T</div>
             <svg
-              viewBox="0 0 100 100"
-              width="100"
-              height="100"
-              style="flex-shrink: 0"
+              viewBox="0 0 80 80"
+              width="80"
+              height="80"
+              style="display: block; margin: 6px auto 8px"
               aria-hidden="true"
             >
               <circle
-                cx="50"
-                cy="50"
-                r="38"
+                cx="40"
+                cy="40"
+                r="30"
                 fill="none"
                 stroke="#E8A020"
-                stroke-width="16"
-                stroke-dasharray="238.8"
-                stroke-dashoffset="0"
+                stroke-width="13"
+                stroke-dasharray="56.2 132.3"
               />
               <circle
-                cx="50"
-                cy="50"
-                r="38"
+                cx="40"
+                cy="40"
+                r="30"
                 fill="none"
                 stroke="#BA7517"
-                stroke-width="16"
-                stroke-dasharray="56.3 182.5"
-                stroke-dashoffset="-238.8"
+                stroke-width="13"
+                stroke-dasharray="28.7 159.8"
+                stroke-dashoffset="-56.2"
               />
               <circle
-                cx="50"
-                cy="50"
-                r="38"
+                cx="40"
+                cy="40"
+                r="30"
                 fill="none"
                 stroke="#3a3a3a"
-                stroke-width="16"
-                stroke-dasharray="28.7 210.1"
-                stroke-dashoffset="-182.5"
+                stroke-width="13"
+                stroke-dasharray="17.2 171.3"
+                stroke-dashoffset="-84.9"
               />
               <circle
-                cx="50"
-                cy="50"
-                r="38"
+                cx="40"
+                cy="40"
+                r="30"
                 fill="none"
                 stroke="#C0392B"
-                stroke-width="16"
-                stroke-dasharray="28.7 210.1"
-                stroke-dashoffset="-153.8"
+                stroke-width="13"
+                stroke-dasharray="12.7 175.8"
+                stroke-dashoffset="-102.1"
               />
               <circle
-                cx="50"
-                cy="50"
-                r="38"
+                cx="40"
+                cy="40"
+                r="30"
                 fill="none"
                 stroke="#1a5fa8"
-                stroke-width="16"
-                stroke-dasharray="20 218.8"
-                stroke-dashoffset="-125.1"
-              />
-              <circle
-                cx="50"
-                cy="50"
-                r="38"
-                fill="none"
-                stroke="#2D7A3A"
-                stroke-width="16"
-                stroke-dasharray="18.4 220.4"
-                stroke-dashoffset="-105.1"
+                stroke-width="13"
+                stroke-dasharray="11.6 176.9"
+                stroke-dashoffset="-114.8"
               />
               <text
-                x="50"
-                y="47"
+                x="40"
+                y="44"
                 text-anchor="middle"
                 font-size="9"
                 font-weight="700"
                 fill="#1C1410"
               >
-                721k
-              </text>
-              <text
-                x="50"
-                y="57"
-                text-anchor="middle"
-                font-size="7"
-                fill="#9A8A6C"
-              >
-                Tonnes
+                721k T
               </text>
             </svg>
-            <div style="flex: 1">
-              <div class="legend-item" style="margin-bottom: 5px">
-                <div class="legend-dot" style="background: #e8a020"></div>
-                T31-T33: 23.54%
-              </div>
-              <div class="legend-item" style="margin-bottom: 5px">
-                <div class="legend-dot" style="background: #ba7517"></div>
-                T30: 10.07%
-              </div>
-              <div class="legend-item" style="margin-bottom: 5px">
-                <div class="legend-dot" style="background: #3a3a3a"></div>
-                T22: 12.03%
-              </div>
-              <div class="legend-item" style="margin-bottom: 5px">
-                <div class="legend-dot" style="background: #c0392b"></div>
-                T26: 7.20%
-              </div>
-              <div class="legend-item" style="margin-bottom: 5px">
-                <div class="legend-dot" style="background: #1a5fa8"></div>
-                T16: 5.29%
-              </div>
-              <div class="legend-item">
-                <div class="legend-dot" style="background: #2d7a3a"></div>
-                T29: 4.85%
-              </div>
+            <div class="legend-item" style="margin-bottom: 3px">
+              <div class="legend-dot" style="background: #e8a020"></div>
+              T31-33: 23.5%
+            </div>
+            <div class="legend-item" style="margin-bottom: 3px">
+              <div class="legend-dot" style="background: #ba7517"></div>
+              T22: 12%
+            </div>
+            <div class="legend-item" style="margin-bottom: 3px">
+              <div class="legend-dot" style="background: #3a3a3a"></div>
+              T30: 10%
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: #1a5fa8"></div>
+              T16: 5.3%
             </div>
           </div>
-        </div>
-
-        <!-- Production journalière — sparkline SVG -->
-        <div class="chart-card">
-          <div class="chart-title">Évolution production journalière</div>
-          <div class="chart-sub">Tonnes/jour · Béton + Routier</div>
-          <svg
-            viewBox="0 0 320 60"
-            width="100%"
-            height="60"
-            aria-hidden="true"
-            style="margin-top: 4px"
-          >
-            <polyline
-              points="0,55 20,52 30,10 40,48 55,45 70,44 85,46 100,43 115,42 130,44 145,41 160,45 175,43 190,46 205,42 220,44 235,40 250,43 265,41 280,44 295,42 310,44 320,43"
-              fill="none"
-              stroke="#E8A020"
-              stroke-width="2"
-              stroke-linejoin="round"
-            />
-            <circle cx="30" cy="10" r="3.5" fill="#E8A020" />
-            <text
-              x="30"
-              y="7"
-              text-anchor="middle"
-              font-size="7"
-              fill="#7A4F00"
-            >
-              Pic
-            </text>
-            <line
-              x1="0"
-              y1="55"
-              x2="320"
-              y2="55"
-              stroke="#DDD5C5"
-              stroke-width="0.5"
-            />
-            <text x="2" y="59" font-size="7" fill="#9A8A6C">Mai 25</text>
-            <text x="290" y="59" font-size="7" fill="#9A8A6C">Juin 26</text>
-          </svg>
-        </div>
-
-        <!-- État factures + BLs -->
-        <div class="kpi-strip">
           <div class="chart-card" style="margin-bottom: 0">
-            <div class="chart-title">État factures</div>
-            <div class="chart-sub">Total: 20 424 DH</div>
+            <div class="chart-title">Factures</div>
+            <div class="chart-sub">État règlement</div>
             <svg
               viewBox="0 0 80 80"
               width="80"
@@ -1418,7 +1410,7 @@
                 fill="none"
                 stroke="#2D7A3A"
                 stroke-width="13"
-                stroke-dasharray="144 44.2"
+                stroke-dasharray="144 44.5"
               />
               <circle
                 cx="40"
@@ -1427,7 +1419,7 @@
                 fill="none"
                 stroke="#1a5fa8"
                 stroke-width="13"
-                stroke-dasharray="39.6 148.6"
+                stroke-dasharray="39.6 148.9"
                 stroke-dashoffset="-144"
               />
               <circle
@@ -1437,114 +1429,8 @@
                 fill="none"
                 stroke="#E8A020"
                 stroke-width="13"
-                stroke-dasharray="5 183.5"
+                stroke-dasharray="4.9 183.6"
                 stroke-dashoffset="-183.6"
-              />
-              <text
-                x="40"
-                y="44"
-                text-anchor="middle"
-                font-size="8"
-                font-weight="700"
-                fill="#1C1410"
-              >
-                20k
-              </text>
-            </svg>
-            <div class="legend-item" style="margin-bottom: 3px">
-              <div class="legend-dot" style="background: #2d7a3a"></div>
-              Partiel 76%
-            </div>
-            <div class="legend-item" style="margin-bottom: 3px">
-              <div class="legend-dot" style="background: #1a5fa8"></div>
-              À régler 21%
-            </div>
-            <div class="legend-item">
-              <div class="legend-dot" style="background: #e8a020"></div>
-              Réglé 3%
-            </div>
-          </div>
-          <div class="chart-card" style="margin-bottom: 0">
-            <div class="chart-title">BLs par produit</div>
-            <div class="chart-sub">Total: 115 975 DH</div>
-            <svg
-              viewBox="0 0 80 80"
-              width="80"
-              height="80"
-              style="display: block; margin: 6px auto 8px"
-              aria-hidden="true"
-            >
-              <circle
-                cx="40"
-                cy="40"
-                r="30"
-                fill="none"
-                stroke="#1a5fa8"
-                stroke-width="13"
-                stroke-dasharray="186.5 1.9"
-              />
-              <circle
-                cx="40"
-                cy="40"
-                r="30"
-                fill="none"
-                stroke="#3a3a3a"
-                stroke-width="13"
-                stroke-dasharray="1.9 186.5"
-                stroke-dashoffset="-186.5"
-              />
-              <text
-                x="40"
-                y="44"
-                text-anchor="middle"
-                font-size="8"
-                font-weight="700"
-                fill="#1C1410"
-              >
-                28 BLs
-              </text>
-            </svg>
-            <div class="legend-item" style="margin-bottom: 3px">
-              <div class="legend-dot" style="background: #1a5fa8"></div>
-              SABLE LAVÉ 99%
-            </div>
-            <div class="legend-item">
-              <div class="legend-dot" style="background: #3a3a3a"></div>
-              test 5006 1%
-            </div>
-          </div>
-        </div>
-
-        <!-- Consommation équipements -->
-        <div class="chart-card" style="margin-top: 10px">
-          <div class="chart-title">Consommation équipements</div>
-          <div class="chart-sub">Total: 283 T</div>
-          <div class="donut-row">
-            <svg
-              viewBox="0 0 80 80"
-              width="80"
-              height="80"
-              style="flex-shrink: 0"
-              aria-hidden="true"
-            >
-              <circle
-                cx="40"
-                cy="40"
-                r="30"
-                fill="none"
-                stroke="#1a5fa8"
-                stroke-width="13"
-                stroke-dasharray="128.1 59.7"
-              />
-              <circle
-                cx="40"
-                cy="40"
-                r="30"
-                fill="none"
-                stroke="#3a3a3a"
-                stroke-width="13"
-                stroke-dasharray="60.4 128.4"
-                stroke-dashoffset="-128.1"
               />
               <text
                 x="40"
@@ -1554,23 +1440,72 @@
                 font-weight="700"
                 fill="#1C1410"
               >
-                283 T
+                20k DH
               </text>
             </svg>
-            <div style="flex: 1">
-              <div class="legend-item" style="margin-bottom: 6px">
-                <div class="legend-dot" style="background: #1a5fa8"></div>
-                HP3: 67.84% — 192 T
-              </div>
-              <div class="legend-item">
-                <div class="legend-dot" style="background: #3a3a3a"></div>
-                HP300: 32.16% — 91 T
-              </div>
+            <div class="legend-item" style="margin-bottom: 3px">
+              <div class="legend-dot" style="background: #2d7a3a"></div>
+              Partiel: 76%
+            </div>
+            <div class="legend-item" style="margin-bottom: 3px">
+              <div class="legend-dot" style="background: #1a5fa8"></div>
+              À régler: 21%
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: #e8a020"></div>
+              Réglé: 3%
             </div>
           </div>
         </div>
 
-        <!-- Activité récente -->
+        <!-- Sparkline -->
+        <div class="chart-card" style="margin-top: 10px">
+          <div class="chart-title">Évolution journalière</div>
+          <div class="chart-sub" id="spark-sub">
+            Production Tonnes/jour · Période sélectionnée
+          </div>
+          <svg
+            viewBox="0 0 320 56"
+            width="100%"
+            height="56"
+            aria-hidden="true"
+            style="margin-top: 4px"
+          >
+            <polyline
+              points="0,52 20,50 30,8 40,46 55,43 70,42 85,44 100,41 115,40 130,42 145,39 160,43 175,41 190,44 205,40 220,42 235,38 250,41 265,39 280,42 295,40 310,42 320,41"
+              fill="none"
+              stroke="#E8A020"
+              stroke-width="2"
+              stroke-linejoin="round"
+            />
+            <circle cx="30" cy="8" r="3.5" fill="#E8A020" />
+            <text
+              x="30"
+              y="6"
+              text-anchor="middle"
+              font-size="7"
+              fill="#7A4F00"
+            >
+              Pic
+            </text>
+            <line
+              x1="0"
+              y1="52"
+              x2="320"
+              y2="52"
+              stroke="#DDD5C5"
+              stroke-width="0.5"
+            />
+            <text x="2" y="56" font-size="7" fill="#9A8A6C" id="spark-start">
+              Jan 2024
+            </text>
+            <text x="290" y="56" font-size="7" fill="#9A8A6C" id="spark-end">
+              Juin 2026
+            </text>
+          </svg>
+        </div>
+
+        <!-- Activité -->
         <div class="section-head">
           <div class="section-title">Activité récente</div>
           <div class="see-all" onclick="showPage('p-admin', 'nav-admin')">
@@ -1590,9 +1525,7 @@
             <div class="feed-dot"></div>
             <div>
               <div class="feed-time">15.06.2026 · 17:56</div>
-              <div class="feed-text">
-                admin@jway.ma — Finance / Liste des factures
-              </div>
+              <div class="feed-text">admin@jway.ma — Finance / Factures</div>
             </div>
           </div>
           <div class="feed-item">
@@ -1645,7 +1578,7 @@
             </div>
           </div>
         </div>
-        <div class="page-sub">Gestion des shifts par période</div>
+        <div class="page-sub">Shifts par période</div>
       </div>
       <div class="scrollable">
         <div class="date-input-row">
@@ -1661,7 +1594,7 @@
         <div class="calc-btn">CALCULER</div>
         <div class="total-banner">
           <div>
-            <div class="tb-label">Résultat période</div>
+            <div class="tb-label">Résultat</div>
             <div class="tb-val">— <span class="tb-unit">Aucun</span></div>
           </div>
           <i
@@ -1685,7 +1618,7 @@
               ><span class="shift-val">Z1</span>
             </div>
             <div class="shift-row">
-              <span class="shift-key">Type production</span
+              <span class="shift-key">Type</span
               ><span class="shift-val">BÉTON</span>
             </div>
             <div class="shift-row">
@@ -1697,7 +1630,7 @@
               ><span class="shift-val">14:16</span>
             </div>
             <div class="shift-row">
-              <span class="shift-key">Total production</span
+              <span class="shift-key">Total</span
               ><span class="shift-val" style="color: var(--gold-dark)"
                 >4 893 T</span
               >
@@ -1724,7 +1657,7 @@
               ><span class="shift-val">Z1</span>
             </div>
             <div class="shift-row">
-              <span class="shift-key">Type production</span
+              <span class="shift-key">Type</span
               ><span class="shift-val">BÉTON</span>
             </div>
             <div class="shift-row">
@@ -1951,13 +1884,6 @@
             </div>
             <div class="hbar-val">65k T</div>
           </div>
-          <div class="hbar-row">
-            <div class="hbar-label">T17</div>
-            <div class="hbar-track">
-              <div class="hbar-fill" style="width: 31%"></div>
-            </div>
-            <div class="hbar-val">52k T</div>
-          </div>
         </div>
         <div class="section-head">
           <div class="section-title">Matières premières</div>
@@ -1994,68 +1920,11 @@
             <div class="mp-key">Qté utilisée</div>
             <div class="mp-val" style="color: var(--gold-dark)">4 559 T</div>
           </div>
-          <div class="mp-row">
-            <div class="mp-key">Qté utilisée</div>
-            <div class="mp-val" style="color: var(--gold-dark)">4 201 T</div>
-          </div>
-        </div>
-        <div class="chart-card">
-          <div class="chart-title">Consommation équipements</div>
-          <div class="chart-sub">Total: 283 T</div>
-          <div class="donut-row">
-            <svg
-              viewBox="0 0 80 80"
-              width="80"
-              height="80"
-              style="flex-shrink: 0"
-              aria-hidden="true"
-            >
-              <circle
-                cx="40"
-                cy="40"
-                r="30"
-                fill="none"
-                stroke="#1a5fa8"
-                stroke-width="13"
-                stroke-dasharray="128.1 60.4"
-              />
-              <circle
-                cx="40"
-                cy="40"
-                r="30"
-                fill="none"
-                stroke="#3a3a3a"
-                stroke-width="13"
-                stroke-dasharray="60.4 128.1"
-                stroke-dashoffset="-128.1"
-              />
-              <text
-                x="40"
-                y="44"
-                text-anchor="middle"
-                font-size="9"
-                font-weight="700"
-                fill="#1C1410"
-              >
-                283 T
-              </text>
-            </svg>
-            <div style="flex: 1">
-              <div class="legend-item" style="margin-bottom: 6px">
-                <div class="legend-dot" style="background: #1a5fa8"></div>
-                HP3: 67.84% — 192 T
-              </div>
-              <div class="legend-item">
-                <div class="legend-dot" style="background: #3a3a3a"></div>
-                HP300: 32.16% — 91 T
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
 
-    <!-- GESTION COMMERCIALE -->
+    <!-- G.C. -->
     <div class="page" id="p-gc">
       <div class="statusbar">
         <span class="time">9:41</span>
@@ -2151,13 +2020,9 @@
                 <div class="legend-dot" style="background: #1a5fa8"></div>
                 SABLE LAVÉ[SL]: 98.97%
               </div>
-              <div class="legend-item" style="margin-bottom: 5px">
+              <div class="legend-item">
                 <div class="legend-dot" style="background: #3a3a3a"></div>
                 test 5006: 1.03%
-              </div>
-              <div class="legend-item">
-                <div class="legend-dot" style="background: #2d7a3a"></div>
-                SABLE 80%+G 20%: 0%
               </div>
             </div>
           </div>
@@ -2203,16 +2068,14 @@
             </div>
           </div>
         </div>
-        <div class="section-head" style="margin-top: 6px">
-          <div class="section-title">Caisses</div>
-        </div>
+        <div class="section-head"><div class="section-title">Caisses</div></div>
         <div class="caisse-card">
           <div>
             <div style="font-size: 13px; font-weight: 700; color: var(--text)">
               Caisse Carrière
             </div>
-            <div style="font-size: 11px; color: var(--text3); margin-top: 1px">
-              Site : Carriere · admin@jway.ma
+            <div style="font-size: 11px; color: var(--text3)">
+              admin@jway.ma
             </div>
           </div>
           <div class="caisse-btns">
@@ -2229,8 +2092,8 @@
             <div style="font-size: 13px; font-weight: 700; color: var(--text)">
               Caisse principale
             </div>
-            <div style="font-size: 11px; color: var(--text3); margin-top: 1px">
-              Site : Carriere · admin@jway.ma
+            <div style="font-size: 11px; color: var(--text3)">
+              admin@jway.ma
             </div>
           </div>
           <div class="caisse-btns">
@@ -2247,8 +2110,8 @@
             <div style="font-size: 13px; font-weight: 700; color: var(--text)">
               Caisse 2
             </div>
-            <div style="font-size: 11px; color: var(--text3); margin-top: 1px">
-              Site : Carriere · admin@jway.ma
+            <div style="font-size: 11px; color: var(--text3)">
+              admin@jway.ma
             </div>
           </div>
           <div class="caisse-btns">
@@ -2386,47 +2249,17 @@
             <div style="flex: 1">
               <div class="legend-item" style="margin-bottom: 5px">
                 <div class="legend-dot" style="background: #2d7a3a"></div>
-                Réglé partiel. 76.38%
+                Réglé partiel. 76%
               </div>
               <div class="legend-item" style="margin-bottom: 5px">
                 <div class="legend-dot" style="background: #1a5fa8"></div>
-                À régler: 20.98%
+                À régler: 21%
               </div>
               <div class="legend-item">
                 <div class="legend-dot" style="background: #e8a020"></div>
-                Réglé: 2.64%
+                Réglé: 3%
               </div>
             </div>
-          </div>
-        </div>
-        <div class="chart-card">
-          <div class="chart-title">Factures par client</div>
-          <div class="hbar-row">
-            <div class="hbar-label" style="font-size: 9px">JWAY SVC</div>
-            <div class="hbar-track">
-              <div class="hbar-fill" style="width: 100%"></div>
-            </div>
-            <div class="hbar-val">16k DH</div>
-          </div>
-          <div class="hbar-row">
-            <div class="hbar-label" style="font-size: 9px">JC56107</div>
-            <div class="hbar-track">
-              <div
-                class="hbar-fill"
-                style="width: 20%; background: var(--amber)"
-              ></div>
-            </div>
-            <div class="hbar-val">3k DH</div>
-          </div>
-          <div class="hbar-row">
-            <div class="hbar-label" style="font-size: 9px">JC56109</div>
-            <div class="hbar-track">
-              <div
-                class="hbar-fill"
-                style="width: 8%; background: var(--gray)"
-              ></div>
-            </div>
-            <div class="hbar-val">1k DH</div>
           </div>
         </div>
         <div class="section-head">
@@ -2443,16 +2276,8 @@
               ><span class="fact-val">26/02/2026</span>
             </div>
             <div class="fact-row">
-              <span class="fact-key">Échéance</span
-              ><span class="fact-val">29/05/2026</span>
-            </div>
-            <div class="fact-row">
               <span class="fact-key">Client</span
               ><span class="fact-val">STE JWAY SERVICES</span>
-            </div>
-            <div class="fact-row">
-              <span class="fact-key">Total HT</span
-              ><span class="fact-val">13 000 DH</span>
             </div>
             <div class="fact-row">
               <span class="fact-key">Total TTC</span
@@ -2479,10 +2304,6 @@
               ><span class="fact-val">29/02/2024</span>
             </div>
             <div class="fact-row">
-              <span class="fact-key">Échéance</span
-              ><span class="fact-val">30/03/2024</span>
-            </div>
-            <div class="fact-row">
               <span class="fact-key">Client</span
               ><span class="fact-val">JC569107-saida</span>
             </div>
@@ -2503,7 +2324,7 @@
       </div>
     </div>
 
-    <!-- ADMINISTRATION -->
+    <!-- ADMIN -->
     <div class="page" id="p-admin">
       <div class="statusbar">
         <span class="time">9:41</span>
@@ -2656,9 +2477,7 @@
             <div style="flex: 1">
               <div class="hist-time">15.06.2026 · 17:56:36</div>
               <div class="hist-user">admin@jway.ma</div>
-              <div class="hist-action">
-                Consultation · Finance / Liste des factures
-              </div>
+              <div class="hist-action">Finance / Liste des factures</div>
             </div>
             <div class="hist-del" aria-label="Supprimer">
               <i
@@ -2673,22 +2492,7 @@
             <div style="flex: 1">
               <div class="hist-time">15.06.2026 · 17:53:38</div>
               <div class="hist-user">admin@jway.ma</div>
-              <div class="hist-action">Consultation · Gestion commerciale</div>
-            </div>
-            <div class="hist-del" aria-label="Supprimer">
-              <i
-                class="ti ti-trash"
-                style="font-size: 12px; color: var(--red)"
-                aria-hidden="true"
-              ></i>
-            </div>
-          </div>
-          <div class="hist-item">
-            <div class="hist-dot"></div>
-            <div style="flex: 1">
-              <div class="hist-time">15.06.2026 · 17:53:33</div>
-              <div class="hist-user">admin@jway.ma</div>
-              <div class="hist-action">Consultation · Gestion commerciale</div>
+              <div class="hist-action">Gestion commerciale</div>
             </div>
             <div class="hist-del" aria-label="Supprimer">
               <i
@@ -2703,7 +2507,7 @@
             <div style="flex: 1">
               <div class="hist-time">15.06.2026 · 17:51:29</div>
               <div class="hist-user">admin@jway.ma</div>
-              <div class="hist-action">Consultation · Page accueil</div>
+              <div class="hist-action">Page accueil</div>
             </div>
             <div class="hist-del" aria-label="Supprimer">
               <i
@@ -2753,7 +2557,7 @@
         class="nav-item"
         id="nav-gc"
         onclick="showPage('p-gc', 'nav-gc')"
-        aria-label="Gestion commerciale"
+        aria-label="G.C."
       >
         <i class="ti ti-file-invoice" aria-hidden="true"></i><span>G.C.</span>
       </div>
@@ -2769,7 +2573,7 @@
         class="nav-item"
         id="nav-admin"
         onclick="showPage('p-admin', 'nav-admin')"
-        aria-label="Administration"
+        aria-label="Admin"
       >
         <i class="ti ti-settings" aria-hidden="true"></i><span>Admin</span>
       </div>
@@ -2782,6 +2586,89 @@
   href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css"
 />
 <script>
+  const PERIODS = {
+    "7j": {
+      du: "2026-06-07",
+      au: "2026-06-14",
+      label: "07 juin 2026 → 14 juin 2026",
+      sub: "7 jours",
+      prod: "12 450",
+      bl: "8 200",
+      fact: "3 100",
+      mp: "11 900",
+    },
+    "30j": {
+      du: "2026-05-15",
+      au: "2026-06-14",
+      label: "15 mai 2026 → 14 juin 2026",
+      sub: "30 jours",
+      prod: "48 300",
+      bl: "32 500",
+      fact: "9 800",
+      mp: "46 100",
+    },
+    "90j": {
+      du: "2026-03-16",
+      au: "2026-06-14",
+      label: "16 mars 2026 → 14 juin 2026",
+      sub: "90 jours",
+      prod: "142 000",
+      bl: "89 700",
+      fact: "14 200",
+      mp: "138 500",
+    },
+    "1an": {
+      du: "2025-06-14",
+      au: "2026-06-14",
+      label: "14 juin 2025 → 14 juin 2026",
+      sub: "365 jours",
+      prod: "380 000",
+      bl: "68 000",
+      fact: "18 000",
+      mp: "362 000",
+    },
+    tout: {
+      du: "2024-01-30",
+      au: "2026-06-14",
+      label: "30 jan. 2024 → 14 juin 2026",
+      sub: "868 jours · Toute la période",
+      prod: "721 582",
+      bl: "115 975",
+      fact: "20 424",
+      mp: "707 801",
+    },
+  };
+
+  let currentPreset = "tout";
+
+  function setPreset(key, el) {
+    document
+      .querySelectorAll(".preset")
+      .forEach((p) => p.classList.remove("active"));
+    el.classList.add("active");
+    currentPreset = key;
+    const d = PERIODS[key];
+    document.getElementById("home-du").textContent = d.du;
+    document.getElementById("home-au").textContent = d.au;
+  }
+
+  function refreshDashboard() {
+    const d = PERIODS[currentPreset];
+    document.getElementById("period-tag-text").textContent =
+      "Période : " + d.label;
+    document.getElementById("period-tag-sub").textContent = d.sub;
+    document.getElementById("kpi-prod").textContent = d.prod;
+    document.getElementById("kpi-bl").textContent = d.bl;
+    document.getElementById("kpi-fact").textContent = d.fact;
+    document.getElementById("kpi-mp").textContent = d.mp;
+    document.getElementById("chart-sub-prod").textContent =
+      d.prod + " T · " + d.label;
+    document.getElementById("spark-sub").textContent =
+      "Production T/jour · " + d.sub;
+    document.getElementById("spark-start").textContent = d.du;
+    document.getElementById("spark-end").textContent = d.au;
+  }
+
   function showPage(pid, nid) {
     document
       .querySelectorAll(".page")
@@ -2799,6 +2686,7 @@
       if (n) n.classList.add("active");
     }
   }
+
   function switchAdminPill(tab) {
     document
       .querySelectorAll('[id^="apill-"]')
