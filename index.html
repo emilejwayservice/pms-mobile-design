@@ -148,78 +148,34 @@
     border: 1.5px solid var(--gold);
   }
 
-  /* ── Onglets niveau 1 : grandes tabs avec icône ── */
-  .prod-tabs {
+  /* Pill tabs */
+  .pill-tabs {
     background: var(--surface);
+    padding: 12px 16px;
     border-bottom: 0.5px solid var(--border);
     display: flex;
+    gap: 8px;
     flex-shrink: 0;
   }
-  .prod-tab {
+  .pill-tab {
     flex: 1;
-    padding: 12px 6px 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all 0.15s;
-  }
-  .prod-tab.active {
-    border-bottom-color: var(--gold);
-  }
-  .prod-tab .pt-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: var(--surface2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.15s;
-  }
-  .prod-tab.active .pt-icon {
-    background: var(--gold);
-  }
-  .prod-tab .pt-icon i {
-    font-size: 18px;
-    color: var(--text3);
-  }
-  .prod-tab.active .pt-icon i {
-    color: #fff;
-  }
-  .prod-tab .pt-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text3);
-  }
-  .prod-tab.active .pt-label {
-    color: var(--gold-dark);
-  }
-
-  /* ── Onglets niveau 2 : sous-onglets texte (dans Liste des productions) ── */
-  .inner-tabs {
-    background: var(--gold);
-    display: flex;
-    border-top: 0.5px solid rgba(255, 255, 255, 0.2);
-    flex-shrink: 0;
-  }
-  .inner-tab {
-    flex: 1;
-    padding: 9px 4px;
-    font-size: 10px;
+    padding: 9px 10px;
+    border-radius: 24px;
+    font-size: 12px;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.6);
     text-align: center;
     cursor: pointer;
-    border-bottom: 2.5px solid transparent;
     transition: all 0.15s;
-    letter-spacing: 0.3px;
   }
-  .inner-tab.active {
+  .pill-tab.active {
+    background: var(--gold);
     color: #fff;
-    border-bottom-color: #fff;
+    border: 1.5px solid var(--gold);
+  }
+  .pill-tab:not(.active) {
+    background: var(--surface);
+    color: var(--text3);
+    border: 1.5px solid var(--border);
   }
 
   .tab-panel {
@@ -228,12 +184,383 @@
   .tab-panel.active {
     display: block;
   }
-  .scrollable {
-    flex: 1;
-    overflow-y: auto;
-    padding: 14px 14px 0;
+
+  /* Inputs */
+  .filter-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .date-box {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+  }
+  .date-box .dl {
+    font-size: 10px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .date-box .dv {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .calc-btn {
+    background: var(--gold);
+    border-radius: var(--radius-sm);
+    padding: 11px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    margin-bottom: 14px;
+    letter-spacing: 0.4px;
+  }
+  .client-select {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    margin-bottom: 10px;
+  }
+  .cs-label {
+    font-size: 10px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .cs-value {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .cs-value span {
+    color: var(--text3);
+    font-size: 16px;
+    cursor: pointer;
   }
 
+  /* Chart camembert règlements */
+  .reg-chart-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .reg-chart-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .reg-total-line {
+    font-size: 12px;
+    color: var(--text3);
+    margin-bottom: 12px;
+  }
+
+  /* Légende types de règlement */
+  .reg-legend {
+    background: var(--gold-mid);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    margin-bottom: 12px;
+  }
+  .reg-legend-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold-dark);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .reg-legend-items {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .reg-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gold-dark);
+  }
+  .reg-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Carte règlement */
+  .reg-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .reg-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 14px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .reg-row:last-child {
+    border-bottom: none;
+  }
+  .reg-key {
+    font-size: 11px;
+    color: var(--amber);
+    font-weight: 500;
+  }
+  .reg-val {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .reg-val.ref {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--text2);
+  }
+  .reg-num-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .reg-num-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .etat-badge-reg {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .etat-badge-reg.encaisse {
+    background: var(--green);
+    color: #fff;
+  }
+  .etat-badge-reg.attente {
+    background: var(--amber);
+    color: #fff;
+  }
+  .etat-badge-reg.rejete {
+    background: var(--red);
+    color: #fff;
+  }
+  .reg-note-row {
+    padding: 8px 14px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .reg-note-key {
+    font-size: 11px;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .reg-note-val {
+    font-size: 12px;
+    color: var(--text3);
+  }
+
+  /* Factures panel */
+  .fact-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .fact-date-head {
+    background: var(--gold-mid);
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold-dark);
+  }
+  .fact-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 14px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .fact-row:last-child {
+    border-bottom: none;
+  }
+  .fact-key {
+    font-size: 11px;
+    color: var(--amber);
+  }
+  .fact-val {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .etat-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .etat-badge.aregler {
+    background: var(--gold);
+    color: #fff;
+  }
+  .etat-badge.partiel {
+    background: #1a9fd8;
+    color: #fff;
+  }
+  .progress-wrap {
+    padding: 6px 14px 10px;
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--surface3);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--gold);
+  }
+  .progress-label {
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 3px;
+  }
+
+  .c-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+  }
+  .c-title.red {
+    color: var(--red);
+  }
+  .c-title.blue {
+    color: var(--blue);
+  }
+  .c-title.amber {
+    color: var(--amber);
+  }
+  .total-line {
+    font-size: 12px;
+    color: var(--text3);
+    margin-bottom: 10px;
+  }
+  .legend-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-top: 10px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    color: var(--text2);
+  }
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .bar-chart {
+    margin-top: 8px;
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .bar-label {
+    font-size: 10px;
+    color: var(--text2);
+    width: 50px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    height: 14px;
+    background: var(--surface3);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .bar-fill-h {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--gold);
+  }
+  .bar-val {
+    font-size: 10px;
+    color: var(--text3);
+    width: 50px;
+    flex-shrink: 0;
+  }
+  .chart-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .zone-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    margin-bottom: 10px;
+  }
+  .zone-label {
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .zone-val {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Accueil */
   .stat-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -292,7 +619,6 @@
     color: var(--text3);
     margin-top: 2px;
   }
-
   .section-head {
     display: flex;
     align-items: center;
@@ -306,67 +632,101 @@
     text-transform: uppercase;
     letter-spacing: 0.7px;
   }
-
-  .filter-row {
+  .menu-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 10px;
   }
-  .date-box {
+  .menu-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 9px 12px;
-  }
-  .date-box .dl {
-    font-size: 10px;
-    color: var(--text3);
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    font-weight: 500;
-    margin-bottom: 3px;
-  }
-  .date-box .dv {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .calc-btn {
-    background: var(--gold);
-    border-radius: var(--radius-sm);
-    padding: 11px;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: #fff;
+    border-radius: var(--radius);
+    padding: 18px 14px;
     cursor: pointer;
-    margin-bottom: 14px;
-    letter-spacing: 0.4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
-  .zone-row {
+  .menu-card:active {
+    background: var(--surface2);
+  }
+  .menu-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--gold);
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background: var(--surface);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px 12px;
-    margin-bottom: 10px;
+    justify-content: center;
   }
-  .zone-label {
-    font-size: 12px;
-    color: var(--text2);
+  .menu-icon i {
+    font-size: 24px;
+    color: #fff;
   }
-  .zone-val {
-    font-size: 12px;
+  .menu-icon.dark {
+    background: #3a3a3a;
+  }
+  .menu-icon.red {
+    background: #c0392b;
+  }
+  .menu-label {
+    font-size: 13px;
     font-weight: 600;
     color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    text-align: center;
   }
 
+  /* Nav */
+  .bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 76px;
+    background: var(--surface);
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 4px 10px;
+    z-index: 100;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    min-width: 40px;
+  }
+  .nav-item i {
+    font-size: 20px;
+    color: var(--text3);
+  }
+  .nav-item.active i {
+    color: var(--gold-dark);
+  }
+  .nav-item span {
+    font-size: 9px;
+    color: var(--text3);
+    font-weight: 600;
+  }
+  .nav-item.active span {
+    color: var(--gold-dark);
+  }
+  .nav-item.active {
+    background: var(--gold-light);
+  }
+  .scrollable {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 14px 0;
+  }
   .total-banner {
     background: var(--gold);
     border-radius: var(--radius-sm);
@@ -392,7 +752,52 @@
     font-size: 13px;
     color: rgba(255, 255, 255, 0.8);
   }
-
+  .bl-total-banner {
+    background: var(--red);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .bl-total-side {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .add-btn {
+    background: var(--gold);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+  }
+  .inner-tabs {
+    background: var(--gold);
+    display: flex;
+    border-top: 0.5px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+  }
+  .inner-tab {
+    flex: 1;
+    padding: 9px 4px;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 2.5px solid transparent;
+    transition: all 0.15s;
+    letter-spacing: 0.3px;
+  }
+  .inner-tab.active {
+    color: #fff;
+    border-bottom-color: #fff;
+  }
   .total-red {
     font-size: 14px;
     font-weight: 700;
@@ -400,7 +805,6 @@
     text-align: center;
     padding: 10px 0 14px;
   }
-
   .mp-block {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -464,81 +868,6 @@
     font-weight: 700;
     color: var(--gold-dark);
   }
-
-  .chart-card {
-    background: var(--surface);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px;
-    margin-bottom: 10px;
-  }
-  .s-title {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--red);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
-  }
-  .total-line {
-    font-size: 12px;
-    color: var(--text3);
-    margin-bottom: 10px;
-  }
-  .legend-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    margin-top: 10px;
-  }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 10px;
-    color: var(--text2);
-  }
-  .legend-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .bar-chart {
-    margin-top: 8px;
-  }
-  .bar-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
-  }
-  .bar-label {
-    font-size: 10px;
-    color: var(--text2);
-    width: 44px;
-    text-align: right;
-    flex-shrink: 0;
-  }
-  .bar-track {
-    flex: 1;
-    height: 14px;
-    background: var(--surface3);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .bar-fill-h {
-    height: 100%;
-    border-radius: 3px;
-    background: var(--gold);
-  }
-  .bar-val {
-    font-size: 10px;
-    color: var(--text3);
-    width: 50px;
-    flex-shrink: 0;
-  }
-
   .shift-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -572,7 +901,6 @@
     font-weight: 600;
     color: var(--text);
   }
-
   .day-block {
     margin-bottom: 14px;
   }
@@ -583,11 +911,7 @@
     display: flex;
     justify-content: space-between;
   }
-  .day-date {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--gold-dark);
-  }
+  .day-date,
   .day-vol {
     font-size: 13px;
     font-weight: 700;
@@ -633,159 +957,6 @@
   .truck-val.vol {
     color: var(--gold-dark);
   }
-
-  .bl-item {
-    background: var(--surface);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 7px;
-    overflow: hidden;
-  }
-  .bl-header {
-    background: var(--surface2);
-    padding: 8px 12px;
-    border-bottom: 0.5px solid var(--border);
-  }
-  .bl-date {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--gold-dark);
-  }
-  .bl-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 12px;
-    border-bottom: 0.5px solid var(--border);
-  }
-  .bl-row:last-child {
-    border-bottom: none;
-  }
-  .bl-key {
-    font-size: 11px;
-    color: var(--amber);
-  }
-  .bl-val {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .caisse-card {
-    background: var(--surface);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px;
-    margin-bottom: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .caisse-name {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-  }
-  .caisse-sub {
-    font-size: 11px;
-    color: var(--text3);
-    margin-top: 1px;
-  }
-  .caisse-btns {
-    display: flex;
-    gap: 6px;
-  }
-  .caisse-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  .caisse-btn.list {
-    background: var(--gold-light);
-    border: 0.5px solid #e8c070;
-  }
-  .caisse-btn.list i {
-    font-size: 14px;
-    color: var(--gold-dark);
-  }
-  .caisse-btn.file {
-    background: var(--surface2);
-    border: 0.5px solid var(--border);
-  }
-  .caisse-btn.file i {
-    font-size: 14px;
-    color: var(--text2);
-  }
-
-  .fact-card {
-    background: var(--surface);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 8px;
-    overflow: hidden;
-  }
-  .fact-head {
-    background: var(--surface2);
-    padding: 8px 12px;
-    border-bottom: 0.5px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .fact-num {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text2);
-    font-family: "IBM Plex Mono", monospace;
-  }
-  .fact-state {
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-weight: 700;
-  }
-  .fact-state.aregler {
-    background: #fff3cd;
-    color: #7a4f00;
-  }
-  .fact-state.partiel {
-    background: #e3f2fd;
-    color: #0d47a1;
-  }
-  .fact-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 12px;
-    border-bottom: 0.5px solid var(--border);
-  }
-  .fact-row:last-child {
-    border-bottom: none;
-  }
-  .fact-key {
-    font-size: 11px;
-    color: var(--amber);
-  }
-  .fact-val {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .progress-bar {
-    height: 6px;
-    background: var(--surface3);
-    border-radius: 3px;
-    overflow: hidden;
-    margin: 8px 12px 10px;
-  }
-  .progress-fill {
-    height: 100%;
-    border-radius: 3px;
-    background: var(--gold);
-  }
-
   .user-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -886,130 +1057,94 @@
     flex-shrink: 0;
     cursor: pointer;
   }
-
-  .pill-row {
-    display: flex;
-    gap: 5px;
-    overflow-x: auto;
-    margin-bottom: 12px;
-    padding-bottom: 2px;
-  }
-  .pill {
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 11px;
-    white-space: nowrap;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .pill.active {
-    background: var(--gold);
-    color: #fff;
-  }
-  .pill:not(.active) {
-    background: var(--surface);
-    border: 0.5px solid var(--border);
-    color: var(--text3);
-  }
-  .add-btn {
-    background: var(--gold);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 6px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    border: none;
-  }
-
-  .menu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .menu-card {
+  .caisse-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
     border-radius: var(--radius);
-    padding: 18px 14px;
-    cursor: pointer;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .caisse-head {
+    background: var(--gold-mid);
+    padding: 9px 14px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
   }
-  .menu-card:active {
-    background: var(--surface2);
+  .caisse-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold-dark);
   }
-  .menu-icon {
-    width: 52px;
-    height: 52px;
-    background: var(--gold);
-    border-radius: 50%;
+  .caisse-btns {
+    display: flex;
+    gap: 6px;
+  }
+  .caisse-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.5);
   }
-  .menu-icon i {
-    font-size: 24px;
-    color: #fff;
+  .caisse-btn i {
+    font-size: 14px;
+    color: var(--gold-dark);
   }
-  .menu-icon.dark {
-    background: #3a3a3a;
+  .caisse-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 14px;
+    border-bottom: 0.5px solid var(--border);
   }
-  .menu-icon.red {
-    background: #c0392b;
+  .caisse-row:last-child {
+    border-bottom: none;
   }
-  .menu-label {
-    font-size: 13px;
+  .caisse-key {
+    font-size: 11px;
+    color: var(--amber);
+  }
+  .caisse-val {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .bl-item {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .bl-header {
+    background: var(--gold-mid);
+    padding: 8px 14px;
+  }
+  .bl-date {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold-dark);
+  }
+  .bl-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 14px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .bl-row:last-child {
+    border-bottom: none;
+  }
+  .bl-key {
+    font-size: 11px;
+    color: var(--amber);
+  }
+  .bl-val {
+    font-size: 12px;
     font-weight: 600;
     color: var(--text);
-    text-align: center;
-  }
-
-  .bottom-nav {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 76px;
-    background: var(--surface);
-    border-top: 0.5px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 0 4px 10px;
-    z-index: 100;
-  }
-  .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    padding: 6px 8px;
-    border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-    min-width: 40px;
-  }
-  .nav-item i {
-    font-size: 20px;
-    color: var(--text3);
-  }
-  .nav-item.active i {
-    color: var(--gold-dark);
-  }
-  .nav-item span {
-    font-size: 9px;
-    color: var(--text3);
-    font-weight: 600;
-  }
-  .nav-item.active span {
-    color: var(--gold-dark);
-  }
-  .nav-item.active {
-    background: var(--gold-light);
   }
 </style>
 
@@ -1196,15 +1331,11 @@
             </div>
           </div>
           <div class="hdr-right">
-            <div class="hdr-btn" style="position: relative" aria-label="Notifs">
+            <div class="hdr-btn" style="position: relative">
               <i class="ti ti-bell" aria-hidden="true"></i>
               <div class="notif-dot"></div>
             </div>
-            <div
-              class="hdr-btn"
-              onclick="showPage('p-login')"
-              aria-label="Déconnexion"
-            >
+            <div class="hdr-btn" onclick="showPage('p-login')">
               <i class="ti ti-logout" aria-hidden="true"></i>
             </div>
           </div>
@@ -1308,12 +1439,11 @@
             <div class="page-title">Pointage</div>
           </div>
           <div class="hdr-right">
-            <div
-              class="hdr-btn"
-              onclick="showPage('p-home', 'nav-home')"
-              aria-label="Accueil"
-            >
+            <div class="hdr-btn" onclick="showPage('p-home', 'nav-home')">
               <i class="ti ti-home" aria-hidden="true"></i>
+            </div>
+            <div class="hdr-btn">
+              <i class="ti ti-logout" aria-hidden="true"></i>
             </div>
           </div>
         </div>
@@ -1333,7 +1463,7 @@
         <div class="calc-btn">CALCULER</div>
         <div class="total-banner">
           <div>
-            <div class="tb-label">Volume total pointage</div>
+            <div class="tb-label">Volume total</div>
             <div class="tb-val">2 592 <span class="tb-unit">m³</span></div>
           </div>
           <i
@@ -1384,61 +1514,10 @@
             </div>
           </div>
         </div>
-        <div class="day-block">
-          <div class="day-header">
-            <span class="day-date">13/05/2023</span
-            ><span class="day-vol">1 296 m³</span>
-          </div>
-          <div class="truck-card">
-            <div class="truck-name">23908-33-i</div>
-            <div class="truck-row">
-              <span class="truck-key">Nombre de voyage</span
-              ><span class="truck-val">26</span>
-            </div>
-            <div class="truck-row">
-              <span class="truck-key">Durée totale</span
-              ><span class="truck-val">55s</span>
-            </div>
-            <div class="truck-row">
-              <span class="truck-key">Volume total (m³)</span
-              ><span class="truck-val vol">468</span>
-            </div>
-          </div>
-          <div class="truck-card">
-            <div class="truck-name">27488-6-ب</div>
-            <div class="truck-row">
-              <span class="truck-key">Nombre de voyage</span
-              ><span class="truck-val">23</span>
-            </div>
-            <div class="truck-row">
-              <span class="truck-key">Durée totale</span
-              ><span class="truck-val">37s</span>
-            </div>
-            <div class="truck-row">
-              <span class="truck-key">Volume total (m³)</span
-              ><span class="truck-val vol">414</span>
-            </div>
-          </div>
-          <div class="truck-card">
-            <div class="truck-name">86937-59-i</div>
-            <div class="truck-row">
-              <span class="truck-key">Nombre de voyage</span
-              ><span class="truck-val">23</span>
-            </div>
-            <div class="truck-row">
-              <span class="truck-key">Durée totale</span
-              ><span class="truck-val">28s</span>
-            </div>
-            <div class="truck-row">
-              <span class="truck-key">Volume total (m³)</span
-              ><span class="truck-val vol">414</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
-    <!-- PRODUCTION — 2 onglets icône -->
+    <!-- PRODUCTION -->
     <div class="page" id="p-production">
       <div class="statusbar">
         <span class="time">9:41</span>
@@ -1462,47 +1541,36 @@
             <div class="page-title">Production</div>
           </div>
           <div class="hdr-right">
-            <div
-              class="hdr-btn"
-              onclick="showPage('p-home', 'nav-home')"
-              aria-label="Accueil"
-            >
+            <div class="hdr-btn" onclick="showPage('p-home', 'nav-home')">
               <i class="ti ti-home" aria-hidden="true"></i>
             </div>
-            <div class="hdr-btn" aria-label="Déconnexion">
+            <div class="hdr-btn">
               <i class="ti ti-logout" aria-hidden="true"></i>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Onglets principaux avec icône -->
-      <div class="prod-tabs">
+      <div class="pill-tabs">
         <div
-          class="prod-tab active"
+          class="pill-tab active"
           id="prodtab-liste"
-          onclick="switchProdMain('liste')"
+          onclick="switchPill('prod', 'liste')"
         >
-          <div class="pt-icon">
-            <i class="ti ti-trending-up" aria-hidden="true"></i>
-          </div>
-          <div class="pt-label">Liste des productions</div>
+          Liste des productions
         </div>
-        <div class="prod-tab" id="prodtab-mp" onclick="switchProdMain('mp')">
-          <div class="pt-icon">
-            <i class="ti ti-stack-2" aria-hidden="true"></i>
-          </div>
-          <div class="pt-label">Matières premières</div>
+        <div
+          class="pill-tab"
+          id="prodtab-mp"
+          onclick="switchPill('prod', 'mp')"
+        >
+          Matières premières
         </div>
       </div>
-
-      <!-- Contenu onglet Liste des productions -->
       <div
         class="tab-panel active"
         id="prodpanel-liste"
         style="display: flex; flex-direction: column; flex: 1; overflow: hidden"
       >
-        <!-- Sous-onglets -->
         <div class="inner-tabs">
           <div
             class="inner-tab active"
@@ -1526,7 +1594,6 @@
           </div>
         </div>
         <div style="flex: 1; overflow-y: auto; padding: 14px 14px 0">
-          <!-- TOTALE -->
           <div class="tab-panel active" id="ppanel-total">
             <div class="total-banner" style="margin-top: 2px">
               <div>
@@ -1540,7 +1607,7 @@
               ></i>
             </div>
             <div class="chart-card">
-              <div class="s-title">Production totale</div>
+              <div class="c-title red">Production totale</div>
               <div class="total-line">Total : 721 582 T</div>
               <svg
                 viewBox="0 0 130 130"
@@ -1588,36 +1655,6 @@
                   stroke-dasharray="25.8 300.9"
                   stroke-dashoffset="-211.8"
                 />
-                <circle
-                  cx="65"
-                  cy="65"
-                  r="52"
-                  fill="none"
-                  stroke="#2D7A3A"
-                  stroke-width="20"
-                  stroke-dasharray="23 303.7"
-                  stroke-dashoffset="-186"
-                />
-                <circle
-                  cx="65"
-                  cy="65"
-                  r="52"
-                  fill="none"
-                  stroke="#8b5cf6"
-                  stroke-width="20"
-                  stroke-dasharray="9.5 317.2"
-                  stroke-dashoffset="-163"
-                />
-                <circle
-                  cx="65"
-                  cy="65"
-                  r="52"
-                  fill="none"
-                  stroke="#3a3a3a"
-                  stroke-width="20"
-                  stroke-dasharray="8.3 318.4"
-                  stroke-dashoffset="-153.5"
-                />
                 <text
                   x="65"
                   y="61"
@@ -1655,94 +1692,21 @@
                   <div class="legend-dot" style="background: #c0392b"></div>
                   T26: 7.20%
                 </div>
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: #2d7a3a"></div>
-                  T29: 4.85%
-                </div>
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: #8b5cf6"></div>
-                  T17: 3.96%
-                </div>
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: #ba7517"></div>
-                  T22: 12.03%
-                </div>
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: #3a3a3a"></div>
-                  T30: 10.07%
-                </div>
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: #e8c070"></div>
-                  T18: 1.27%
-                </div>
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: #c0392b"></div>
-                  T19: 2.84%
-                </div>
-              </div>
-            </div>
-            <div class="chart-card">
-              <div class="s-title">Total par produit</div>
-              <div class="bar-chart">
-                <div class="bar-row">
-                  <div class="bar-label">T31-33</div>
-                  <div class="bar-track">
-                    <div class="bar-fill-h" style="width: 100%"></div>
-                  </div>
-                  <div class="bar-val">169k T</div>
-                </div>
-                <div class="bar-row">
-                  <div class="bar-label">T18</div>
-                  <div class="bar-track">
-                    <div
-                      class="bar-fill-h"
-                      style="width: 85%; background: var(--amber)"
-                    ></div>
-                  </div>
-                  <div class="bar-val">145k T</div>
-                </div>
-                <div class="bar-row">
-                  <div class="bar-label">T22</div>
-                  <div class="bar-track">
-                    <div class="bar-fill-h" style="width: 60%"></div>
-                  </div>
-                  <div class="bar-val">87k T</div>
-                </div>
-                <div class="bar-row">
-                  <div class="bar-label">T29</div>
-                  <div class="bar-track">
-                    <div
-                      class="bar-fill-h"
-                      style="width: 45%; background: var(--amber)"
-                    ></div>
-                  </div>
-                  <div class="bar-val">65k T</div>
-                </div>
-                <div class="bar-row">
-                  <div class="bar-label">T30</div>
-                  <div class="bar-track">
-                    <div class="bar-fill-h" style="width: 38%"></div>
-                  </div>
-                  <div class="bar-val">73k T</div>
-                </div>
               </div>
             </div>
           </div>
-          <!-- BÉTON -->
           <div class="tab-panel" id="ppanel-beton">
             <div class="chart-card" style="margin-top: 2px">
-              <div class="s-title">
-                Production béton par produit et par jour
-              </div>
+              <div class="c-title red">Production béton par jour</div>
               <svg
                 viewBox="0 0 320 80"
                 width="100%"
                 preserveAspectRatio="none"
-                style="height: 80px"
+                style="height: 70px"
                 aria-hidden="true"
               >
                 <polyline
-                  points="0,75 20,72 40,70 60,5 80,68 100,65 120,66 140,64 160,63 180,65 200,67 220,65 240,64 260,63 280,65 300,66 320,64"
+                  points="0,75 20,72 60,5 80,68 160,63 240,64 320,64"
                   fill="none"
                   stroke="#E8A020"
                   stroke-width="2"
@@ -1756,75 +1720,18 @@
                   stroke="#DDD5C5"
                   stroke-width="0.5"
                 />
-                <text x="2" y="76" font-size="7" fill="#9A8A6C">23/05</text>
-                <text x="150" y="76" font-size="7" fill="#9A8A6C">19/07</text>
-                <text x="286" y="76" font-size="7" fill="#9A8A6C">02/10</text>
               </svg>
-              <div class="legend-grid" style="margin-top: 8px">
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: #e8c070"></div>
-                  T31-T33
-                </div>
-                <div class="legend-item">
-                  <div class="legend-dot" style="background: #3a3a3a"></div>
-                  T30
-                </div>
-                <div class="legend-item">
-                  <div
-                    class="legend-dot"
-                    style="
-                      background: #e8a020;
-                      width: 16px;
-                      height: 2px;
-                      border-radius: 0;
-                    "
-                  ></div>
-                  TOTAL
-                </div>
-              </div>
-            </div>
-            <div class="chart-card">
-              <div class="s-title">Produits routiers</div>
-              <div class="total-line">Total : 0 T</div>
-              <div style="text-align: center; padding: 10px 0">
-                <svg
-                  viewBox="0 0 80 80"
-                  width="70"
-                  height="70"
-                  style="display: block; margin: 0 auto"
-                  aria-hidden="true"
-                >
-                  <circle
-                    cx="40"
-                    cy="40"
-                    r="32"
-                    fill="none"
-                    stroke="#DDD5C5"
-                    stroke-width="2"
-                  />
-                  <text
-                    x="40"
-                    y="44"
-                    text-anchor="middle"
-                    font-size="9"
-                    fill="#9A8A6C"
-                  >
-                    0 T
-                  </text>
-                </svg>
-              </div>
             </div>
           </div>
-          <!-- CONSO -->
           <div class="tab-panel" id="ppanel-conso">
             <div class="chart-card" style="margin-top: 2px">
-              <div class="s-title">Consommation d'équipement</div>
+              <div class="c-title red">Consommation équipement</div>
               <div class="total-line">Total : 283 T</div>
               <div style="display: flex; gap: 14px; align-items: center">
                 <svg
                   viewBox="0 0 90 90"
-                  width="90"
-                  height="90"
+                  width="80"
+                  height="80"
                   aria-hidden="true"
                 >
                   <circle
@@ -1869,41 +1776,7 @@
                 </div>
               </div>
             </div>
-            <div class="chart-card">
-              <div class="s-title" style="color: var(--blue)">
-                Consommation d'électricité
-              </div>
-              <div class="total-line">Total : 0 Kw</div>
-              <div style="text-align: center; padding: 8px 0">
-                <svg
-                  viewBox="0 0 80 80"
-                  width="70"
-                  height="70"
-                  style="display: block; margin: 0 auto"
-                  aria-hidden="true"
-                >
-                  <circle
-                    cx="40"
-                    cy="40"
-                    r="32"
-                    fill="none"
-                    stroke="#DDD5C5"
-                    stroke-width="2"
-                  />
-                  <text
-                    x="40"
-                    y="44"
-                    text-anchor="middle"
-                    font-size="8"
-                    fill="#9A8A6C"
-                  >
-                    0.00%
-                  </text>
-                </svg>
-              </div>
-            </div>
           </div>
-          <!-- SHIFTS -->
           <div class="tab-panel" id="ppanel-shifts">
             <div style="margin-top: 2px">
               <div class="filter-row">
@@ -1928,12 +1801,8 @@
                   ><span class="shift-val">Z1</span>
                 </div>
                 <div class="shift-row">
-                  <span class="shift-key">Type production</span
+                  <span class="shift-key">Type</span
                   ><span class="shift-val">BÉTON</span>
-                </div>
-                <div class="shift-row">
-                  <span class="shift-key">Début / Fin</span
-                  ><span class="shift-val">05:39 → 14:16</span>
                 </div>
                 <div class="shift-row">
                   <span class="shift-key">Total</span
@@ -1941,36 +1810,11 @@
                     >4 893 T</span
                   >
                 </div>
-                <div class="shift-row">
-                  <span class="shift-key">Démarré / Clôturé</span
-                  ><span class="shift-val">SYSTEM</span>
-                </div>
-              </div>
-              <div class="shift-card">
-                <div class="shift-header">11/10/2025</div>
-                <div class="shift-row">
-                  <span class="shift-key">ID</span
-                  ><span class="shift-val">36181</span>
-                </div>
-                <div class="shift-row">
-                  <span class="shift-key">Zone</span
-                  ><span class="shift-val">Z1</span>
-                </div>
-                <div class="shift-row">
-                  <span class="shift-key">Type production</span
-                  ><span class="shift-val">BÉTON</span>
-                </div>
-                <div class="shift-row">
-                  <span class="shift-key">Début</span
-                  ><span class="shift-val">05:39</span>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Contenu onglet Matières premières -->
       <div
         class="tab-panel"
         id="prodpanel-mp"
@@ -2021,60 +1865,10 @@
             </div>
           </div>
         </div>
-        <div class="mp-block">
-          <div class="mp-block-head">
-            <span class="mp-block-title">MPs de la période</span
-            ><span class="mp-block-total">(381 219,00 T)</span>
-          </div>
-          <div class="zone-badge"><span>Z1</span></div>
-          <div class="mp-row">
-            <span class="mp-key">Matière</span
-            ><span class="mp-val">ALIMENTATION SECONDAIRE</span>
-          </div>
-          <div class="mp-row">
-            <span class="mp-key">Qté utilisée :</span
-            ><span class="mp-val" style="color: var(--gold-dark)"
-              >86 777,00 T</span
-            >
-          </div>
-          <div class="zone-badge"><span>Z1</span></div>
-          <div class="mp-row">
-            <span class="mp-key">Matière</span
-            ><span class="mp-val">ALIMENTATION SECONDAIRE</span>
-          </div>
-          <div class="mp-row">
-            <span class="mp-key">Qté utilisée :</span
-            ><span class="mp-val" style="color: var(--gold-dark)"
-              >4 559,00 T</span
-            >
-          </div>
-          <div class="zone-badge"><span>Z1</span></div>
-          <div class="mp-row">
-            <span class="mp-key">Matière</span
-            ><span class="mp-val">ALIMENTATION SECONDAIRE</span>
-          </div>
-          <div class="mp-row">
-            <span class="mp-key">Qté utilisée :</span
-            ><span class="mp-val" style="color: var(--gold-dark)"
-              >4 201,00 T</span
-            >
-          </div>
-          <div class="zone-badge"><span>Z1</span></div>
-          <div class="mp-row">
-            <span class="mp-key">Matière</span
-            ><span class="mp-val">ALIMENTATION SECONDAIRE</span>
-          </div>
-          <div class="mp-row">
-            <span class="mp-key">Qté utilisée :</span
-            ><span class="mp-val" style="color: var(--gold-dark)"
-              >3 890,00 T</span
-            >
-          </div>
-        </div>
       </div>
     </div>
 
-    <!-- GESTION COMMERCIALE -->
+    <!-- G.C. -->
     <div class="page" id="p-gc">
       <div class="statusbar">
         <span class="time">9:41</span>
@@ -2095,48 +1889,77 @@
               onclick="showPage('p-home', 'nav-home')"
               aria-hidden="true"
             ></i>
-            <div class="page-title">G. Commerciale</div>
+            <div class="page-title">Gestion Commerciale</div>
           </div>
           <div class="hdr-right">
-            <div
-              class="hdr-btn"
-              onclick="showPage('p-home', 'nav-home')"
-              aria-label="Accueil"
-            >
+            <div class="hdr-btn" onclick="showPage('p-home', 'nav-home')">
               <i class="ti ti-home" aria-hidden="true"></i>
+            </div>
+            <div class="hdr-btn">
+              <i class="ti ti-logout" aria-hidden="true"></i>
             </div>
           </div>
         </div>
-        <div class="page-sub">BLs · Caisses</div>
       </div>
-      <div class="scrollable">
-        <div class="pill-row">
-          <div class="pill active">Liste des BLs</div>
-          <div class="pill">Liste des caisses</div>
+      <div class="pill-tabs">
+        <div
+          class="pill-tab active"
+          id="gctab-bls"
+          onclick="switchPill('gc', 'bls')"
+        >
+          Liste des BLs
         </div>
-        <div class="total-banner">
-          <div>
-            <div class="tb-label">28 BL(s)</div>
-            <div class="tb-val">115 975 <span class="tb-unit">DH</span></div>
+        <div
+          class="pill-tab"
+          id="gctab-caisses"
+          onclick="switchPill('gc', 'caisses')"
+        >
+          Liste des caisses
+        </div>
+      </div>
+      <div
+        class="tab-panel active"
+        id="gcpanel-bls"
+        style="flex: 1; overflow-y: auto; padding: 14px 14px 0"
+      >
+        <div class="filter-row">
+          <div class="date-box">
+            <div class="dl">Du</div>
+            <div class="dv">2024-01-30</div>
           </div>
-          <i
-            class="ti ti-file-text"
-            style="font-size: 26px; color: rgba(255, 255, 255, 0.4)"
-            aria-hidden="true"
-          ></i>
+          <div class="date-box">
+            <div class="dl">Au</div>
+            <div class="dv">2026-06-14</div>
+          </div>
+        </div>
+        <div class="zone-row">
+          <span class="zone-label">Type</span
+          ><span class="zone-val"
+            >Comptant
+            <i
+              class="ti ti-chevron-down"
+              style="font-size: 14px"
+              aria-hidden="true"
+            ></i
+          ></span>
+        </div>
+        <div class="calc-btn">CALCULER</div>
+        <div class="bl-total-banner">
+          <span class="bl-total-side">28 BL(s)</span
+          ><span class="bl-total-side">115 975 DH</span>
         </div>
         <div class="bl-item">
           <div class="bl-header"><div class="bl-date">26/02/2026</div></div>
           <div class="bl-row">
-            <span class="bl-key">Num</span
+            <span class="bl-key">Num :</span
             ><span class="bl-val">BL2602-00000077</span>
           </div>
           <div class="bl-row">
-            <span class="bl-key">Nom</span
+            <span class="bl-key">Nom :</span
             ><span class="bl-val">JK4352222 - AIT MBAREK</span>
           </div>
           <div class="bl-row">
-            <span class="bl-key">Montant</span
+            <span class="bl-key">Montant :</span
             ><span class="bl-val" style="color: var(--gold-dark)"
               >4 000,00 DH</span
             >
@@ -2145,63 +1968,66 @@
         <div class="bl-item">
           <div class="bl-header"><div class="bl-date">26/02/2026</div></div>
           <div class="bl-row">
-            <span class="bl-key">Num</span
+            <span class="bl-key">Num :</span
             ><span class="bl-val">BL2602-00000076</span>
           </div>
           <div class="bl-row">
-            <span class="bl-key">Nom</span
+            <span class="bl-key">Nom :</span
             ><span class="bl-val">SS - ALLAMI</span>
           </div>
           <div class="bl-row">
-            <span class="bl-key">Montant</span
+            <span class="bl-key">Montant :</span
             ><span class="bl-val" style="color: var(--gold-dark)"
               >4 000,00 DH</span
             >
           </div>
         </div>
-        <div class="section-head" style="margin-top: 14px">
-          <div class="section-title">Caisses</div>
-        </div>
+      </div>
+      <div
+        class="tab-panel"
+        id="gcpanel-caisses"
+        style="flex: 1; overflow-y: auto; padding: 14px 14px 0"
+      >
         <div class="caisse-card">
-          <div>
-            <div class="caisse-name">Caisse Carrière</div>
-            <div class="caisse-sub">Carriere · admin@jway.ma</div>
+          <div class="caisse-head">
+            <span class="caisse-name">caisse Carriere</span>
+            <div class="caisse-btns">
+              <div class="caisse-btn">
+                <i class="ti ti-list" aria-hidden="true"></i>
+              </div>
+              <div class="caisse-btn">
+                <i class="ti ti-file" aria-hidden="true"></i>
+              </div>
+            </div>
           </div>
-          <div class="caisse-btns">
-            <div class="caisse-btn list">
-              <i class="ti ti-list" aria-hidden="true"></i>
-            </div>
-            <div class="caisse-btn file">
-              <i class="ti ti-file" aria-hidden="true"></i>
-            </div>
+          <div class="caisse-row">
+            <span class="caisse-key">Site :</span
+            ><span class="caisse-val">Carriere</span>
           </div>
-        </div>
-        <div class="caisse-card">
-          <div>
-            <div class="caisse-name">Caisse principale</div>
-            <div class="caisse-sub">Carriere · admin@jway.ma</div>
-          </div>
-          <div class="caisse-btns">
-            <div class="caisse-btn list">
-              <i class="ti ti-list" aria-hidden="true"></i>
-            </div>
-            <div class="caisse-btn file">
-              <i class="ti ti-file" aria-hidden="true"></i>
-            </div>
+          <div class="caisse-row">
+            <span class="caisse-key">Responsable :</span
+            ><span class="caisse-val">admin@jway.ma</span>
           </div>
         </div>
         <div class="caisse-card">
-          <div>
-            <div class="caisse-name">Caisse 2</div>
-            <div class="caisse-sub">Carriere · admin@jway.ma</div>
+          <div class="caisse-head">
+            <span class="caisse-name">caisse principale</span>
+            <div class="caisse-btns">
+              <div class="caisse-btn">
+                <i class="ti ti-list" aria-hidden="true"></i>
+              </div>
+              <div class="caisse-btn">
+                <i class="ti ti-file" aria-hidden="true"></i>
+              </div>
+            </div>
           </div>
-          <div class="caisse-btns">
-            <div class="caisse-btn list">
-              <i class="ti ti-list" aria-hidden="true"></i>
-            </div>
-            <div class="caisse-btn file">
-              <i class="ti ti-file" aria-hidden="true"></i>
-            </div>
+          <div class="caisse-row">
+            <span class="caisse-key">Site :</span
+            ><span class="caisse-val">Carriere</span>
+          </div>
+          <div class="caisse-row">
+            <span class="caisse-key">Responsable :</span
+            ><span class="caisse-val">admin@jway.ma</span>
           </div>
         </div>
       </div>
@@ -2231,22 +2057,38 @@
             <div class="page-title">Finance</div>
           </div>
           <div class="hdr-right">
-            <div
-              class="hdr-btn"
-              onclick="showPage('p-home', 'nav-home')"
-              aria-label="Accueil"
-            >
+            <div class="hdr-btn" onclick="showPage('p-home', 'nav-home')">
               <i class="ti ti-home" aria-hidden="true"></i>
+            </div>
+            <div class="hdr-btn">
+              <i class="ti ti-logout" aria-hidden="true"></i>
             </div>
           </div>
         </div>
-        <div class="page-sub">Factures · Règlements</div>
       </div>
-      <div class="scrollable">
-        <div class="pill-row">
-          <div class="pill active">Factures</div>
-          <div class="pill">Règlements</div>
+      <div class="pill-tabs">
+        <div
+          class="pill-tab active"
+          id="fintab-factures"
+          onclick="switchPill('fin', 'factures')"
+        >
+          Liste des factures
         </div>
+        <div
+          class="pill-tab"
+          id="fintab-reglements"
+          onclick="switchPill('fin', 'reglements')"
+        >
+          Liste des règlements
+        </div>
+      </div>
+
+      <!-- Factures -->
+      <div
+        class="tab-panel active"
+        id="finpanel-factures"
+        style="flex: 1; overflow-y: auto; padding: 14px 14px 0"
+      >
         <div class="filter-row">
           <div class="date-box">
             <div class="dl">Du</div>
@@ -2258,9 +2100,9 @@
           </div>
         </div>
         <div class="zone-row">
-          <span class="zone-label">État facture</span
+          <span class="zone-label">Etat Facture</span
           ><span class="zone-val"
-            >Tous les états
+            >Tous les…
             <i
               class="ti ti-chevron-down"
               style="font-size: 14px"
@@ -2270,7 +2112,7 @@
         </div>
         <div class="calc-btn">CALCULER</div>
         <div class="chart-card">
-          <div class="s-title">État des factures</div>
+          <div class="c-title red">État des factures</div>
           <div class="total-line">Total TTC : 20 424 DH</div>
           <div style="display: flex; gap: 12px; align-items: center">
             <svg viewBox="0 0 80 80" width="80" height="80" aria-hidden="true">
@@ -2317,63 +2159,383 @@
             <div>
               <div class="legend-item" style="margin-bottom: 5px">
                 <div class="legend-dot" style="background: #2d7a3a"></div>
-                Réglé partiellement: 76%
+                Réglé partiellement: 76.38%
               </div>
               <div class="legend-item" style="margin-bottom: 5px">
                 <div class="legend-dot" style="background: #378add"></div>
-                À régler: 21%
+                À régler: 20.98%
               </div>
               <div class="legend-item">
                 <div class="legend-dot" style="background: #e8a020"></div>
-                Réglé: 3%
+                Réglé: 2.64%
               </div>
             </div>
           </div>
         </div>
         <div class="fact-card">
-          <div class="fact-head">
-            <span class="fact-num">FAC2602-0001</span
-            ><span class="fact-state partiel">RÉGLÉ PART.</span>
+          <div class="fact-date-head">
+            Date de création &nbsp;&nbsp;&nbsp; 29/02/2024
           </div>
           <div class="fact-row">
-            <span class="fact-key">Client</span
-            ><span class="fact-val">STE JWAY SERVICES</span>
+            <span class="fact-key">Date de facturation :</span
+            ><span class="fact-val">29/02/2024</span>
           </div>
           <div class="fact-row">
-            <span class="fact-key">TTC</span
-            ><span class="fact-val" style="color: var(--gold-dark)"
-              >15 600 DH</span
-            >
+            <span class="fact-key">Date d'échéance :</span
+            ><span class="fact-val">30/03/2024</span>
           </div>
           <div class="fact-row">
-            <span class="fact-key">Échéance</span
-            ><span class="fact-val">29/05/2026</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: 64%"></div>
-          </div>
-        </div>
-        <div class="fact-card">
-          <div class="fact-head">
-            <span class="fact-num">FAC2402-0001</span
-            ><span class="fact-state aregler">À RÉGLER</span>
+            <span class="fact-key">Num :</span
+            ><span class="fact-val">FAC2402-0001</span>
           </div>
           <div class="fact-row">
-            <span class="fact-key">Client</span
+            <span class="fact-key">Client :</span
             ><span class="fact-val">JC569107-saida</span>
           </div>
           <div class="fact-row">
-            <span class="fact-key">TTC</span
+            <span class="fact-key">Total HT :</span
+            ><span class="fact-val">1 000 DH</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-key">Total TTC :</span
             ><span class="fact-val" style="color: var(--gold-dark)"
               >1 200 DH</span
             >
           </div>
           <div class="fact-row">
-            <span class="fact-key">Échéance</span
-            ><span class="fact-val">30/03/2024</span>
+            <span class="fact-key">État :</span
+            ><span class="fact-val"
+              ><span class="etat-badge aregler">À RÉGLER</span></span
+            >
           </div>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: 0%"></div>
+          <div class="progress-wrap">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-label">0%</div>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-date-head">
+            Date de création &nbsp;&nbsp;&nbsp; 26/02/2026
+          </div>
+          <div class="fact-row">
+            <span class="fact-key">Date de facturation :</span
+            ><span class="fact-val">26/02/2026</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-key">Date d'échéance :</span
+            ><span class="fact-val">29/05/2026</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-key">Num :</span
+            ><span class="fact-val">FAC2602-0001</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-key">Client :</span
+            ><span class="fact-val">STE JWAY SERVICES</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-key">Total HT :</span
+            ><span class="fact-val">13 000 DH</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-key">Total TTC :</span
+            ><span class="fact-val" style="color: var(--gold-dark)"
+              >15 600 DH</span
+            >
+          </div>
+          <div class="fact-row">
+            <span class="fact-key">État :</span
+            ><span class="fact-val"
+              ><span class="etat-badge partiel">RÉGLÉ PARTIELLEMENT</span></span
+            >
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 64%"></div>
+            </div>
+            <div class="progress-label">64%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ RÈGLEMENTS ══════ -->
+      <div
+        class="tab-panel"
+        id="finpanel-reglements"
+        style="flex: 1; overflow-y: auto; padding: 14px 14px 0"
+      >
+        <!-- Filtres -->
+        <div class="filter-row">
+          <div class="date-box">
+            <div class="dl">Du</div>
+            <div class="dv">2022-08-02</div>
+          </div>
+          <div class="date-box">
+            <div class="dl">Au</div>
+            <div class="dv">2026-06-17</div>
+          </div>
+        </div>
+
+        <!-- Choisir client -->
+        <div class="client-select">
+          <div class="cs-label">Choisir client</div>
+          <div class="cs-value"><span>C0025 SOBAFER</span><span>× ▾</span></div>
+        </div>
+        <div class="calc-btn">CALCULER</div>
+
+        <!-- Graphique par état de règlement -->
+        <div class="reg-chart-card">
+          <div class="reg-chart-title">Règlements par état de règlement</div>
+          <div class="reg-total-line">Total: 626 924 DH</div>
+          <div style="display: flex; gap: 12px; align-items: center">
+            <svg
+              viewBox="0 0 100 100"
+              width="100"
+              height="100"
+              aria-hidden="true"
+            >
+              <!-- Encaissé 78.13% -->
+              <circle
+                cx="50"
+                cy="50"
+                r="38"
+                fill="none"
+                stroke="#2D7A3A"
+                stroke-width="18"
+                stroke-dasharray="188.1 301.5"
+              />
+              <!-- En attente d'encaissement 21.87% -->
+              <circle
+                cx="50"
+                cy="50"
+                r="38"
+                fill="none"
+                stroke="#F5C870"
+                stroke-width="18"
+                stroke-dasharray="52.7 436.9"
+                stroke-dashoffset="-188.1"
+              />
+              <!-- Impayé 0% -->
+              <circle
+                cx="50"
+                cy="50"
+                r="38"
+                fill="none"
+                stroke="#E8E8E8"
+                stroke-width="18"
+                stroke-dasharray="0.1 488.5"
+                stroke-dashoffset="-240.8"
+              />
+              <!-- Rejeté 0% -->
+              <circle
+                cx="50"
+                cy="50"
+                r="38"
+                fill="none"
+                stroke="#C0392B"
+                stroke-width="18"
+                stroke-dasharray="0.1 488.5"
+                stroke-dashoffset="-240.9"
+              />
+              <text
+                x="50"
+                y="46"
+                text-anchor="middle"
+                font-size="9"
+                font-weight="700"
+                fill="#1C1410"
+              >
+                627k
+              </text>
+              <text
+                x="50"
+                y="57"
+                text-anchor="middle"
+                font-size="8"
+                fill="#9A8A6C"
+              >
+                DH
+              </text>
+            </svg>
+            <div style="flex: 1">
+              <div class="legend-item" style="margin-bottom: 6px">
+                <div class="legend-dot" style="background: #2d7a3a"></div>
+                Encaissé: 78.13%
+              </div>
+              <div class="legend-item" style="margin-bottom: 6px">
+                <div class="legend-dot" style="background: #f5c870"></div>
+                En attente: 21.87%
+              </div>
+              <div class="legend-item" style="margin-bottom: 6px">
+                <div
+                  class="legend-dot"
+                  style="background: #e8e8e8; border: 0.5px solid #ccc"
+                ></div>
+                Impayé: 0.00%
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot" style="background: #c0392b"></div>
+                Rejeté: 0.00%
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Légende types -->
+        <div class="reg-legend">
+          <div class="reg-legend-title">Liste des règlements</div>
+          <div class="reg-legend-items">
+            <div class="reg-legend-item">
+              <div class="reg-legend-dot" style="background: #2d7a3a"></div>
+              Chèque
+            </div>
+            <div class="reg-legend-item">
+              <div class="reg-legend-dot" style="background: #8b5cf6"></div>
+              Effet
+            </div>
+            <div class="reg-legend-item">
+              <div class="reg-legend-dot" style="background: #ec4899"></div>
+              Versement
+            </div>
+            <div class="reg-legend-item">
+              <div class="reg-legend-dot" style="background: #c0392b"></div>
+              Virement
+            </div>
+          </div>
+        </div>
+
+        <!-- Cartes règlement -->
+        <div class="reg-card">
+          <div class="reg-row">
+            <span class="reg-key">Réf. Rég</span
+            ><span class="reg-val ref">RegEF2508-0000011</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Date :</span
+            ><span class="reg-val">19/08/2025</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Date d'échéance :</span
+            ><span class="reg-val">10/09/2025</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Numéro</span
+            ><span class="reg-val"
+              ><div class="reg-num-wrap">
+                <div class="reg-num-dot" style="background: #8b5cf6"></div>
+                3100409
+              </div></span
+            >
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">N° facture</span
+            ><span class="reg-val">FAC2503-0002</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Etat règlement</span
+            ><span class="reg-val"
+              ><span class="etat-badge-reg encaisse">ENCAISSÉ</span></span
+            >
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Montant</span
+            ><span class="reg-val" style="color: var(--gold-dark)"
+              >21 600 DH</span
+            >
+          </div>
+          <div class="reg-note-row">
+            <div class="reg-note-key">Note :</div>
+            <div class="reg-note-val">—</div>
+          </div>
+        </div>
+
+        <div class="reg-card">
+          <div class="reg-row">
+            <span class="reg-key">Réf. Rég</span
+            ><span class="reg-val ref">RegEF2508-0000010</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Date :</span
+            ><span class="reg-val">19/08/2025</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Date d'échéance :</span
+            ><span class="reg-val">30/08/2025</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Numéro</span
+            ><span class="reg-val"
+              ><div class="reg-num-wrap">
+                <div class="reg-num-dot" style="background: #8b5cf6"></div>
+                3100408
+              </div></span
+            >
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">N° facture</span
+            ><span class="reg-val">FAC2503-0002</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Etat règlement</span
+            ><span class="reg-val"
+              ><span class="etat-badge-reg encaisse">ENCAISSÉ</span></span
+            >
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Montant</span
+            ><span class="reg-val" style="color: var(--gold-dark)"
+              >9 255 DH</span
+            >
+          </div>
+          <div class="reg-note-row">
+            <div class="reg-note-key">Note :</div>
+            <div class="reg-note-val">—</div>
+          </div>
+        </div>
+
+        <div class="reg-card">
+          <div class="reg-row">
+            <span class="reg-key">Réf. Rég</span
+            ><span class="reg-val ref">RegEF2503-0000004</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Date :</span
+            ><span class="reg-val">04/03/2025</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Date d'échéance :</span
+            ><span class="reg-val">20/04/2025</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Numéro</span
+            ><span class="reg-val"
+              ><div class="reg-num-wrap">
+                <div class="reg-num-dot" style="background: #8b5cf6"></div>
+                3100139
+              </div></span
+            >
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">N° facture</span
+            ><span class="reg-val">FAC2501-0001</span>
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Etat règlement</span
+            ><span class="reg-val"
+              ><span class="etat-badge-reg encaisse">ENCAISSÉ</span></span
+            >
+          </div>
+          <div class="reg-row">
+            <span class="reg-key">Montant</span
+            ><span class="reg-val" style="color: var(--gold-dark)"
+              >40 000 DH</span
+            >
+          </div>
+          <div class="reg-note-row">
+            <div class="reg-note-key">Note :</div>
+            <div class="reg-note-val">—</div>
           </div>
         </div>
       </div>
@@ -2403,194 +2565,190 @@
             <div class="page-title">Administration</div>
           </div>
           <div class="hdr-right">
-            <div
-              class="hdr-btn"
-              onclick="showPage('p-home', 'nav-home')"
-              aria-label="Accueil"
-            >
+            <div class="hdr-btn" onclick="showPage('p-home', 'nav-home')">
               <i class="ti ti-home" aria-hidden="true"></i>
             </div>
+            <div class="hdr-btn">
+              <i class="ti ti-logout" aria-hidden="true"></i>
+            </div>
           </div>
         </div>
-        <div class="page-sub">Utilisateurs · Historiques</div>
       </div>
-      <div class="scrollable">
-        <div class="pill-row">
-          <div
-            class="pill active"
-            id="apill-users"
-            onclick="switchAdmin('users')"
-          >
-            Utilisateurs
-          </div>
-          <div class="pill" id="apill-hist" onclick="switchAdmin('hist')">
-            Historiques
-          </div>
+      <div class="pill-tabs">
+        <div
+          class="pill-tab active"
+          id="admtab-users"
+          onclick="switchPill('adm', 'users')"
+        >
+          Utilisateurs
         </div>
-        <div id="apanel-users">
-          <div class="section-head">
-            <div class="section-title">Utilisateurs</div>
-            <button class="add-btn">+ Ajouter</button>
+        <div
+          class="pill-tab"
+          id="admtab-hist"
+          onclick="switchPill('adm', 'hist')"
+        >
+          Historiques
+        </div>
+      </div>
+      <div
+        class="tab-panel active"
+        id="admpanel-users"
+        style="flex: 1; overflow-y: auto; padding: 14px 14px 0"
+      >
+        <div class="section-head">
+          <div class="section-title">Utilisateurs</div>
+          <button class="add-btn">+ Ajouter</button>
+        </div>
+        <div class="user-card">
+          <div class="u-id">6</div>
+          <div>
+            <div class="u-email">admin@jway.ma</div>
+            <div style="font-size: 10px; color: var(--text3)">Compte actif</div>
           </div>
-          <div class="user-card">
-            <div class="u-id">6</div>
-            <div>
-              <div class="u-email">admin@jway.ma</div>
-              <div style="font-size: 10px; color: var(--text3)">
-                Compte actif
-              </div>
+          <div class="u-right">
+            <span class="badge-admin">ADMIN</span>
+            <div class="u-del">
+              <i class="ti ti-trash" aria-hidden="true"></i>
             </div>
-            <div class="u-right">
-              <span class="badge-admin">ADMIN</span>
-              <div class="u-del">
-                <i class="ti ti-trash" aria-hidden="true"></i>
-              </div>
-              <div class="u-lock">
-                <i class="ti ti-lock" aria-hidden="true"></i>
-              </div>
-            </div>
-          </div>
-          <div class="user-card">
-            <div class="u-id">25</div>
-            <div>
-              <div class="u-email">youssef@finibrossette.ma</div>
-              <div style="font-size: 10px; color: var(--text3)">
-                Compte actif
-              </div>
-            </div>
-            <div class="u-right">
-              <span class="badge-admin">ADMIN</span>
-              <div class="u-del">
-                <i class="ti ti-trash" aria-hidden="true"></i>
-              </div>
-              <div class="u-lock">
-                <i class="ti ti-lock" aria-hidden="true"></i>
-              </div>
-            </div>
-          </div>
-          <div class="user-card">
-            <div class="u-id">26</div>
-            <div>
-              <div class="u-email">demo@jway.ma</div>
-              <div style="font-size: 10px; color: var(--text3)">
-                Compte actif
-              </div>
-            </div>
-            <div class="u-right">
-              <span class="badge-admin">ADMIN</span>
-              <div class="u-del">
-                <i class="ti ti-trash" aria-hidden="true"></i>
-              </div>
-              <div class="u-lock">
-                <i class="ti ti-lock" aria-hidden="true"></i>
-              </div>
-            </div>
-          </div>
-          <div class="user-card">
-            <div class="u-id">27</div>
-            <div>
-              <div class="u-email">ali@jway.ma</div>
-              <div style="font-size: 10px; color: var(--text3)">
-                Compte actif
-              </div>
-            </div>
-            <div class="u-right">
-              <span class="badge-admin">ADMIN</span>
-              <div class="u-del">
-                <i class="ti ti-trash" aria-hidden="true"></i>
-              </div>
-              <div class="u-lock">
-                <i class="ti ti-lock" aria-hidden="true"></i>
-              </div>
+            <div class="u-lock">
+              <i class="ti ti-lock" aria-hidden="true"></i>
             </div>
           </div>
         </div>
-        <div id="apanel-hist" style="display: none">
-          <div class="section-head">
-            <div class="section-title">Journal d'activité</div>
+        <div class="user-card">
+          <div class="u-id">25</div>
+          <div>
+            <div class="u-email">youssef@finibrossette.ma</div>
+            <div style="font-size: 10px; color: var(--text3)">Compte actif</div>
           </div>
-          <div class="hist-item">
-            <div class="hist-dot"></div>
-            <div style="flex: 1">
-              <div
-                style="
-                  font-size: 11px;
-                  font-weight: 700;
-                  color: var(--gold-dark);
-                  margin-bottom: 2px;
-                "
-              >
-                15.06.2026 à 17:56:36
-              </div>
-              <div
-                style="font-size: 11px; color: var(--text2); margin-bottom: 2px"
-              >
-                admin@jway.ma
-              </div>
-              <div
-                style="
-                  font-size: 10px;
-                  color: var(--text3);
-                  text-transform: uppercase;
-                "
-              >
-                Consultation · Finance / Factures
-              </div>
+          <div class="u-right">
+            <span class="badge-admin">ADMIN</span>
+            <div class="u-del">
+              <i class="ti ti-trash" aria-hidden="true"></i>
             </div>
-            <div class="hist-del">
-              <i
-                class="ti ti-trash"
-                style="font-size: 12px; color: var(--red)"
-                aria-hidden="true"
-              ></i>
+            <div class="u-lock">
+              <i class="ti ti-lock" aria-hidden="true"></i>
             </div>
           </div>
-          <div class="hist-item">
-            <div class="hist-dot"></div>
-            <div style="flex: 1">
-              <div
-                style="
-                  font-size: 11px;
-                  font-weight: 700;
-                  color: var(--gold-dark);
-                  margin-bottom: 2px;
-                "
-              >
-                15.06.2026 à 17:53:38
-              </div>
-              <div
-                style="font-size: 11px; color: var(--text2); margin-bottom: 2px"
-              >
-                admin@jway.ma
-              </div>
-              <div
-                style="
-                  font-size: 10px;
-                  color: var(--text3);
-                  text-transform: uppercase;
-                "
-              >
-                Consultation · Gestion commerciale
-              </div>
+        </div>
+        <div class="user-card">
+          <div class="u-id">26</div>
+          <div>
+            <div class="u-email">demo@jway.ma</div>
+            <div style="font-size: 10px; color: var(--text3)">Compte actif</div>
+          </div>
+          <div class="u-right">
+            <span class="badge-admin">ADMIN</span>
+            <div class="u-del">
+              <i class="ti ti-trash" aria-hidden="true"></i>
             </div>
-            <div class="hist-del">
-              <i
-                class="ti ti-trash"
-                style="font-size: 12px; color: var(--red)"
-                aria-hidden="true"
-              ></i>
+            <div class="u-lock">
+              <i class="ti ti-lock" aria-hidden="true"></i>
             </div>
+          </div>
+        </div>
+        <div class="user-card">
+          <div class="u-id">27</div>
+          <div>
+            <div class="u-email">ali@jway.ma</div>
+            <div style="font-size: 10px; color: var(--text3)">Compte actif</div>
+          </div>
+          <div class="u-right">
+            <span class="badge-admin">ADMIN</span>
+            <div class="u-del">
+              <i class="ti ti-trash" aria-hidden="true"></i>
+            </div>
+            <div class="u-lock">
+              <i class="ti ti-lock" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-panel"
+        id="admpanel-hist"
+        style="flex: 1; overflow-y: auto; padding: 14px 14px 0"
+      >
+        <div class="section-head">
+          <div class="section-title">Journal d'activité</div>
+        </div>
+        <div class="hist-item">
+          <div class="hist-dot"></div>
+          <div style="flex: 1">
+            <div
+              style="
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--gold-dark);
+                margin-bottom: 2px;
+              "
+            >
+              15.06.2026 à 17:56:36
+            </div>
+            <div
+              style="font-size: 11px; color: var(--text2); margin-bottom: 2px"
+            >
+              admin@jway.ma
+            </div>
+            <div
+              style="
+                font-size: 10px;
+                color: var(--text3);
+                text-transform: uppercase;
+              "
+            >
+              Consultation · Finance / Factures
+            </div>
+          </div>
+          <div class="hist-del">
+            <i
+              class="ti ti-trash"
+              style="font-size: 12px; color: var(--red)"
+              aria-hidden="true"
+            ></i>
+          </div>
+        </div>
+        <div class="hist-item">
+          <div class="hist-dot"></div>
+          <div style="flex: 1">
+            <div
+              style="
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--gold-dark);
+                margin-bottom: 2px;
+              "
+            >
+              15.06.2026 à 17:53:38
+            </div>
+            <div
+              style="font-size: 11px; color: var(--text2); margin-bottom: 2px"
+            >
+              admin@jway.ma
+            </div>
+            <div
+              style="
+                font-size: 10px;
+                color: var(--text3);
+                text-transform: uppercase;
+              "
+            >
+              Consultation · Gestion commerciale
+            </div>
+          </div>
+          <div class="hist-del">
+            <i
+              class="ti ti-trash"
+              style="font-size: 12px; color: var(--red)"
+              aria-hidden="true"
+            ></i>
           </div>
         </div>
       </div>
     </div>
 
     <!-- BOTTOM NAV -->
-    <nav
-      class="bottom-nav"
-      role="navigation"
-      aria-label="Navigation principale"
-    >
+    <nav class="bottom-nav" role="navigation">
       <div
         class="nav-item active"
         id="nav-home"
@@ -2646,51 +2804,46 @@
     document
       .querySelectorAll(".nav-item")
       .forEach((n) => n.classList.remove("active"));
-    const page = document.getElementById(pageId);
-    if (page) {
-      page.classList.add("active");
-      page.scrollTop = 0;
+    const p = document.getElementById(pageId);
+    if (p) {
+      p.classList.add("active");
+      p.scrollTop = 0;
     }
     if (navId) {
-      const nav = document.getElementById(navId);
-      if (nav) nav.classList.add("active");
+      const n = document.getElementById(navId);
+      if (n) n.classList.add("active");
     }
   }
-
-  function switchProdMain(tab) {
-    ["liste", "mp"].forEach((t) => {
-      const tabEl = document.getElementById("prodtab-" + t);
-      const panelEl = document.getElementById("prodpanel-" + t);
-      if (tabEl) tabEl.classList.toggle("active", t === tab);
-      if (panelEl) {
-        if (t === tab) {
-          panelEl.style.display = t === "liste" ? "flex" : "block";
-          panelEl.classList.add("active");
-        } else {
-          panelEl.style.display = "none";
-          panelEl.classList.remove("active");
-        }
+  const pillMaps = {
+    prod: ["liste", "mp"],
+    gc: ["bls", "caisses"],
+    fin: ["factures", "reglements"],
+    adm: ["users", "hist"],
+  };
+  function switchPill(prefix, tab) {
+    pillMaps[prefix].forEach((t) => {
+      const te = document.getElementById(prefix + "tab-" + t);
+      const pe = document.getElementById(prefix + "panel-" + t);
+      const on = t === tab;
+      if (te) te.classList.toggle("active", on);
+      if (pe) {
+        pe.classList.toggle("active", on);
+        pe.style.display = on
+          ? prefix === "prod" && t === "liste"
+            ? "flex"
+            : "block"
+          : "none";
       }
     });
   }
-
   function switchProd(tab) {
     ["total", "beton", "conso", "shifts"].forEach((t) => {
-      const tabEl = document.getElementById("ptab-" + t);
-      const panelEl = document.getElementById("ppanel-" + t);
-      if (tabEl) tabEl.classList.toggle("active", t === tab);
-      if (panelEl) panelEl.classList.toggle("active", t === tab);
+      document
+        .getElementById("ptab-" + t)
+        .classList.toggle("active", t === tab);
+      document
+        .getElementById("ppanel-" + t)
+        .classList.toggle("active", t === tab);
     });
-  }
-
-  function switchAdmin(tab) {
-    document
-      .querySelectorAll('[id^="apill-"]')
-      .forEach((p) => p.classList.remove("active"));
-    document.getElementById("apill-" + tab).classList.add("active");
-    document.getElementById("apanel-users").style.display =
-      tab === "users" ? "block" : "none";
-    document.getElementById("apanel-hist").style.display =
-      tab === "hist" ? "block" : "none";
   }
 </script>
